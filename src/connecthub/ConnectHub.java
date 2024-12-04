@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package connecthub;
+import FrontEnd.*;
+import java.util.*;
 
 /**
  *
@@ -13,8 +15,7 @@ public class ConnectHub {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         
     }
-    
 }

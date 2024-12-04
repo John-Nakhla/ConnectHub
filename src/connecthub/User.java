@@ -154,12 +154,14 @@ public class User {
             friends.add(request.getSender());
             request.getSender().friends.add(this);
             request.accept();
+            friendRequests.remove(request);
         }
     }
 
     public void declineFriendRequest(FriendRequest request) {
         if (request.getReceiver().equals(this) && request.isPending()) {
             request.decline();
+            friendRequests.remove(request);
         }
     }
 

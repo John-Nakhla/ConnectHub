@@ -224,7 +224,7 @@ public class SignIn extends javax.swing.JFrame {
         else
         {
             String DOB = day+"-"+month+"-"+year;
-            admin.signup(email, username, password, DOB);
+            admin.signup(email,username,password,DOB,null,null,null);
         }
     }//GEN-LAST:event_signinActionPerformed
 
