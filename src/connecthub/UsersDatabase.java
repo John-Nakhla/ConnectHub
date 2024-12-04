@@ -43,7 +43,7 @@ public class UsersDatabase {
                 JSONArray friendsArray = userJson.optJSONArray("friends");
                 if (friendsArray != null) {
                     for (int j = 0; j < friendsArray.length(); j++) {
-                        user.addFriend(friendsArray.getString(j));
+                        user.addFriend((User)friendsArray.get(j));
                     }
                 }
                 users.add(user);
