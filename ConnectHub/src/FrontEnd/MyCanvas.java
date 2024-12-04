@@ -20,15 +20,12 @@ public class MyCanvas extends Canvas {
             newWidth = getWidth();
             newHeight = (i.getHeight(this) * getWidth()) / i.getWidth(this);
         }
-        g.drawImage(i, (getWidth() / 2) - (newWidth / 2), (getHeight()/ 2) - (newHeight / 2), newWidth, newHeight, this);
+        g.drawImage(i, (getWidth() / 2) - (newWidth / 2), (getHeight() / 2) - (newHeight / 2), newWidth, newHeight, this);
     }
 
-    public static void main(String[] args) {
-        MyCanvas m = new MyCanvas();
-        JFrame f = new JFrame();
-        f.add(m);
-        f.setSize(400, 400);
-        f.setVisible(true);
+    public MyCanvas(String path) {
+        this.path = path;
+        repaint();
     }
 
     public void changePicture(String path) {

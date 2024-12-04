@@ -31,7 +31,7 @@ public class CreateContentWindow extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(null);
 
-        ImagePreview = new MyCanvas();
+        ImagePreview = new MyCanvas("");
         add(ImagePreview);
         ImagePreview.setBounds(10, 119, 368, 153);
         initComponents();
@@ -89,12 +89,11 @@ public class CreateContentWindow extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addImageBtn)
+                        .addComponent(addImageBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(postBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(postBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -137,6 +136,14 @@ public class CreateContentWindow extends javax.swing.JDialog {
         contentImgDir = "";
         dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    protected String getContentText() {
+        return contentText;
+    }
+
+    protected String getContentImgDir() {
+        return contentImgDir;
+    }
 
     /**
      * @param args the command line arguments

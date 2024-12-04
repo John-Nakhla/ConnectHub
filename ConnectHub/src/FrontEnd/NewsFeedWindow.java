@@ -15,6 +15,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
     public NewsFeedWindow() {
         initComponents();
+        System.out.println(postsPanel.getWidth());
     }
 
     /**
@@ -148,6 +149,12 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         CreateContentWindow content = new CreateContentWindow(this, true);
         content.pack();
         content.setVisible(true);
+        String contentText = content.getContentText();
+        String contentImgDir = content.getContentImgDir();
+        if (!"".equals(contentText) && !"".equals(contentImgDir)) {
+            Post post = new Post(contentText, contentImgDir);
+            postsPanel.add(new NewJPanel());
+        }
     }//GEN-LAST:event_createPostBtnActionPerformed
 
     /**
