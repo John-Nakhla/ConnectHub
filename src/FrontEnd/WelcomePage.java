@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
-
+import connecthub.*;
 /**
  *
  * @author John
@@ -13,6 +13,7 @@ public class WelcomePage extends javax.swing.JFrame {
     /**
      * Creates new form WelcomePage
      */
+    AccountManagement admin = new AccountManagement();
     public WelcomePage() {
         initComponents();
     }
@@ -37,9 +38,9 @@ public class WelcomePage extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        signin = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        login = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -75,20 +76,25 @@ public class WelcomePage extends javax.swing.JFrame {
 
         jLabel6.setText("Don't have an account yet?");
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 153));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Sign up");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        signin.setBackground(new java.awt.Color(0, 153, 153));
+        signin.setForeground(new java.awt.Color(255, 255, 255));
+        signin.setText("Sign in");
+        signin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                signinActionPerformed(evt);
             }
         });
 
         jLabel7.setText("Already have an account?");
 
-        jButton3.setBackground(new java.awt.Color(0, 153, 153));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Login");
+        login.setBackground(new java.awt.Color(0, 153, 153));
+        login.setForeground(new java.awt.Color(255, 255, 255));
+        login.setText("Login");
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,8 +111,8 @@ public class WelcomePage extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(signin, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(93, 93, 93)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -120,11 +126,11 @@ public class WelcomePage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(signin)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(login)
                 .addContainerGap(91, Short.MAX_VALUE))
         );
 
@@ -142,9 +148,15 @@ public class WelcomePage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void signinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinActionPerformed
+        SignIn s = new SignIn(admin);
+        s.setVisible(true);
+    }//GEN-LAST:event_signinActionPerformed
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+       LogInPage l = new LogInPage(admin);
+       l.setVisible(true);
+    }//GEN-LAST:event_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,8 +196,6 @@ public class WelcomePage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel headingLbl;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -195,6 +205,8 @@ public class WelcomePage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logInBtn;
+    private javax.swing.JButton login;
     private javax.swing.JButton sigUpBtn;
+    private javax.swing.JButton signin;
     // End of variables declaration//GEN-END:variables
 }

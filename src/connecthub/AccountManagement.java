@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package lab.pkg9;
+package connecthub;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,13 +24,12 @@ public class AccountManagement {
     
     public boolean signup(String email, String username, String password, String dateOfBirth) {
         if (!isValidEmail(email) || emailExists(email)) {
-            return false;
+             JOptionPane.showMessageDialog(null, "Invalid email. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         if (username.isEmpty() || password.isEmpty() || dateOfBirth.isEmpty()) {
-            return false;
+           JOptionPane.showMessageDialog(null, "Some fields are empty.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
         User newUser = new User(email, username, password, dateOfBirth);
         Users.add(newUser);
         saveUsers();

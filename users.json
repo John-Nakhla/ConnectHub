@@ -1,0 +1,38 @@
+[
+    {
+        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10001",
+        "email": "djfjdskf",
+        "friends": [],
+        "username": "john"
+    },
+    {
+        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10002",
+        "email": "waeljohn306@gmail.com",
+        "friends": [],
+        "username": "john"
+    },
+    {
+        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10003",
+        "email": "waeljohn306@gmail.com",
+        "friends": [],
+        "username": "john"
+    },
+    {
+        "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10004",
+        "email": "waeljohn306@gmail.com",
+        "friends": [],
+        "username": "john"
+    }
+]
