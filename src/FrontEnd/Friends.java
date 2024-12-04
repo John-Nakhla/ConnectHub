@@ -26,8 +26,15 @@ public class Friends extends JFrame {
         for (User k : friends) {
             JPanel objectPanel = new JPanel(new BorderLayout());
             JLabel nameLabel = new JLabel("Name: " + k.getUsername());
+            String status;
+            if(k.isStatus())
+                status = "Online";
+            else 
+                status = "Offline";
+            JLabel statusLabel = new JLabel (status);
             JPanel detailsPanel = new JPanel(new GridLayout(5,5));
             detailsPanel.add(nameLabel);
+            detailsPanel.add(statusLabel);
             JButton profileButton = new JButton("Profile");
             JButton removeButton = new JButton("Remove");
             JButton blockButton = new JButton("Block");
