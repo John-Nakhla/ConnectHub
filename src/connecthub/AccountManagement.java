@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package lab.pkg9;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+package connecthub;
 
-/**
- *
- * @author ADMIN
- */
+import java.util.*;
+import java.util.regex.*;
+
+
 public class AccountManagement {
     private List<User> Users;
 
@@ -21,7 +13,7 @@ public class AccountManagement {
         loadUsers();
     }
     
-    public boolean signup(String email, String username, String password, String dateOfBirth) {
+    public boolean signup(String email, String username, String password, String dateOfBirth, String profilePhoto, String coverPhoto, String bio) {
         if (!isValidEmail(email) || emailExists(email)) {
             return false;
         }
@@ -30,7 +22,7 @@ public class AccountManagement {
             return false;
         }
 
-        User newUser = new User(email, username, password, dateOfBirth);
+        User newUser = new User(email, username, password, dateOfBirth, profilePhoto, coverPhoto, bio);
         Users.add(newUser);
         saveUsers();
         return true;
