@@ -1,19 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package connecthub;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
+import java.util.*;
+import java.util.regex.*;
 
-/**
- *
- * @author ADMIN
- */
+
 public class AccountManagement {
     private List<User> Users;
 
@@ -22,15 +13,16 @@ public class AccountManagement {
         loadUsers();
     }
     
-    public boolean signup(String email, String username, String password, String dateOfBirth) {
+    public boolean signup(String email, String username, String password, String dateOfBirth, String profilePhoto, String coverPhoto, String bio) {
         if (!isValidEmail(email) || emailExists(email)) {
-             JOptionPane.showMessageDialog(null, "Invalid email. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
 
         if (username.isEmpty() || password.isEmpty() || dateOfBirth.isEmpty()) {
-           JOptionPane.showMessageDialog(null, "Some fields are empty.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
-        User newUser = new User(email, username, password, dateOfBirth);
+
+        User newUser = new User(email, username, password, dateOfBirth, profilePhoto, coverPhoto, bio);
         Users.add(newUser);
         saveUsers();
         return true;

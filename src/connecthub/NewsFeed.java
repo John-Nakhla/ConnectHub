@@ -1,36 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package connecthub;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-/**
- *
- * @author ADMIN
- */
+
 public class NewsFeed {
-    private UsersDatabase usersDatabase;
-    private List<Posts> allPosts;
+    private final UsersDatabase usersDatabase;
+    private final List<Content> allPosts;
 
     public NewsFeed(UsersDatabase usersDatabase) {
         this.usersDatabase = usersDatabase;
         this.allPosts = new ArrayList<>();
         
     }
-    
-    
-    public List<Posts> PostsAndStories(String userId) {
-        List<Posts> friendPosts = new ArrayList<>();
-        User currentUser = getUserById(userId);
+        
+    public List<Content> PostsAndStories(User user) {
+        List<Content> friendPosts = new ArrayList<>();
 
-        if (currentUser != null) {
-            for (String friendId : currentUser.getFriends()) {
-                for (Posts post : allPosts) {
-                    if (post.getUserId().equals(friendId)) {
+        if (user != null) {
+            for (User friend : user.getFriends()) {
+                for (Content post : allPosts) {
+                    if (post.getAuthorId().equals(friend.getUserId())) {
                         friendPosts.add(post);
                     }
                 }
@@ -39,13 +29,11 @@ public class NewsFeed {
         return friendPosts;
     }
 
-     public List<String> listFriendsWithStatus(String userId) {
+    public List<String> listFriendsWithStatus(User user) {
         List<String> friendsStatus = new ArrayList<>();
-        User currentUser = getUserById(userId);
 
-        if (currentUser != null) {
-            for (String friendId : currentUser.getFriends()) {
-                User friend = getUserById(friendId);
+        if (user != null) {
+            for (User friend : user.getFriends()) {
                 if (friend != null) {
                     String status = friend.isStatus() ? "Online" : "Offline";
                     friendsStatus.add(friend.getUsername() + " (" + status + ")");
@@ -61,7 +49,7 @@ public class NewsFeed {
 
         if (currentUser != null) {
             for (User user : usersDatabase.loadUsers()) {
-                if (!currentUser.getFriends().contains(user.getUserId()) && !user.getUserId().equals(userId)) {
+                if (!currentUser.getFriends().contains(user) && !user.getUserId().equals(userId)) {
                     suggestions.add(user.getUsername());
                 }
             }
@@ -69,12 +57,8 @@ public class NewsFeed {
         return suggestions;
     }
 
-    
-    public void addPost(String userId, String content, String type) {
-        allPosts.add(new Posts(userId, content, type, new Date().toString()));
-    }
 
-    private User getUserById(String userId) {
+    public User getUserById(String userId) {
         for (User user : usersDatabase.loadUsers()) {
             if (user.getUserId().equals(userId)) {
                 return user;
@@ -83,7 +67,34 @@ public class NewsFeed {
         return null;
     }
     
+    public List<Content> getPostsOnly() {
+        List<Content> posts = new ArrayList<>();
+        for (Content post : allPosts) {
+            if (!post.isStory()) {
+                posts.add(post);
+            }
+        }
+        return posts;
+    }
+
+    public List<Content> getStoriesOnly() {
+        List<Content> stories = new ArrayList<>();
+        for (Content post : allPosts) {
+            if (post.isStory()) {
+                stories.add(post);
+            }
+        }
+        return stories;
+    }
     
-    
+    public List<Content> getContentById(String id) {
+        List<Content> content = new ArrayList<>();
+        for (Content post : allPosts) {
+            if (post.getAuthorId().equals(id)) {
+                content.add(post);
+            }
+        }
+        return content;
+    }
 }
 

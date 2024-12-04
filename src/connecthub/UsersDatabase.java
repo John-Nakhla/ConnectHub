@@ -1,23 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package connecthub;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.*;
 
 
-/**
- *
- * @author ADMIN
- */
 public class UsersDatabase {
     private static final String FILE_PATH = "users.json";
 
@@ -36,12 +24,19 @@ public class UsersDatabase {
                 if (!userJson.has("email") || !userJson.has("username") || !userJson.has("password") || !userJson.has("dateOfBirth")) {
                     continue;
                 }
+                
+                String profilePhoto = userJson.optString("profilePhoto", null);
+                String coverPhoto = userJson.optString("coverPhoto", null);
+                String bio = userJson.optString("bio", null);
 
                 User user = new User(
                         userJson.getString("email"),
                         userJson.getString("username"),
                         userJson.getString("password"), 
-                        userJson.getString("dateOfBirth")
+                        userJson.getString("dateOfBirth"),
+                        profilePhoto,
+                        coverPhoto,
+                        bio
                 );
                 user.setStatus(userJson.getBoolean("isOnline"));
 
@@ -70,6 +65,9 @@ public class UsersDatabase {
             userJson.put("dateOfBirth", user.getDOB());
             userJson.put("isOnline", user.isStatus());
             userJson.put("friends", user.getFriends());
+            userJson.put("profilePhoto", user.getProfilePhoto());
+            userJson.put("coverPhoto", user.getCoverPhoto());
+            userJson.put("bio", user.getBio());
             userArray.put(userJson);
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
