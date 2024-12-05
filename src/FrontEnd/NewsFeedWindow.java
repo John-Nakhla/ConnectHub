@@ -153,7 +153,6 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         String contentImgDir = content.getContentImgDir();
         if (!"".equals(contentText) && !"".equals(contentImgDir)) {
             Post post = new Post(contentText, contentImgDir);
-            postsPanel.add(new NewJPanel());
         }
     }//GEN-LAST:event_createPostBtnActionPerformed
 
