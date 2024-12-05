@@ -5,7 +5,7 @@
         "isOnline": false,
         "userId": "User10001",
         "email": "djfjdskf",
-        "friends": [],
+        "friends": ["User10002"],
         "username": "john"
     },
     {
@@ -14,8 +14,8 @@
         "isOnline": false,
         "userId": "User10002",
         "email": "waeljohn306@gmail.com",
-        "friends": [],
-        "username": "john"
+        "friends": ["User10001"],
+        "username": "hala"
     },
     {
         "password": "35fccec597f243e6fa655206a984a31543f1883f1bafc0f819889550c9069014",

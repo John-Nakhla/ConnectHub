@@ -23,46 +23,38 @@ import javax.swing.JScrollPane;
  * @author waelj
  */
 public class FriendSuggestions extends JFrame {
-
-    UsersDatabase database = new UsersDatabase();
-    List<User> users = database.loadUsers();
-
     public FriendSuggestions(User u) {
         setTitle("Friend Suggestions");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        List<User> friends = u.getFriends();
-        for (User k : users) {
-            if (!friends.contains(k)) 
-            {
-                JPanel objectPanel = new JPanel(new BorderLayout());
-                JLabel nameLabel = new JLabel("Name: " + k.getUsername());
-                JPanel detailsPanel = new JPanel(new GridLayout(5, 5));
-                detailsPanel.add(nameLabel);
-                JButton profileButton = new JButton("Profile");
-                JButton addButton = new JButton("Add");
-                profileButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                    }
-                });
-                addButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        u.sendFriendRequest(k);
-                        JOptionPane.showMessageDialog(FriendSuggestions.this, "Friend request sent");
-                    }
-                });
-                JPanel buttonPanel = new JPanel();
-                buttonPanel.add(profileButton);
-                buttonPanel.add(addButton);
-                objectPanel.add(detailsPanel, BorderLayout.CENTER);
-                objectPanel.add(buttonPanel, BorderLayout.SOUTH);
-                mainPanel.add(objectPanel);
-            }
+        List<User> suggestions = u.friendsOfFriends();
+        for (User k : suggestions) {
+            JPanel objectPanel = new JPanel(new BorderLayout());
+            JLabel nameLabel = new JLabel("Name: " + k.getUsername());
+            JPanel detailsPanel = new JPanel(new GridLayout(5, 5));
+            detailsPanel.add(nameLabel);
+            JButton profileButton = new JButton("Profile");
+            JButton addButton = new JButton("Add");
+            profileButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                }
+            });
+            addButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    u.sendFriendRequest(k);
+                    JOptionPane.showMessageDialog(FriendSuggestions.this, "Friend request sent");
+                }
+            });
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.add(profileButton);
+            buttonPanel.add(addButton);
+            objectPanel.add(detailsPanel, BorderLayout.CENTER);
+            objectPanel.add(buttonPanel, BorderLayout.SOUTH);
+            mainPanel.add(objectPanel);
         }
         JScrollPane scrollPane = new JScrollPane(mainPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

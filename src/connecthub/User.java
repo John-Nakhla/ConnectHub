@@ -118,9 +118,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-    
-    
-    
     public List<User> getFriends() {
         return friends; 
     }
@@ -200,5 +197,18 @@ public class User {
                 ", status=" + (status ? "Online" : "Offline") +
                 ", friends=" + friends +
                 '}';
+    }
+    public List<User> friendsOfFriends()
+    {
+        List<User> fof = new ArrayList<>();
+        for(User k : this.getFriends())
+        {
+            for(User u : k.getFriends())
+            {
+                if((!this.getFriends().contains(u))&&(!this.isBlocked(u)))
+                    fof.add(u);
+            }
+        }
+        return fof;
     }
 }

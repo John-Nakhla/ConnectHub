@@ -90,7 +90,6 @@ public class UsersDatabase {
         } catch (IOException e) {
             System.out.println("Error saving users: " + e.getMessage());
         }
-    }
-    
+    }    
 }
 

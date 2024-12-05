@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package FrontEnd;
-import connecthub.FriendRequest;
 import connecthub.User;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
