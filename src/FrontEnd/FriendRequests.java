@@ -27,13 +27,22 @@ public class FriendRequests extends JFrame {
             JLabel nameLabel = new JLabel("Name: " + k.getSender().getUsername());
             JPanel detailsPanel = new JPanel(new GridLayout(5,5));
             detailsPanel.add(nameLabel);
+            JButton profileButton = new JButton("Profile");
             JButton acceptButton = new JButton("Accept");
             JButton declineButton = new JButton("Decline");
+            profileButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Profile p = new Profile(k.getSender());
+                    p.setVisible(true);
+                }
+            });
             acceptButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     u.acceptFriendRequest(k);
                     JOptionPane.showMessageDialog(FriendRequests.this, "Accepted");
+                    mainPanel.remove(objectPanel);
                 }
             });
             declineButton.addActionListener(new ActionListener() {
@@ -41,9 +50,11 @@ public class FriendRequests extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     u.declineFriendRequest(k);
                     JOptionPane.showMessageDialog(FriendRequests.this, "Declined");
+                    mainPanel.remove(objectPanel);
                 }
             });
             JPanel buttonPanel = new JPanel();
+            buttonPanel.add(profileButton);
             buttonPanel.add(acceptButton);
             buttonPanel.add(declineButton);
             objectPanel.add(detailsPanel, BorderLayout.CENTER);

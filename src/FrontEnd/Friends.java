@@ -40,7 +40,8 @@ public class Friends extends JFrame {
             profileButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+                    Profile p = new Profile(k);
+                    p.setVisible(true);
                 }
             });
             removeButton.addActionListener(new ActionListener() {
@@ -48,6 +49,7 @@ public class Friends extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     u.removeFriend(k);
                     JOptionPane.showMessageDialog(Friends.this, "Removed");
+                    mainPanel.remove(objectPanel);
                 }
             });
             blockButton.addActionListener(new ActionListener() {
@@ -55,6 +57,7 @@ public class Friends extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     u.blockUser(k);
                     JOptionPane.showMessageDialog(Friends.this, "Blocked");
+                    mainPanel.remove(objectPanel);
                 }
             });
             JPanel buttonPanel = new JPanel();
