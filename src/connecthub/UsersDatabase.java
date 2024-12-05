@@ -25,28 +25,34 @@ public class UsersDatabase {
                     continue;
                 }
                 
-                String profilePhoto = userJson.optString("profilePhoto", null);
-                String coverPhoto = userJson.optString("coverPhoto", null);
-                String bio = userJson.optString("bio", null);
 
                 User user = new User(
                         userJson.getString("email"),
                         userJson.getString("username"),
                         userJson.getString("password"), 
                         userJson.getString("dateOfBirth"),
-                        profilePhoto,
-                        coverPhoto,
-                        bio
+                        userJson.getString("profilePhoto"),
+                        userJson.getString("coverPhoto"),
+                        userJson.getString("bio")
                 );
                 user.setStatus(userJson.getBoolean("isOnline"));
+                users.add(user);
+                
+            for (int k = 0; k < userArray.length(); k++) {
+                    JSONObject newuserJson = userArray.getJSONObject(i);
+                    User newuser = users.get(k);
 
-                JSONArray friendsArray = userJson.optJSONArray("friends");
-                if (friendsArray != null) {
-                    for (int j = 0; j < friendsArray.length(); j++) {
-                        user.addFriend(friendsArray.getString(j));
+                    JSONArray friendsArray = userJson.optJSONArray("friends");
+                    if (friendsArray != null) {
+                        for (int j = 0; j < friendsArray.length(); j++) {
+                            String friendId = friendsArray.getString(j);
+                            User friend = findUserById(users, friendId);
+                            if (friend != null) {
+                                user.addFriend(friend);
+                            }
+                        }
                     }
                 }
-                users.add(user);
             }
         } catch (IOException e) {
             System.out.println("Error loading users: " + e.getMessage());
@@ -76,5 +82,14 @@ public class UsersDatabase {
             System.out.println("Error saving users: " + e.getMessage());
         }
     }
+    
+    private User findUserById(List<User> users, String userId) {
+    for (User user : users) {
+        if (user.getUserId().equals(userId)) {
+            return user;
+        }
+    }
+    return null; 
+}
 }
 
