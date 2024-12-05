@@ -31,29 +31,34 @@ public class UsersDatabase {
                         userJson.getString("username"),
                         userJson.getString("password"), 
                         userJson.getString("dateOfBirth"),
-                        userJson.getString("profilePhoto"),
-                        userJson.getString("coverPhoto"),
-                        userJson.getString("bio")
+                        userJson.optString("profilePhoto",""),
+                        userJson.optString("coverPhoto",""),
+                        userJson.optString("bio","")
                 );
                 user.setStatus(userJson.getBoolean("isOnline"));
                 users.add(user);
-                
-            for (int k = 0; k < userArray.length(); k++) {
-                    JSONObject newuserJson = userArray.getJSONObject(i);
-                    User newuser = users.get(k);
+            }
+            for (int i = 0; i < userArray.length(); i++) {
+            JSONObject userJson = userArray.getJSONObject(i);
+            User user = users.get(i);
 
-                    JSONArray friendsArray = userJson.optJSONArray("friends");
-                    if (friendsArray != null) {
-                        for (int j = 0; j < friendsArray.length(); j++) {
-                            String friendId = friendsArray.getString(j);
-                            User friend = findUserById(users, friendId);
-                            if (friend != null) {
-                                user.addFriend(friend);
-                            }
+            JSONArray friendsArray = userJson.optJSONArray("friends");
+
+            if (friendsArray != null && friendsArray.length() > 0) {
+                for (int j = 0; j < friendsArray.length(); j++) {
+                    String friendId = friendsArray.getString(j);
+                    for (User Friend : users) {
+                        if (Friend.getUserId().equals(friendId)) {
+                            user.addFriend(Friend); 
+                            break; 
                         }
                     }
                 }
             }
+            }
+                    
+                
+             
         } catch (IOException e) {
             System.out.println("Error loading users: " + e.getMessage());
         }
@@ -70,7 +75,11 @@ public class UsersDatabase {
             userJson.put("password", user.getPassword());
             userJson.put("dateOfBirth", user.getDOB());
             userJson.put("isOnline", user.isStatus());
-            userJson.put("friends", user.getFriends());
+            JSONArray friendsArray = new JSONArray();
+            for (User friend : user.getFriends()) {
+                friendsArray.put(friend.getUserId());
+            }
+            userJson.put("friends", friendsArray);
             userJson.put("profilePhoto", user.getProfilePhoto());
             userJson.put("coverPhoto", user.getCoverPhoto());
             userJson.put("bio", user.getBio());
@@ -83,13 +92,5 @@ public class UsersDatabase {
         }
     }
     
-    private User findUserById(List<User> users, String userId) {
-    for (User user : users) {
-        if (user.getUserId().equals(userId)) {
-            return user;
-        }
-    }
-    return null; 
-}
 }
 
