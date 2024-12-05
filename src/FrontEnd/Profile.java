@@ -127,93 +127,21 @@ public class Profile extends javax.swing.JFrame {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        CoverPhotoPanel = new javax.swing.JPanel();
-        ProfilePhotoPanel = new javax.swing.JPanel();
-        SettingsWindow = new javax.swing.JButton();
-        ReturnButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         PostsPanelScroll = new javax.swing.JScrollPane();
         PostsPanel = new javax.swing.JPanel();
         FriendsPanelScroll = new javax.swing.JScrollPane();
         FriendsPanel = new javax.swing.JPanel();
+        CoverPhotoPanel = new javax.swing.JPanel();
+        ProfilePhotoPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        settings = new javax.swing.JButton();
+        retrun = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Profile Page");
 
         jLayeredPane1.setBackground(new java.awt.Color(153, 0, 255));
-
-        CoverPhotoPanel.setBackground(new java.awt.Color(255, 102, 102));
-
-        ProfilePhotoPanel.setBackground(new java.awt.Color(255, 204, 0));
-
-        javax.swing.GroupLayout ProfilePhotoPanelLayout = new javax.swing.GroupLayout(ProfilePhotoPanel);
-        ProfilePhotoPanel.setLayout(ProfilePhotoPanelLayout);
-        ProfilePhotoPanelLayout.setHorizontalGroup(
-            ProfilePhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        ProfilePhotoPanelLayout.setVerticalGroup(
-            ProfilePhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        SettingsWindow.setText("Settings");
-        SettingsWindow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SettingsWindowActionPerformed(evt);
-            }
-        });
-
-        ReturnButton.setText("Return");
-        ReturnButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReturnButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("jLabel1");
-
-        jLabel2.setText("jLabel2");
-
-        javax.swing.GroupLayout CoverPhotoPanelLayout = new javax.swing.GroupLayout(CoverPhotoPanel);
-        CoverPhotoPanel.setLayout(CoverPhotoPanelLayout);
-        CoverPhotoPanelLayout.setHorizontalGroup(
-            CoverPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CoverPhotoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CoverPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CoverPhotoPanelLayout.createSequentialGroup()
-                        .addComponent(ProfilePhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(CoverPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CoverPhotoPanelLayout.createSequentialGroup()
-                        .addComponent(ReturnButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SettingsWindow)))
-                .addContainerGap())
-        );
-        CoverPhotoPanelLayout.setVerticalGroup(
-            CoverPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CoverPhotoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CoverPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SettingsWindow)
-                    .addComponent(ReturnButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                .addGroup(CoverPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CoverPhotoPanelLayout.createSequentialGroup()
-                        .addComponent(ProfilePhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CoverPhotoPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))))
-        );
 
         javax.swing.GroupLayout PostsPanelLayout = new javax.swing.GroupLayout(PostsPanel);
         PostsPanel.setLayout(PostsPanelLayout);
@@ -232,7 +160,7 @@ public class Profile extends javax.swing.JFrame {
         FriendsPanel.setLayout(FriendsPanelLayout);
         FriendsPanelLayout.setHorizontalGroup(
             FriendsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 173, Short.MAX_VALUE)
+            .addGap(0, 188, Short.MAX_VALUE)
         );
         FriendsPanelLayout.setVerticalGroup(
             FriendsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,25 +169,105 @@ public class Profile extends javax.swing.JFrame {
 
         FriendsPanelScroll.setViewportView(FriendsPanel);
 
-        jLayeredPane1.setLayer(CoverPhotoPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        CoverPhotoPanel.setBackground(new java.awt.Color(255, 255, 102));
+        CoverPhotoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
+
+        javax.swing.GroupLayout CoverPhotoPanelLayout = new javax.swing.GroupLayout(CoverPhotoPanel);
+        CoverPhotoPanel.setLayout(CoverPhotoPanelLayout);
+        CoverPhotoPanelLayout.setHorizontalGroup(
+            CoverPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        CoverPhotoPanelLayout.setVerticalGroup(
+            CoverPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 110, Short.MAX_VALUE)
+        );
+
+        ProfilePhotoPanel.setBackground(new java.awt.Color(255, 0, 0));
+        ProfilePhotoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
+
+        javax.swing.GroupLayout ProfilePhotoPanelLayout = new javax.swing.GroupLayout(ProfilePhotoPanel);
+        ProfilePhotoPanel.setLayout(ProfilePhotoPanelLayout);
+        ProfilePhotoPanelLayout.setHorizontalGroup(
+            ProfilePhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 77, Short.MAX_VALUE)
+        );
+        ProfilePhotoPanelLayout.setVerticalGroup(
+            ProfilePhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 77, Short.MAX_VALUE)
+        );
+
+        jLabel1.setText("jLabel1");
+
+        jLabel2.setText("Bio");
+
+        settings.setText("Settings");
+        settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingsActionPerformed(evt);
+            }
+        });
+
+        retrun.setText("Return");
+
         jLayeredPane1.setLayer(PostsPanelScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(FriendsPanelScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(CoverPhotoPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(ProfilePhotoPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(settings, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(retrun, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CoverPhotoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(PostsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(FriendsPanelScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                .addComponent(FriendsPanelScroll))
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(CoverPhotoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(ProfilePhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(retrun))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(settings)))))
+                .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(CoverPhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(ProfilePhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(settings)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2))
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(retrun)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PostsPanelScroll)
                     .addComponent(FriendsPanelScroll)))
@@ -286,17 +294,11 @@ public class Profile extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonActionPerformed
-        NewsFeedWindow newsFeed = new NewsFeedWindow();
-        newsFeed.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_ReturnButtonActionPerformed
-
-    private void SettingsWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsWindowActionPerformed
+    private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
         SettingsWindow settingsWindow = new SettingsWindow(this);
         settingsWindow.setVisible(true);
         settingsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_SettingsWindowActionPerformed
+    }//GEN-LAST:event_settingsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,10 +344,10 @@ User user = new User("test@example.com", "testuser", "password", "01/01/1990", "
     private javax.swing.JPanel PostsPanel;
     private javax.swing.JScrollPane PostsPanelScroll;
     private javax.swing.JPanel ProfilePhotoPanel;
-    private javax.swing.JButton ReturnButton;
-    private javax.swing.JButton SettingsWindow;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JButton retrun;
+    private javax.swing.JButton settings;
     // End of variables declaration//GEN-END:variables
 }
