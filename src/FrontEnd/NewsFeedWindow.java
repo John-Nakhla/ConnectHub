@@ -4,6 +4,10 @@
  */
 package FrontEnd;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.BoxLayout;
+
 /**
  *
  * @author John
@@ -15,7 +19,12 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
     public NewsFeedWindow() {
         initComponents();
-        System.out.println(postsPanel.getWidth());
+//        postsPanel.setBounds(10, 10, 10, 0);
+//        postsPanel.setPreferredSize(new Dimension(100, 100));
+//        postsPanel.setBackground(Color.red);
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+        System.out.println("postsPanel width: " + postsPanel.getWidth());
+        System.out.println("postsPanel height: " + postsPanel.getHeight());
     }
 
     /**
@@ -69,7 +78,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         );
         postsPanelLayout.setVerticalGroup(
             postsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 371, Short.MAX_VALUE)
         );
 
         postsScrollPanel.setViewportView(postsPanel);
@@ -98,7 +107,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(storiesScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(postsScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(postsScrollPanel)
                     .addComponent(createStoryBtn)
                     .addComponent(createPostBtn))
                 .addGap(18, 18, 18)
@@ -110,7 +119,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                             .addComponent(jButton1))
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,10 +158,17 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         CreateContentWindow content = new CreateContentWindow(this, true);
         content.pack();
         content.setVisible(true);
+        
         String contentText = content.getContentText();
         String contentImgDir = content.getContentImgDir();
+        
         if (!"".equals(contentText) && !"".equals(contentImgDir)) {
+//            Post post = new Post(contentText, contentImgDir);
             Post post = new Post(contentText, contentImgDir);
+            post.setMaximumSize(new Dimension(550, post.getPreferredSize().height));
+            postsPanel.add(post);
+            postsPanel.revalidate();
+            postsPanel.repaint();
         }
     }//GEN-LAST:event_createPostBtnActionPerformed
 
