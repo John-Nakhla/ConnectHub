@@ -4,9 +4,9 @@
  */
 package FrontEnd;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.BoxLayout;
+import java.awt.*;
+import javax.swing.*;
+import connecthub.*;
 
 /**
  *
@@ -16,6 +16,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form ProfileWindow
+     *
+     * @param user
      */
     public NewsFeedWindow() {
         initComponents();
@@ -23,8 +25,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
 //        postsPanel.setPreferredSize(new Dimension(100, 100));
 //        postsPanel.setBackground(Color.red);
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
-        System.out.println("postsPanel width: " + postsPanel.getWidth());
-        System.out.println("postsPanel height: " + postsPanel.getHeight());
+        storiesPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Spacing between stories
     }
 
     /**
@@ -149,20 +150,32 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createStoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStoryBtnActionPerformed
-        CreateContentWindow content = new CreateContentWindow(this, true);
+        CreateContentWindow content = new CreateContentWindow(this, true, "s");
         content.pack();
         content.setVisible(true);
+
+        String contentText = content.getContentText();
+        String contentImgDir = content.getContentImgDir();
+
+        if (!"".equals(contentText) || !"".equals(contentImgDir)) {
+            Story story = new Story(contentText, contentImgDir);
+            story.setMaximumSize(new Dimension(550, story.getPreferredSize().height));
+            storiesPanel.add(story);
+            storiesPanel.revalidate();
+            storiesPanel.repaint();
+        }
     }//GEN-LAST:event_createStoryBtnActionPerformed
 
     private void createPostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPostBtnActionPerformed
-        CreateContentWindow content = new CreateContentWindow(this, true);
+        CreateContentWindow content = new CreateContentWindow(this, true, "p");
         content.pack();
         content.setVisible(true);
-        
+
         String contentText = content.getContentText();
         String contentImgDir = content.getContentImgDir();
-        
-        if (!"".equals(contentText) && !"".equals(contentImgDir)) {
+//        System.out.println("content text: " + contentText);
+
+        if (!"".equals(contentText) || !"".equals(contentImgDir)) {
 //            Post post = new Post(contentText, contentImgDir);
             Post post = new Post(contentText, contentImgDir);
             post.setMaximumSize(new Dimension(550, post.getPreferredSize().height));

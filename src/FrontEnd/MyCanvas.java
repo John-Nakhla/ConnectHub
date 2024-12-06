@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class MyCanvas extends JComponent {
 
-    private String path = "D:\\Photos\\9A8CC6BC-C550-43B2-B70B-B435FEA779F6.jpg";
+    private String path = "";
 
     /**
      *

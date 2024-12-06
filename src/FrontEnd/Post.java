@@ -4,11 +4,8 @@
  */
 package FrontEnd;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 /**
  *
@@ -35,6 +32,7 @@ public class Post extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         PostTextLbl = new javax.swing.JLabel(text);
         add(PostTextLbl);

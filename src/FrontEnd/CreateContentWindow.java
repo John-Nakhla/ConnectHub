@@ -4,8 +4,8 @@
  */
 package FrontEnd;
 
-import java.awt.Dimension;
-import javax.swing.JFileChooser;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -14,8 +14,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class CreateContentWindow extends javax.swing.JDialog {
 
-    private String contentText = "<html><div style='width:90px;'></div></html>";
+    private String contentText = "";
     private String contentImgDir = "";
+    private String type;
     private MyCanvas ImagePreview;
 
     /**
@@ -24,12 +25,14 @@ public class CreateContentWindow extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public CreateContentWindow(java.awt.Frame parent, boolean modal) {
+    public CreateContentWindow(java.awt.Frame parent, boolean modal, String type) {
         super(parent, modal);
         setTitle("Create Content");
-        setPreferredSize(new Dimension(400, 344));
+        setPreferredSize(new Dimension(400, 375));
         setResizable(false);
         setLocationRelativeTo(null);
+
+        this.type = type;
 
         ImagePreview = new MyCanvas("");
         add(ImagePreview);
@@ -51,6 +54,7 @@ public class CreateContentWindow extends javax.swing.JDialog {
         postBtn = new javax.swing.JButton();
         addImageBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        removeImgBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -59,7 +63,7 @@ public class CreateContentWindow extends javax.swing.JDialog {
         postTextEditorTxtArea.setWrapStyleWord(true);
         jScrollPane1.setViewportView(postTextEditorTxtArea);
 
-        postBtn.setText("Post");
+        postBtn.setText("Share");
         postBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 postBtnActionPerformed(evt);
@@ -80,6 +84,13 @@ public class CreateContentWindow extends javax.swing.JDialog {
             }
         });
 
+        removeImgBtn.setText("Remove Image");
+        removeImgBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeImgBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,13 +98,15 @@ public class CreateContentWindow extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addImageBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(postBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(addImageBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(removeImgBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(postBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(cancelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -101,11 +114,14 @@ public class CreateContentWindow extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addGap(160, 160, 160)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addImageBtn)
-                    .addComponent(postBtn)
                     .addComponent(cancelBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(removeImgBtn)
+                    .addComponent(postBtn))
                 .addContainerGap())
         );
 
@@ -113,8 +129,14 @@ public class CreateContentWindow extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void postBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postBtnActionPerformed
-        contentText = "<html><div style='width:90px;'>" + postTextEditorTxtArea.getText() + "</div></html>";
-        dispose();
+        if ("s".equals(type) && !"".equals(contentImgDir) && !"".equals(postTextEditorTxtArea.getText())) {
+            JOptionPane.showMessageDialog(this, "Story must be text or image (can't be both)", "Input error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (!"".equals(postTextEditorTxtArea.getText())) {
+                contentText = "<html><div style='width:90px;'>" + postTextEditorTxtArea.getText() + "</div></html>";
+            }
+            dispose();
+        }
     }//GEN-LAST:event_postBtnActionPerformed
 
     private void addImageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImageBtnActionPerformed
@@ -136,6 +158,11 @@ public class CreateContentWindow extends javax.swing.JDialog {
         contentImgDir = "";
         dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void removeImgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeImgBtnActionPerformed
+        contentImgDir = "";
+        ImagePreview.changePicture("");
+    }//GEN-LAST:event_removeImgBtnActionPerformed
 
     protected String getContentText() {
         return contentText;
@@ -178,7 +205,7 @@ public class CreateContentWindow extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CreateContentWindow dialog = new CreateContentWindow(new javax.swing.JFrame(), true);
+                CreateContentWindow dialog = new CreateContentWindow(new javax.swing.JFrame(), true, "p");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -196,5 +223,6 @@ public class CreateContentWindow extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton postBtn;
     private javax.swing.JTextArea postTextEditorTxtArea;
+    private javax.swing.JButton removeImgBtn;
     // End of variables declaration//GEN-END:variables
 }
