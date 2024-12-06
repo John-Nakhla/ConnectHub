@@ -14,12 +14,16 @@ import connecthub.*;
  */
 public class NewsFeedWindow extends javax.swing.JFrame {
 
+    private User user;
+
     /**
      * Creates new form ProfileWindow
      *
      * @param user
      */
-    public NewsFeedWindow() {
+    public NewsFeedWindow(User user) {
+        this.user = user;
+//        user.
         initComponents();
 //        postsPanel.setBounds(10, 10, 10, 0);
 //        postsPanel.setPreferredSize(new Dimension(100, 100));
@@ -216,7 +220,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewsFeedWindow().setVisible(true);
+//                new NewsFeedWindow().setVisible(true);
             }
         });
     }

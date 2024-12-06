@@ -18,6 +18,7 @@ public class CreateContentWindow extends javax.swing.JDialog {
     private String contentImgDir = "";
     private String type;
     private MyCanvas ImagePreview;
+    private static final String postsPath = "content.json";
 
     /**
      * Creates new form NewJDialog
