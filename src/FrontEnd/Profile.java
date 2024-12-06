@@ -1,22 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package FrontEnd;
 
-import connecthub.*;
+import backend.Content;
+import backend.NewsFeed;
+import backend.UsersDatabase;
+import backend.User;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import java.util.List;
+import org.json.JSONArray;
 
-/**
- *
- * @author ADMIN
- */
+
 public class Profile extends javax.swing.JFrame {
-     User user;
-    /**
-     * Creates new form Profile
-     */
+    
+    User user;
 
     public Profile(User user) {
         initComponents();
@@ -26,16 +24,16 @@ public class Profile extends javax.swing.JFrame {
         loadCoverPhoto();
         loadProfilePhoto();
         loadUserDetails();
-       // loadUserPosts();
+        loadUserPosts();
         loadUserFriends();  
   
     }
     private void loadCoverPhoto() {
-     try {
+        try {
         Image coverPhoto = new ImageIcon(user.getCoverPhoto()).getImage();
         Image scaledCoverPhoto = coverPhoto.getScaledInstance(CoverPhotoPanel.getWidth(), CoverPhotoPanel.getHeight(), Image.SCALE_SMOOTH);
 
- 
+
         JPanel coverPhotoPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -47,37 +45,38 @@ public class Profile extends javax.swing.JFrame {
         CoverPhotoPanel.add(coverPhotoPanel);
         CoverPhotoPanel.repaint();
         loadProfilePhoto();
+        
         // Ensure the panel updates
-    } catch (Exception e) {
-        JLabel errorLabel = new JLabel("Cover Photo Not Available");
-        errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        CoverPhotoPanel.add(errorLabel);
-        CoverPhotoPanel.repaint();
-    }
+       } catch (Exception e) {
+           JLabel errorLabel = new JLabel("Cover Photo Not Available");
+           errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+           CoverPhotoPanel.add(errorLabel);
+           CoverPhotoPanel.repaint();
+       }
     }
 
     private void loadProfilePhoto() {
- try {
-        Image profilePhoto = new ImageIcon(user.getProfilePhoto()).getImage();
-        Image scaledProfilePhoto = profilePhoto.getScaledInstance(ProfilePhotoPanel.getWidth(), ProfilePhotoPanel.getHeight(), Image.SCALE_SMOOTH);
+        try {
+            Image profilePhoto = new ImageIcon(user.getProfilePhoto()).getImage();
+            Image scaledProfilePhoto = profilePhoto.getScaledInstance(ProfilePhotoPanel.getWidth(), ProfilePhotoPanel.getHeight(), Image.SCALE_SMOOTH);
 
-        JPanel profilePhotoPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(scaledProfilePhoto, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-        profilePhotoPanel.setBounds(0, 0, ProfilePhotoPanel.getWidth(), ProfilePhotoPanel.getHeight());
-        ProfilePhotoPanel.add(profilePhotoPanel);
-        ProfilePhotoPanel.repaint(); 
-        loadUserDetails();
-    } catch (Exception e) {
-        JLabel errorLabel = new JLabel("Profile Photo Not Available");
-        errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        ProfilePhotoPanel.add(errorLabel);
-        ProfilePhotoPanel.repaint();
-    }
+            JPanel profilePhotoPanel = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(scaledProfilePhoto, 0, 0, getWidth(), getHeight(), this);
+                }
+            };
+            profilePhotoPanel.setBounds(0, 0, ProfilePhotoPanel.getWidth(), ProfilePhotoPanel.getHeight());
+            ProfilePhotoPanel.add(profilePhotoPanel);
+            ProfilePhotoPanel.repaint(); 
+            loadUserDetails();
+        } catch (Exception e) {
+            JLabel errorLabel = new JLabel("Profile Photo Not Available");
+            errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            ProfilePhotoPanel.add(errorLabel);
+            ProfilePhotoPanel.repaint();
+        }
     }
 
     private void loadUserDetails() {
@@ -85,18 +84,34 @@ public class Profile extends javax.swing.JFrame {
         jLabel2.setText(user.getBio());
     }
 
-//    private void loadUserPosts() {
-//        JPanel postsPanel = new JPanel();
-//        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
-//
-//        for (String post : user.) {
+    private void loadUserPosts() {
+        JPanel postsPanel = new JPanel();
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+
+        UsersDatabase db = new UsersDatabase();
+        db.loadUsers();
+        
+        NewsFeed myContent = new NewsFeed(db);
+        
+        for (Content content : myContent.getContentById(user.getUserId())) {
 //            JLabel postLabel = new JLabel(post);
 //            postLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 //            postsPanel.add(postLabel);
-//        }
-//
+            String contentText = content.getContent();
+            String contentImgDir = content.getImg();
+
+            if (!"".equals(contentText) || !"".equals(contentImgDir)) {
+                Post post = new Post(contentText, contentImgDir);
+                post.setMaximumSize(new Dimension(550, post.getPreferredSize().height));
+                postsPanel.add(post);
+                postsPanel.revalidate();
+                postsPanel.repaint();
+            }
+        }
+
 //        PostsPanelScroll.setViewportView(postsPanel);
-//    }
+    }
+    
     private void loadUserFriends() {
         JPanel friendsPanel = new JPanel();
         friendsPanel.setLayout(new BoxLayout(friendsPanel, BoxLayout.Y_AXIS));
@@ -116,12 +131,6 @@ public class Profile extends javax.swing.JFrame {
         loadUserFriends();   
     }
 
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -209,6 +218,11 @@ public class Profile extends javax.swing.JFrame {
         });
 
         retrun.setText("Return");
+        retrun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retrunActionPerformed(evt);
+            }
+        });
 
         jLayeredPane1.setLayer(PostsPanelScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(FriendsPanelScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -226,7 +240,7 @@ public class Profile extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(PostsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(FriendsPanelScroll))
+                .addComponent(FriendsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
@@ -240,7 +254,7 @@ public class Profile extends javax.swing.JFrame {
                                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
                                 .addComponent(retrun))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -300,6 +314,12 @@ public class Profile extends javax.swing.JFrame {
         settingsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_settingsActionPerformed
 
+    private void retrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrunActionPerformed
+        NewsFeedWindow newsfeedWindow = new NewsFeedWindow();
+        newsfeedWindow.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_retrunActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -326,12 +346,67 @@ public class Profile extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-User user = new User("test@example.com", "testuser", "password", "01/01/1990", "profilePhotoPath", "coverPhotoPath", "This is a bio.");
 
+        UsersDatabase database = new UsersDatabase();
+        database.loadUsers();
+        
+
+        // Step 1: Create a new list of users
+        java.util.List<User> users = new ArrayList<>();
+
+        // Add some users to the list
+        User user1 = new User(
+                "johndoe@example.com",
+                "johndoe",
+                "password123",
+                "1995-05-15",
+                "path/to/photo.jpg",
+                "path/to/cover.jpg",
+                "Hello, I am John Doe!"
+        );
+        user1.setStatus(true);
+
+        User user2 = new User(
+                "janedoe@example.com",
+                "janedoe",
+                "password456",
+                "1998-03-22",
+                "path/to/photo2.jpg",
+                "path/to/cover2.jpg",
+                "Hi, I'm Jane Doe!"
+        );
+        user2.setStatus(false);
+
+        User user3 = new User(
+                "janedoe@example.com",
+                "janedoe",
+                "password456",
+                "1998-03-22",
+                "path/to/photo2.jpg",
+                "path/to/cover2.jpg",
+                "Hi, I'm Jene Doe!"
+        );
+        user3.setStatus(true);
+
+        // Establish friendship between user1 and user2
+        user1.addFriend(user2);
+        user2.addFriend(user1);
+        user1.addFriend(user3);
+        user3.addFriend(user1);
+        user3.addFriend(user2);
+        user2.addFriend(user3);
+        // Add users to the list
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+
+        // Step 2: Save the users to a JSON file
+        database.saveUsers(users);
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Profile(user).setVisible(true);
+                new Profile(user1).setVisible(true);
             }
         });
     }
