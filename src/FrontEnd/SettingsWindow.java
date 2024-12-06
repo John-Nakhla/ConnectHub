@@ -125,13 +125,44 @@ public class SettingsWindow extends javax.swing.JFrame {
             // Update the user's cover photo
             window.user.changeCoverPhoto(newCoverPhotoPath); //me7taga a7ot hena saveto data base!!!!
             saveChanges();
+            
         }
     }//GEN-LAST:event_UpdateCoverPhotoActionPerformed
 
     private void UpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePasswordActionPerformed
         String newPassword = JOptionPane.showInputDialog(this, "Enter new password:");
-        if (newPassword != null && !newPassword.trim().isEmpty()) {
-            window.user.checkPassword(newPassword);  // Ensure that the password setter hashes the password
+         if (newPassword != null && !newPassword.trim().isEmpty()) {
+             // Password validations
+             if (newPassword.length() < 8) {
+                 JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.");
+                 return;
+             }
+             if (!newPassword.matches(".*[A-Z].*")) {
+                 JOptionPane.showMessageDialog(this, "Password must contain at least one uppercase letter.");
+                 return;
+             }
+             if (!newPassword.matches(".*[a-z].*")) {
+                 JOptionPane.showMessageDialog(this, "Password must contain at least one lowercase letter.");
+                 return;
+             }
+             if (!newPassword.matches(".*\\d.*")) {
+                 JOptionPane.showMessageDialog(this, "Password must contain at least one number.");
+                 return;
+             }
+             if (newPassword.matches(".*(password|12345|admin|qwerty).*")) {
+                 JOptionPane.showMessageDialog(this, "Password is too weak. Avoid common words or sequences.");
+                 return;
+             }
+
+             // Confirm password
+             String confirmPassword = JOptionPane.showInputDialog(this, "Confirm new password:");
+             if (!newPassword.equals(confirmPassword)) {
+                 JOptionPane.showMessageDialog(this, "Passwords do not match. Try again.");
+                 return;
+        }
+        
+        // Update password
+        window.user.checkPassword(newPassword); 
             JOptionPane.showMessageDialog(this, "Password updated successfully!");
         } else {
             JOptionPane.showMessageDialog(this, "Password cannot be empty.");
