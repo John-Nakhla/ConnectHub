@@ -1,16 +1,18 @@
 
-package backend;
+package connecthub;
 
 import java.util.*;
+import org.json.*;
 
 
 public class NewsFeed {
     private final UsersDatabase usersDatabase;
     private final List<Content> allPosts;
+    ContentDatabase db = new ContentDatabase();
 
     public NewsFeed(UsersDatabase usersDatabase) {
         this.usersDatabase = usersDatabase;
-        this.allPosts = new ArrayList<>();
+        this.allPosts = convertJsonArrayToContentList(db.loadContent());
         
     }
         
@@ -102,5 +104,33 @@ public class NewsFeed {
         }
         return content;
     }
+    
+    
+    //Helping method to convert JsonArray to Content List
+    public List<Content> convertJsonArrayToContentList(JSONArray jsonArray) {
+        List<Content> contentList = new ArrayList<>();
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject contentJson = jsonArray.getJSONObject(i);
+
+            if (!contentJson.has("contentId") || !contentJson.has("authorId") || !contentJson.has("content") || !contentJson.has("timestamp")) {
+                continue;
+            }
+
+            Content content = new Content(
+                contentJson.getString("contentId"),
+                contentJson.getString("authorId"),
+                contentJson.getString("content"),
+                contentJson.optString("img", ""),
+                contentJson.getBoolean("isStory")
+            );
+
+            content.setTimestamp(contentJson.getString("timestamp"));
+            contentList.add(content);
+        }
+
+        return contentList;
+    }
+
 }
 
