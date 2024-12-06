@@ -1,10 +1,10 @@
 
 package FrontEnd;
 
-import backend.Content;
-import backend.NewsFeed;
-import backend.UsersDatabase;
-import backend.User;
+import connecthub.Content;
+import connecthub.NewsFeed;
+import connecthub.UsersDatabase;
+import connecthub.User;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -85,31 +85,36 @@ public class Profile extends javax.swing.JFrame {
     }
 
     private void loadUserPosts() {
+
         JPanel postsPanel = new JPanel();
-        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Set vertical layout
 
         UsersDatabase db = new UsersDatabase();
         db.loadUsers();
-        
+
+
         NewsFeed myContent = new NewsFeed(db);
-        
+
         for (Content content : myContent.getContentById(user.getUserId())) {
-//            JLabel postLabel = new JLabel(post);
-//            postLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-//            postsPanel.add(postLabel);
+            
             String contentText = content.getContent();
             String contentImgDir = content.getImg();
 
-            if (!"".equals(contentText) || !"".equals(contentImgDir)) {
+            if ((contentText != null && !contentText.isEmpty()) || (contentImgDir != null && !contentImgDir.isEmpty())) {
+                // Create a custom Post component for each post
                 Post post = new Post(contentText, contentImgDir);
-                post.setMaximumSize(new Dimension(550, post.getPreferredSize().height));
-                postsPanel.add(post);
-                postsPanel.revalidate();
-                postsPanel.repaint();
+                post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
+                postsPanel.add(post); // Add the post to the posts panel
             }
         }
 
-//        PostsPanelScroll.setViewportView(postsPanel);
+        // Refresh the posts panel to ensure the new posts are displayed
+        postsPanel.revalidate();
+        postsPanel.repaint();
+
+        // Set the posts panel to the scroll pane
+        PostsPanelScroll.setViewportView(postsPanel);
+
     }
     
     private void loadUserFriends() {
@@ -117,18 +122,20 @@ public class Profile extends javax.swing.JFrame {
         friendsPanel.setLayout(new BoxLayout(friendsPanel, BoxLayout.Y_AXIS));
 
         for (User friend : user.getFriends()) {
-            JLabel friendLabel = new JLabel(friend.getUsername() + " (" + (friend.isStatus()? "Online" : "Offline") + ")");
+            JLabel friendLabel = new JLabel(friend.getUsername() + " (" + (friend.isStatus() ? "Online" : "Offline") + ")");
             friendLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             friendsPanel.add(friendLabel);
         }
-
-        FriendsPanelScroll.setViewportView(FriendsPanel);
+            friendsPanel.revalidate();
+            friendsPanel.repaint();
+        FriendsPanelScroll.setViewportView(friendsPanel);
     }
     public void reloadProfileDetails() {
         loadCoverPhoto();  
         loadProfilePhoto(); 
         loadUserDetails();   
-        loadUserFriends();   
+        loadUserFriends();  
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -240,7 +247,8 @@ public class Profile extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(PostsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(FriendsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(FriendsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
@@ -284,7 +292,9 @@ public class Profile extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PostsPanelScroll)
-                    .addComponent(FriendsPanelScroll)))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(FriendsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -315,9 +325,9 @@ public class Profile extends javax.swing.JFrame {
     }//GEN-LAST:event_settingsActionPerformed
 
     private void retrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrunActionPerformed
-        NewsFeedWindow newsfeedWindow = new NewsFeedWindow();
-        newsfeedWindow.setVisible(true);
-        this.setVisible(false);
+//        NewsFeed newsfeedWindow = new NewsFeed();
+//        newsfeedWindow.setVisible(true);
+//        this.setVisible(false);
     }//GEN-LAST:event_retrunActionPerformed
 
     /**
