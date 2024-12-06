@@ -73,9 +73,10 @@ public class NewsFeed {
     }
     
     // returns all posts only 
-    public List<Content> getPostsOnly() {
+    public List<Content> getPostsOnly(User user) {
         List<Content> posts = new ArrayList<>();
-        for (Content post : allPosts) {
+        List<Content> friendsPosts =  PostsAndStories(user);
+        for (Content post : friendsPosts) {
             if (!post.isStory()) {
                 posts.add(post);
             }
@@ -84,9 +85,11 @@ public class NewsFeed {
     }
 
     // returns all stories only 
-    public List<Content> getStoriesOnly() {
+    public List<Content> getStoriesOnly(User user) {
         List<Content> stories = new ArrayList<>();
-        for (Content post : allPosts) {
+        List<Content> friendsStories =  PostsAndStories(user);
+
+        for (Content post : friendsStories) {
             if (post.isStory()) {
                 stories.add(post);
             }
