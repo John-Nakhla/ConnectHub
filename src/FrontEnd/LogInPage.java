@@ -1,13 +1,10 @@
-
 package FrontEnd;
 
 import connecthub.*;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 
-
 public class LogInPage extends javax.swing.JFrame {
-
 
     AccountManagement admin = new AccountManagement();
 
@@ -24,7 +21,6 @@ public class LogInPage extends javax.swing.JFrame {
         });
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -135,16 +131,15 @@ public class LogInPage extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         String email = Email.getText();
-        char[] pass = Password.getPassword();
         String p = "";
+        char[] pass = Password.getPassword();
         for (char k : pass) {
             p += k;
         }
         User user = admin.login(email, p);
-        if (user == null) {
+        if (user != null) {
             JOptionPane.showMessageDialog(this, "User not found", "Input error", JOptionPane.ERROR_MESSAGE);
-        } 
-        else {
+        } else {
             NewsFeedWindow newsFeed = new NewsFeedWindow(user);
             newsFeed.setVisible(true);
             dispose();
