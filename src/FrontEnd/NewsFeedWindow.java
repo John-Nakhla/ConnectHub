@@ -7,7 +7,8 @@ package FrontEnd;
 import java.awt.*;
 import javax.swing.*;
 import connecthub.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,7 +19,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     private User user;
     private UsersDatabase usersDatabase = new UsersDatabase();
     private NewsFeed newsFeed = new NewsFeed(usersDatabase);
-    private ArrayList<Content> posts;
+    private ArrayList<Content> posts = newsFeed.getPostsOnly();
+    private List<Content> stories = newsFeed.getStoriesOnly();
     private ContentDatabase contentDatabase = new ContentDatabase();
 
     /**
@@ -28,11 +30,39 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
     public NewsFeedWindow(User user) {
         this.user = user;
-        posts = newsFeed.getPostsOnly();
+        System.out.println(posts.size());
         for (int i = 0; i < posts.size(); i++) {
-            System.out.println(posts.get(i));
-        }
+            CreateContentWindow content = new CreateContentWindow(this, true, "p");
+            content.pack();
+            content.setVisible(true);
 
+            String contentText = posts.get(i).getContent();
+            System.out.println(contentText);
+            String contentImgDir = posts.get(i).getImg();
+
+            if (!"".equals(contentText) || !"".equals(contentImgDir)) {
+//            Post post = new Post(contentText, contentImgDir);
+                Post post = new Post(contentText, contentImgDir);
+                post.setMaximumSize(new Dimension(550, post.getPreferredSize().height));
+                postsPanel.add(post);
+                postsPanel.revalidate();
+                postsPanel.repaint();
+            }
+        }
+        for (int i = 0; i < stories.size(); i++) {
+            CreateContentWindow content = new CreateContentWindow(this, true, "s");
+            content.pack();
+            content.setVisible(true);
+            String contentText = stories.get(i).getContent();
+            String contentImgDir = stories.get(i).getImg();
+            if (!"".equals(contentText) || !"".equals(contentImgDir)) {
+                Story story = new Story(contentText, contentImgDir);
+                story.setMaximumSize(new Dimension(550, story.getPreferredSize().height));
+                storiesPanel.add(story);
+                storiesPanel.revalidate();
+                storiesPanel.repaint();
+            }
+        }
         initComponents();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         storiesPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Spacing between stories
@@ -225,9 +255,10 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        User u1 = new User("waeljohn389@gmail.com", "ayman", "1456", "25-6-2000", null, null, null);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                new NewsFeedWindow().setVisible(true);
+                new NewsFeedWindow(u1).setVisible(true);
             }
         });
     }
