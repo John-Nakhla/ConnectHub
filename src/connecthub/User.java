@@ -38,17 +38,13 @@ public class User {
         users_count++; 
         return "User" + users_count;
     }
-    public void setRealPassword(String password)
-    {
-        this.password = password;
-    }
     public void setPassword(String password)
     {
         this.password = generatePassword(password);
     }
     
     // generates hashed password to save in the file
-    public String generatePassword(String password){
+    private String generatePassword(String password){
         try {
             MessageDigest message = MessageDigest.getInstance("SHA-256");
             byte[] hashedBytes = message.digest(password.getBytes());

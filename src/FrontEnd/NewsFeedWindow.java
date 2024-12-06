@@ -197,7 +197,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//user creates story
     private void createStoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStoryBtnActionPerformed
         CreateContentWindow content = new CreateContentWindow(this, true, "s");
         content.pack();
@@ -215,7 +215,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             contentDatabase.createContent(user.getUserId(), contentText, contentImgDir, true);
         }
     }//GEN-LAST:event_createStoryBtnActionPerformed
-
+// user creates post
     private void createPostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPostBtnActionPerformed
         CreateContentWindow content = new CreateContentWindow(this, true, "p");
         content.pack();
@@ -234,41 +234,41 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             contentDatabase.createContent(user.getUserId(), contentText, contentImgDir, false);
         }
     }//GEN-LAST:event_createPostBtnActionPerformed
-
+//user views his profile
     private void myProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myProfileBtnActionPerformed
         Profile profile = new Profile(user);
         profile.setVisible(true);
         dispose();
     }//GEN-LAST:event_myProfileBtnActionPerformed
-
+//user views his friends
     private void myFriendsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myFriendsBtnActionPerformed
         Friends friends = new Friends(user);
         friends.pack();
         friends.setVisible(true);
     }//GEN-LAST:event_myFriendsBtnActionPerformed
-
+//user views friends suggestions
     private void friendSuggestionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendSuggestionsBtnActionPerformed
         FriendSuggestions friendSuggestions = new FriendSuggestions(user);
         friendSuggestions.pack();
         friendSuggestions.setVisible(true);
     }//GEN-LAST:event_friendSuggestionsBtnActionPerformed
-
+//refresh feed for latest posts
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         refresh();
     }//GEN-LAST:event_refreshBtnActionPerformed
-
+//user searches for a specific friend to add
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AddFriend window=new AddFriend(user);
         window.setVisible(true);
          window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+//user views his pending friend requests
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         FriendRequests N=new FriendRequests(user);
         N.setVisible(true);
         N.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jButton2ActionPerformed
-
+//Refresh method
     private void refresh() {// adding posts of friends
         posts = newsFeed.getPostsOnly(user);
         System.out.println(posts.size());
@@ -302,39 +302,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(NewsFeedWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(NewsFeedWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(NewsFeedWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(NewsFeedWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        User u1 = new User("waeljohn389@gmail.com", "ayman", "1456", "25-6-2000", null, null, null);
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new NewsFeedWindow(u1).setVisible(true);
-//            }
-//        });
-//    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createPostBtn;
