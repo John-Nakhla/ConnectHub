@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package FrontEnd;
+
 import connecthub.User;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -10,14 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.*;
+
 /**
  *
  * @author waelj
  */
 public class Friends extends JFrame {
+
     public Friends(User u) {
         setTitle("Friends");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -26,12 +29,13 @@ public class Friends extends JFrame {
             JPanel objectPanel = new JPanel(new BorderLayout());
             JLabel nameLabel = new JLabel("Name: " + k.getUsername());
             String status;
-            if(k.isStatus())
+            if (k.isStatus()) {
                 status = "Online";
-            else 
+            } else {
                 status = "Offline";
-            JLabel statusLabel = new JLabel (status);
-            JPanel detailsPanel = new JPanel(new GridLayout(5,5));
+            }
+            JLabel statusLabel = new JLabel(status);
+            JPanel detailsPanel = new JPanel(new GridLayout(5, 5));
             detailsPanel.add(nameLabel);
             detailsPanel.add(statusLabel);
             JButton profileButton = new JButton("Profile");

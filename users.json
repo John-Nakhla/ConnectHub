@@ -1,47 +1,47 @@
 [
     {
-        "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+        "password": "27480556aaf72c7dbfed3217cf2ed312fdef399f76089d06b249bc76ab3ec50c",
         "profilePhoto": "path/to/photo.jpg",
         "coverPhoto": "path/to/cover.jpg",
         "bio": "Hello, I am John Doe!",
         "dateOfBirth": "1995-05-15",
         "isOnline": true,
-        "userId": "User10011",
+        "userId": "User10001",
         "email": "johndoe@example.com",
-        "friends": [
-            "User10012",
-            "User10013"
-        ],
+        "friends": [],
         "username": "johndoe"
     },
     {
-        "password": "c6ba91b90d922e159893f46c387e5dc1b3dc5c101a5a4522f03b987177a24a91",
+        "password": "e8bdc9852790c6cf7e6b5eae189cfc460c98da72cc07a4a934676cd417cb9d05",
         "profilePhoto": "path/to/photo2.jpg",
         "coverPhoto": "path/to/cover2.jpg",
         "bio": "Hi, I'm Jane Doe!",
         "dateOfBirth": "1998-03-22",
         "isOnline": false,
-        "userId": "User10012",
+        "userId": "User10002",
         "email": "janedoe@example.com",
-        "friends": [
-            "User10011",
-            "User10013"
-        ],
+        "friends": [],
         "username": "janedoe"
     },
     {
-        "password": "c6ba91b90d922e159893f46c387e5dc1b3dc5c101a5a4522f03b987177a24a91",
+        "password": "e8bdc9852790c6cf7e6b5eae189cfc460c98da72cc07a4a934676cd417cb9d05",
         "profilePhoto": "path/to/photo2.jpg",
         "coverPhoto": "path/to/cover2.jpg",
         "bio": "Hi, I'm Jene Doe!",
         "dateOfBirth": "1998-03-22",
         "isOnline": true,
-        "userId": "User10013",
+        "userId": "User10003",
         "email": "janedoe@example.com",
-        "friends": [
-            "User10011",
-            "User10012"
-        ],
+        "friends": [],
         "username": "janedoe"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": true,
+        "userId": "User10004",
+        "email": "john@gmail.com",
+        "friends": [],
+        "username": "john"
     }
 ]
