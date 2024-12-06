@@ -40,9 +40,16 @@ public class SettingsWindow extends javax.swing.JFrame {
         UpdatePassword = new javax.swing.JButton();
         UpdateUsername = new javax.swing.JButton();
         UpdateBio = new javax.swing.JButton();
+        Blocked = new javax.swing.JButton();
+        LogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
+        setForeground(new java.awt.Color(204, 102, 0));
 
+        UpdateProfilePhoto.setBackground(new java.awt.Color(0, 102, 153));
+        UpdateProfilePhoto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        UpdateProfilePhoto.setForeground(new java.awt.Color(255, 255, 255));
         UpdateProfilePhoto.setText("Change Profile Photo");
         UpdateProfilePhoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,6 +57,9 @@ public class SettingsWindow extends javax.swing.JFrame {
             }
         });
 
+        UpdateCoverPhoto.setBackground(new java.awt.Color(0, 102, 153));
+        UpdateCoverPhoto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        UpdateCoverPhoto.setForeground(new java.awt.Color(255, 255, 255));
         UpdateCoverPhoto.setText("Change Cover Photo");
         UpdateCoverPhoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +67,9 @@ public class SettingsWindow extends javax.swing.JFrame {
             }
         });
 
+        UpdatePassword.setBackground(new java.awt.Color(0, 102, 153));
+        UpdatePassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        UpdatePassword.setForeground(new java.awt.Color(255, 255, 255));
         UpdatePassword.setText("Change Password");
         UpdatePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +77,9 @@ public class SettingsWindow extends javax.swing.JFrame {
             }
         });
 
+        UpdateUsername.setBackground(new java.awt.Color(0, 102, 153));
+        UpdateUsername.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        UpdateUsername.setForeground(new java.awt.Color(255, 255, 255));
         UpdateUsername.setText("Change Username");
         UpdateUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,10 +87,33 @@ public class SettingsWindow extends javax.swing.JFrame {
             }
         });
 
+        UpdateBio.setBackground(new java.awt.Color(0, 102, 153));
+        UpdateBio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        UpdateBio.setForeground(new java.awt.Color(255, 255, 255));
         UpdateBio.setText("Change Bio");
         UpdateBio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UpdateBioActionPerformed(evt);
+            }
+        });
+
+        Blocked.setBackground(new java.awt.Color(0, 102, 153));
+        Blocked.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Blocked.setForeground(new java.awt.Color(255, 255, 255));
+        Blocked.setText("Blocked");
+        Blocked.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BlockedActionPerformed(evt);
+            }
+        });
+
+        LogOut.setBackground(new java.awt.Color(0, 102, 153));
+        LogOut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        LogOut.setForeground(new java.awt.Color(255, 255, 255));
+        LogOut.setText("LogOut");
+        LogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogOutActionPerformed(evt);
             }
         });
 
@@ -83,14 +122,21 @@ public class SettingsWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(UpdateProfilePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UpdateCoverPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UpdateUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UpdateBio, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(UpdateProfilePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UpdateCoverPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UpdateUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UpdateBio, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Blocked, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                            .addComponent(LogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +151,11 @@ public class SettingsWindow extends javax.swing.JFrame {
                 .addComponent(UpdateUsername)
                 .addGap(27, 27, 27)
                 .addComponent(UpdateBio)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(Blocked)
+                .addGap(29, 29, 29)
+                .addComponent(LogOut)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,6 +258,19 @@ public class SettingsWindow extends javax.swing.JFrame {
         saveChanges();
     }//GEN-LAST:event_UpdateBioActionPerformed
 
+    private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
+        WelcomePage welcome=new WelcomePage();
+        welcome.setVisible(true);
+        this.dispose();
+        window.dispose();
+    }//GEN-LAST:event_LogOutActionPerformed
+
+    private void BlockedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockedActionPerformed
+       Blocked b= new Blocked(window.user);
+       b.setVisible(true);
+       b.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_BlockedActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -244,6 +307,8 @@ public class SettingsWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Blocked;
+    private javax.swing.JButton LogOut;
     private javax.swing.JButton UpdateBio;
     private javax.swing.JButton UpdateCoverPhoto;
     private javax.swing.JButton UpdatePassword;
