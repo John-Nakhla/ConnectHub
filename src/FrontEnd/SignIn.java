@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
+
 import connecthub.*;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author waelj
@@ -15,6 +17,7 @@ public class SignIn extends javax.swing.JFrame {
      * Creates new form SignIn
      */
     AccountManagement admin;
+
     public SignIn(AccountManagement admin) {
         initComponents();
         this.admin = admin;
@@ -211,20 +214,18 @@ public class SignIn extends javax.swing.JFrame {
         String username = Username.getText();
         char[] p = Password.getPassword();
         String password = "";
-        for(char k :p)
-            password+=k;
+        for (char k : p) {
+            password += k;
+        }
         String day = Day.getText();
         String month = Month.getText();
         String year = Year.getText();
         int y = Integer.parseInt(year);
-        if(!day.matches("\\d+")||!month.matches("\\d+")||!year.matches("\\d+")||y>2024||y<1)
-        {
+        if (!day.matches("\\d+") || !month.matches("\\d+") || !year.matches("\\d+") || y > 2024 || y < 1) {
             JOptionPane.showMessageDialog(null, "Invalid date. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
-            String DOB = day+"-"+month+"-"+year;
-            admin.signup(email,username,password,DOB,null,null,null);
+        } else {
+            String DOB = day + "-" + month + "-" + year;
+            admin.signup(email, username, password, DOB, null, null, null);
         }
     }//GEN-LAST:event_signinActionPerformed
 
