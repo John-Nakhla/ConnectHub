@@ -1,24 +1,24 @@
 [
     {
-        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "password": "35fccec597f243e6fa655206a984a31543f1883f1bafc0f819889550c9069014",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10001",
         "email": "djfjdskf",
-        "friends": [],
+        "friends": ["User10002"],
         "username": "john"
     },
     {
-        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "password": "35fccec597f243e6fa655206a984a31543f1883f1bafc0f819889550c9069014",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10002",
         "email": "waeljohn306@gmail.com",
-        "friends": [],
-        "username": "john"
+        "friends": ["User10001"],
+        "username": "hala"
     },
     {
-        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "password": "35fccec597f243e6fa655206a984a31543f1883f1bafc0f819889550c9069014",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10003",
@@ -27,12 +27,57 @@
         "username": "john"
     },
     {
-        "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+        "password": "f0b29bcb86e7ab3d7267519193a0c5ffb8582178dbf7306d0c2b3cee69855330",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10004",
         "email": "waeljohn306@gmail.com",
         "friends": [],
         "username": "john"
+    },
+    {
+        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10005",
+        "email": "waeljohn30@gmail.com",
+        "friends": [],
+        "username": "john"
+    },
+    {
+        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10006",
+        "email": "waeljohn06@gmail.com",
+        "friends": [],
+        "username": "ahmed"
+    },
+    {
+        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10007",
+        "email": "waeljohn36@gmail.com",
+        "friends": [],
+        "username": "mina"
+    },
+    {
+        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10008",
+        "email": "waeljohn6@gmail.com",
+        "friends": [],
+        "username": "maria"
+    },
+    {
+        "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": false,
+        "userId": "User10010",
+        "email": "waeljohn55@gmail.com",
+        "friends": [],
+        "username": "raef"
     }
 ]

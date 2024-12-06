@@ -118,26 +118,23 @@ public class User {
     public String getPassword() {
         return password;
     }
-    
-    
-    
     public List<User> getFriends() {
         return friends; 
     }
     
-    
-    // Add and Remove friends
+
     public void addFriend(User friend) {
-        if (!friends.contains(friend)) {
+        if (!friends.contains(friend) && !blockedUsers.contains(friend)) {
             friends.add(friend);
         }
     }
     public void removeFriend(User friend) {
-        
+            if(friends.contains(friend)){
             friends.remove(friend);
+            }
     }
     
-    // Send and Receive friend requests
+
     public void sendFriendRequest(User receiver) {
         FriendRequest request = new FriendRequest(this, receiver);
         receiver.receiveFriendRequest(request);
@@ -147,33 +144,30 @@ public class User {
         friendRequests.add(request);
     }
 
-    
-    // Accept and Decline friend requests
+
     public void acceptFriendRequest(FriendRequest request) {
         if (request.getReceiver().equals(this) && request.isPending()) {
             friends.add(request.getSender());
             request.getSender().friends.add(this);
             request.accept();
-            friendRequests.remove(request);
         }
     }
 
     public void declineFriendRequest(FriendRequest request) {
         if (request.getReceiver().equals(this) && request.isPending()) {
             request.decline();
-            friendRequests.remove(request);
         }
     }
 
-    // Block and Unblock a user
     public void blockUser(User user) {
         if (!blockedUsers.contains(user)) {
             blockedUsers.add(user);
-            friends.remove(user);  // Remove from friends if they're blocked
+            friends.remove(user); 
         }
     }
 
     public void unblockUser(User user) {
+        if(blockedUsers.contains(user))
         blockedUsers.remove(user);
     }
 
@@ -203,5 +197,18 @@ public class User {
                 ", status=" + (status ? "Online" : "Offline") +
                 ", friends=" + friends +
                 '}';
+    }
+    public List<User> friendsOfFriends()
+    {
+        List<User> fof = new ArrayList<>();
+        for(User k : this.getFriends())
+        {
+            for(User u : k.getFriends())
+            {
+                if((!this.getFriends().contains(u))&&(!this.isBlocked(u)))
+                    fof.add(u);
+            }
+        }
+        return fof;
     }
 }

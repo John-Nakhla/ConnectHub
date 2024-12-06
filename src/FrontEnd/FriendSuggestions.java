@@ -3,60 +3,58 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package FrontEnd;
-import javax.swing.*;
+
 import connecthub.*;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 /**
  *
  * @author waelj
  */
-public class FriendRequests extends JFrame {
-     public FriendRequests(User u) {
-        setTitle("Friend Requests");
+public class FriendSuggestions extends JFrame {
+    public FriendSuggestions(User u) {
+        setTitle("Friend Suggestions");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        List<FriendRequest> requests = u.getFriendRequests();
-        for (FriendRequest k : requests) {
+        List<User> suggestions = u.friendsOfFriends();
+        for (User k : suggestions) {
             JPanel objectPanel = new JPanel(new BorderLayout());
-            JLabel nameLabel = new JLabel("Name: " + k.getSender().getUsername());
-            JPanel detailsPanel = new JPanel(new GridLayout(5,5));
+            JLabel nameLabel = new JLabel("Name: " + k.getUsername());
+            JPanel detailsPanel = new JPanel(new GridLayout(5, 5));
             detailsPanel.add(nameLabel);
             JButton profileButton = new JButton("Profile");
-            JButton acceptButton = new JButton("Accept");
-            JButton declineButton = new JButton("Decline");
+            JButton addButton = new JButton("Add");
             profileButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Profile p = new Profile(k.getSender());
+                    Profile p = new Profile(k);
                     p.setVisible(true);
                 }
             });
-            acceptButton.addActionListener(new ActionListener() {
+            addButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    u.acceptFriendRequest(k);
-                    JOptionPane.showMessageDialog(FriendRequests.this, "Accepted");
-                    mainPanel.remove(objectPanel);
-                }
-            });
-            declineButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    u.declineFriendRequest(k);
-                    JOptionPane.showMessageDialog(FriendRequests.this, "Declined");
+                    u.sendFriendRequest(k);
+                    JOptionPane.showMessageDialog(FriendSuggestions.this, "Friend request sent");
                     mainPanel.remove(objectPanel);
                 }
             });
             JPanel buttonPanel = new JPanel();
             buttonPanel.add(profileButton);
-            buttonPanel.add(acceptButton);
-            buttonPanel.add(declineButton);
+            buttonPanel.add(addButton);
             objectPanel.add(detailsPanel, BorderLayout.CENTER);
             objectPanel.add(buttonPanel, BorderLayout.SOUTH);
             mainPanel.add(objectPanel);
