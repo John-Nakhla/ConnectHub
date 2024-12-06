@@ -1,0 +1,110 @@
+<<<<<<< Updated upstream
+[
+    {
+        "password": "9bf75c2b9e4237fdb2a8cf853dc7c20ca4d05ac9ca7cc2e749a3d13f983cf063",
+        "profilePhoto": "path/to/photo.jpg",
+        "coverPhoto": "path/to/cover.jpg",
+        "bio": "Hello, I am John Doe!",
+        "dateOfBirth": "1995-05-15",
+        "isOnline": false,
+        "userId": "User10001",
+        "email": "johndoe@example.com",
+        "friends": [],
+        "username": "johndoe"
+    },
+    {
+        "password": "47cb0339d21fe6c9bfda91c09df56c7017c2e32328b6e1c6350d50cd24cf06fa",
+        "profilePhoto": "path/to/photo2.jpg",
+        "coverPhoto": "path/to/cover2.jpg",
+        "bio": "Hi, I'm Jane Doe!",
+        "dateOfBirth": "1998-03-22",
+        "isOnline": false,
+        "userId": "User10002",
+        "email": "janedoe@example.com",
+        "friends": [],
+        "username": "janedoe"
+    },
+    {
+        "password": "47cb0339d21fe6c9bfda91c09df56c7017c2e32328b6e1c6350d50cd24cf06fa",
+        "profilePhoto": "path/to/photo2.jpg",
+        "coverPhoto": "path/to/cover2.jpg",
+        "bio": "Hi, I'm Jene Doe!",
+        "dateOfBirth": "1998-03-22",
+        "isOnline": false,
+        "userId": "User10003",
+        "email": "janedoe@example.com",
+        "friends": [],
+        "username": "janedoe"
+    },
+    {
+        "password": "4249353bc07b403829a3a5c9cc9249bafd0ce93b6a6fb16a8172ba4b684cc6c3",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": false,
+        "userId": "User10004",
+        "email": "john@gmail.com",
+        "friends": [],
+        "username": "john"
+    },
+    {
+        "password": "a777eea513029eef28a41a5eec45fda5b34a924acc93200d70e1f6c144e2fbf6",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "25-6-2000",
+        "isOnline": false,
+        "userId": "User10006",
+        "email": "wael38@gmail.com",
+        "friends": [],
+        "username": "kamal"
+    },
+    {
+        "password": "b6067ac8d7e67100cac56f34a931601de0170d7d27630c89cff266e7dc5c095a",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "25-6-2000",
+        "isOnline": false,
+        "userId": "User10005",
+        "email": "john389@gmail.com",
+        "friends": [],
+        "username": "kamolya"
+    },
+    {
+        "password": "dd4fa9de1f8e98693b34f9dacefae9bbfd97c9721720bb913ccedec95371d7f2",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "25-6-2000",
+        "isOnline": true,
+        "userId": "User10007",
+        "email": "john3589@gmail.com",
+        "friends": [],
+        "username": "tony"
+    },
+    {
+        "password": "1c91ab1c162fd0cae60a5bb9880f3e7d5a133a65b6057a644b26973d9c55dcfe",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "25-6-2000",
+        "isOnline": true,
+        "userId": "User10008",
+        "email": "waelnakhla38@gmail.com",
+        "friends": [],
+        "username": "kamal"
+    }
+]
+=======
+[{
+    "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "dateOfBirth": "1-5-2003",
+    "isOnline": true,
+    "userId": "User10001",
+    "email": "john@gmail.com",
+    "friends": [],
+    "username": "john121212"
+}]
+>>>>>>> Stashed changes
