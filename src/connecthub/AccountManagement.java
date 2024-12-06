@@ -1,5 +1,5 @@
 
-package connecthub;
+package backend;
 
 import java.util.*;
 import java.util.regex.*;
@@ -13,6 +13,7 @@ public class AccountManagement {
         loadUsers();
     }
     
+    // sign up a new user and save in the file
     public boolean signup(String email, String username, String password, String dateOfBirth, String profilePhoto, String coverPhoto, String bio) {
         if (!isValidEmail(email) || emailExists(email)) {
             return false;
@@ -28,6 +29,7 @@ public class AccountManagement {
         return true;
     }
     
+    // login a user and set as Online
     public User login(String email, String password) {
         for (User user : Users) {
             if (user.getEmail().equals(email) && user.checkPassword(password)) {
@@ -40,11 +42,14 @@ public class AccountManagement {
     }
 
 
+    // logout a user and set as Offline
     public void logout(User user) {
         user.setStatus(false);
         saveUsers(); 
     }
     
+    
+    // Helping methods
     private boolean emailExists(String email) {
         
         for (User user : Users) {

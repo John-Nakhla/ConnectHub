@@ -21,6 +21,7 @@ public class Content {
         this.isStory = isStory;
     }
 
+    // Getters
     public String getContentId() {
         return contentId;
     }
