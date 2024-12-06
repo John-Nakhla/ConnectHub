@@ -1,19 +1,18 @@
-
-package backend;
+package connecthub;
 
 import java.util.*;
 
-
 public class NewsFeed {
+
     private final UsersDatabase usersDatabase;
     private final List<Content> allPosts;
 
     public NewsFeed(UsersDatabase usersDatabase) {
         this.usersDatabase = usersDatabase;
         this.allPosts = new ArrayList<>();
-        
+
     }
-        
+
     // friend posts and stories
     public List<Content> PostsAndStories(User user) {
         List<Content> friendPosts = new ArrayList<>();
@@ -69,10 +68,10 @@ public class NewsFeed {
         }
         return null;
     }
-    
+
     // returns all posts only 
-    public List<Content> getPostsOnly() {
-        List<Content> posts = new ArrayList<>();
+    public ArrayList<Content> getPostsOnly() {
+        ArrayList<Content> posts = new ArrayList<>();
         for (Content post : allPosts) {
             if (!post.isStory()) {
                 posts.add(post);
@@ -91,7 +90,7 @@ public class NewsFeed {
         }
         return stories;
     }
-    
+
     // returns a content of a specific user 
     public List<Content> getContentById(String id) {
         List<Content> content = new ArrayList<>();
@@ -103,4 +102,3 @@ public class NewsFeed {
         return content;
     }
 }
-

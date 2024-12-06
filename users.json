@@ -1,6 +1,6 @@
 [
     {
-        "password": "04a24e8195382cbfe6c81dda873d2be49b13c1bd09b01f0bfeeba952de3c59cd",
+        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -12,7 +12,7 @@
         "username": "john"
     },
     {
-        "password": "04a24e8195382cbfe6c81dda873d2be49b13c1bd09b01f0bfeeba952de3c59cd",
+        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -24,7 +24,7 @@
         "username": "hala"
     },
     {
-        "password": "04a24e8195382cbfe6c81dda873d2be49b13c1bd09b01f0bfeeba952de3c59cd",
+        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -36,7 +36,7 @@
         "username": "john"
     },
     {
-        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
+        "password": "04a24e8195382cbfe6c81dda873d2be49b13c1bd09b01f0bfeeba952de3c59cd",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -48,7 +48,7 @@
         "username": "john"
     },
     {
-        "password": "a0b83a7e9f8a1839ba6082143ab8c76caf6fd187c04df47758f27e09ae5d0daa",
+        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -60,7 +60,7 @@
         "username": "john"
     },
     {
-        "password": "a0b83a7e9f8a1839ba6082143ab8c76caf6fd187c04df47758f27e09ae5d0daa",
+        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -72,7 +72,7 @@
         "username": "ahmed"
     },
     {
-        "password": "a0b83a7e9f8a1839ba6082143ab8c76caf6fd187c04df47758f27e09ae5d0daa",
+        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -84,7 +84,7 @@
         "username": "mina"
     },
     {
-        "password": "a0b83a7e9f8a1839ba6082143ab8c76caf6fd187c04df47758f27e09ae5d0daa",
+        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -96,7 +96,7 @@
         "username": "maria"
     },
     {
-        "password": "bdb22ef243e253d52798b170cc92c99ecfb41a2682f56ff445ea0fea3e99279f",
+        "password": "a0b83a7e9f8a1839ba6082143ab8c76caf6fd187c04df47758f27e09ae5d0daa",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -106,5 +106,14 @@
         "email": "waeljohn55@gmail.com",
         "friends": [],
         "username": "raef"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": false,
+        "userId": "User10010",
+        "email": "john@gmail.com",
+        "friends": [],
+        "username": "john1212"
     }
 ]

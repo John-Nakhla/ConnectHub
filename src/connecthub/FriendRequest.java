@@ -1,5 +1,5 @@
 
-package backend;
+package connecthub;
 
 public class FriendRequest {
     private final User sender;

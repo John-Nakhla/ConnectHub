@@ -7,18 +7,19 @@ package FrontEnd;
 import java.awt.*;
 import javax.swing.*;
 import connecthub.*;
-import org.json.JSONArray;
+import java.util.*;
 
 /**
  *
  * @author John
  */
 public class NewsFeedWindow extends javax.swing.JFrame {
-    
+
     private User user;
+    private UsersDatabase usersDatabase = new UsersDatabase();
+    private NewsFeed newsFeed = new NewsFeed(usersDatabase);
+    private ArrayList<Content> posts;
     private ContentDatabase contentDatabase = new ContentDatabase();
-    private JSONArray contentJsonArray = contentDatabase.loadContent();
-    private Content[] contentArray;
 
     /**
      * Creates new form ProfileWindow
@@ -27,10 +28,11 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
     public NewsFeedWindow(User user) {
         this.user = user;
-        for (int i = 0; i < contentJsonArray.length(); i++) {
-            System.out.println(contentJsonArray.get(i));
+        posts = newsFeed.getPostsOnly();
+        for (int i = 0; i < posts.size(); i++) {
+            System.out.println(posts.get(i));
         }
-        
+
         initComponents();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         storiesPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Spacing between stories
@@ -161,10 +163,10 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         CreateContentWindow content = new CreateContentWindow(this, true, "s");
         content.pack();
         content.setVisible(true);
-        
+
         String contentText = content.getContentText();
         String contentImgDir = content.getContentImgDir();
-        
+
         if (!"".equals(contentText) || !"".equals(contentImgDir)) {
             Story story = new Story(contentText, contentImgDir);
             story.setMaximumSize(new Dimension(550, story.getPreferredSize().height));
@@ -179,10 +181,10 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         CreateContentWindow content = new CreateContentWindow(this, true, "p");
         content.pack();
         content.setVisible(true);
-        
+
         String contentText = content.getContentText();
         String contentImgDir = content.getContentImgDir();
-        
+
         if (!"".equals(contentText) || !"".equals(contentImgDir)) {
 //            Post post = new Post(contentText, contentImgDir);
             Post post = new Post(contentText, contentImgDir);

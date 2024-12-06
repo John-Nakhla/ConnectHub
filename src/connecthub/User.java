@@ -1,5 +1,5 @@
 
-package backend;
+package connecthub;
 
 import java.security.MessageDigest;
 import java.util.*;
