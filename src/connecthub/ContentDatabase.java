@@ -67,7 +67,6 @@ public class ContentDatabase {
             boolean isStory = contentObj.getBoolean("isStory");
             LocalDateTime timestamp = LocalDateTime.parse(contentObj.getString("timestamp"));
             
-            // Keep stories less than 24 hours old and all posts
             if (!isStory || java.time.Duration.between(timestamp, now).toHours() < 24) {
                 updatedArray.put(contentObj);
             }
@@ -86,7 +85,7 @@ public class ContentDatabase {
         contentList.sort((a, b) -> {
             LocalDateTime timeA = LocalDateTime.parse(a.getString("timestamp"));
             LocalDateTime timeB = LocalDateTime.parse(b.getString("timestamp"));
-            return timeB.compareTo(timeA);  // Descending order
+            return timeB.compareTo(timeA); 
         });
 
         return new JSONArray(contentList);
