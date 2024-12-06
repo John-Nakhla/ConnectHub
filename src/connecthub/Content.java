@@ -1,5 +1,5 @@
 
-package connecthub;
+package backend;
 
 import org.json.*;
 import java.time.LocalDateTime;
@@ -21,6 +21,7 @@ public class Content {
         this.isStory = isStory;
     }
 
+    // Getters
     public String getContentId() {
         return contentId;
     }

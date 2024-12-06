@@ -1,5 +1,5 @@
 
-package connecthub;
+package backend;
 
 import java.util.*;
 
@@ -14,6 +14,7 @@ public class NewsFeed {
         
     }
         
+    // friend posts and stories
     public List<Content> PostsAndStories(User user) {
         List<Content> friendPosts = new ArrayList<>();
 
@@ -29,6 +30,7 @@ public class NewsFeed {
         return friendPosts;
     }
 
+    // friends' status 
     public List<String> listFriendsWithStatus(User user) {
         List<String> friendsStatus = new ArrayList<>();
 
@@ -43,6 +45,7 @@ public class NewsFeed {
         return friendsStatus;
     }
 
+    // friend suggestions
     public List<String> getFriendSuggestions(String userId) {
         List<String> suggestions = new ArrayList<>();
         User currentUser = getUserById(userId);
@@ -57,7 +60,7 @@ public class NewsFeed {
         return suggestions;
     }
 
-
+    // returns user with a given id
     public User getUserById(String userId) {
         for (User user : usersDatabase.loadUsers()) {
             if (user.getUserId().equals(userId)) {
@@ -67,6 +70,7 @@ public class NewsFeed {
         return null;
     }
     
+    // returns all posts only 
     public List<Content> getPostsOnly() {
         List<Content> posts = new ArrayList<>();
         for (Content post : allPosts) {
@@ -77,6 +81,7 @@ public class NewsFeed {
         return posts;
     }
 
+    // returns all stories only 
     public List<Content> getStoriesOnly() {
         List<Content> stories = new ArrayList<>();
         for (Content post : allPosts) {
@@ -87,6 +92,7 @@ public class NewsFeed {
         return stories;
     }
     
+    // returns a content of a specific user 
     public List<Content> getContentById(String id) {
         List<Content> content = new ArrayList<>();
         for (Content post : allPosts) {

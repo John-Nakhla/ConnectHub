@@ -1,5 +1,5 @@
 
-package connecthub;
+package backend;
 
 import java.security.MessageDigest;
 import java.util.*;
@@ -39,6 +39,8 @@ public class User {
         users_count++; 
         return "User" + users_count;
     }
+    
+    // generates hashed password to save in the file
     private String generatePassword(String password){
         try {
             MessageDigest message = MessageDigest.getInstance("SHA-256");
@@ -53,10 +55,12 @@ public class User {
         }
     }
     
+    // checks a password: used in login
     public boolean checkPassword(String password) {
         return this.password.equals(generatePassword(password));
     }
-
+    
+    // Getters
     public String getUserId() {
         return userId;
     }
@@ -69,25 +73,8 @@ public class User {
         return username;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-
     public String getDOB() {
         return DOB;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getProfilePhoto() {
@@ -101,7 +88,29 @@ public class User {
     public String getBio() {
         return bio;
     }
+
+    public String getPassword() {
+        return password;
+    }   
     
+    public boolean isStatus() {
+        return status;
+    }
+
+    
+    // Setters
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public void changeProfilePhoto(String path)
     {
         this.profilePhoto = path;
@@ -115,26 +124,23 @@ public class User {
         this.bio = bio;
     }
 
-    public String getPassword() {
-        return password;
-    }
-    public List<User> getFriends() {
-        return friends; 
-    }
     
+    // FRIENDS MANAGEMENT PART
 
+    // add or remove a friend
     public void addFriend(User friend) {
         if (!friends.contains(friend) && !blockedUsers.contains(friend)) {
             friends.add(friend);
         }
     }
     public void removeFriend(User friend) {
-            if(friends.contains(friend)){
+        if(friends.contains(friend)){
             friends.remove(friend);
             }
     }
     
-
+    
+    // send or recieve a request
     public void sendFriendRequest(User receiver) {
         FriendRequest request = new FriendRequest(this, receiver);
         receiver.receiveFriendRequest(request);
@@ -145,6 +151,7 @@ public class User {
     }
 
 
+    // accept or decline a request
     public void acceptFriendRequest(FriendRequest request) {
         if (request.getReceiver().equals(this) && request.isPending()) {
             friends.add(request.getSender());
@@ -159,6 +166,8 @@ public class User {
         }
     }
 
+    
+    // block or unblock a user
     public void blockUser(User user) {
         if (!blockedUsers.contains(user)) {
             blockedUsers.add(user);
@@ -171,12 +180,16 @@ public class User {
         blockedUsers.remove(user);
     }
 
-
-
+    // check if user is blocked
     public boolean isBlocked(User user) {
         return blockedUsers.contains(user);
     }
+    
 
+    // Getters for: {friends, friend requests, mutual friends, blocked users} lists
+    public List<User> getFriends() {
+        return friends; 
+    }
 
     public List<FriendRequest> getFriendRequests() {
         return friendRequests;
@@ -186,18 +199,6 @@ public class User {
         return blockedUsers;
     }
 
-    
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", dateOfBirth='" + DOB + '\'' +
-                ", status=" + (status ? "Online" : "Offline") +
-                ", friends=" + friends +
-                '}';
-    }
     public List<User> friendsOfFriends()
     {
         List<User> fof = new ArrayList<>();
@@ -210,5 +211,19 @@ public class User {
             }
         }
         return fof;
+    }    
+    
+    
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", dateOfBirth='" + DOB + '\'' +
+                ", status=" + (status ? "Online" : "Offline") +
+                ", friends=" + friends +
+                '}';
     }
+
 }

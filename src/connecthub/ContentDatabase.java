@@ -1,5 +1,5 @@
 
-package connecthub;
+package backend;
 
 import org.json.*;
 import java.io.*;
