@@ -47,7 +47,6 @@ public class UsersDatabase {
                         userJson.optString("coverPhoto", ""),
                         userJson.optString("bio", "")
                 );
-                user.setRealPassword(userJson.getString("password"));
                 user.status = userJson.getBoolean("isOnline");
                 user.setID(userJson.getString("userId"));
                 users.add(user);
