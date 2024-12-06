@@ -1,5 +1,5 @@
 
-package backend;
+package connecthub;
 
 import org.json.*;
 import java.time.LocalDateTime;
