@@ -1,13 +1,10 @@
-
 package FrontEnd;
 
 import connecthub.*;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 
-
 public class SignUpPage extends javax.swing.JFrame {
-
 
     AccountManagement admin;
 
@@ -200,7 +197,6 @@ public class SignUpPage extends javax.swing.JFrame {
     private void MonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MonthActionPerformed
     }//GEN-LAST:event_MonthActionPerformed
 
-    
     // Signing up the user and then moves to the newsfeed window
     private void signupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupActionPerformed
         User user = null;
@@ -215,20 +211,20 @@ public class SignUpPage extends javax.swing.JFrame {
         String month = Month.getText();
         String year = Year.getText();
         int y = Integer.parseInt(year);
+
         if (!day.matches("\\d+") || !month.matches("\\d+") || !year.matches("\\d+") || y > 2024 || y < 1) {
             JOptionPane.showMessageDialog(null, "Invalid date. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-        } 
-        else {
+        } else {
             String DOB = day + "-" + month + "-" + year;
-            
-            if(admin.signup(email, username, password, DOB, null, null, null)!=null)
+
+            if (admin.signup(email, username, password, DOB, null, null, null) != null) {
                 user = admin.login(email, password);
+            }
         }
-        
+
         if (user == null) {
-                JOptionPane.showMessageDialog(this, "Invalid Inputs", "Input error", JOptionPane.ERROR_MESSAGE);
-            } 
-        else {
+            JOptionPane.showMessageDialog(this, "Invalid Inputs", "Input error", JOptionPane.ERROR_MESSAGE);
+        } else {
             NewsFeedWindow newsFeed = new NewsFeedWindow(user);
             newsFeed.setVisible(true);
             dispose();

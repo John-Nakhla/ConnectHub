@@ -28,22 +28,17 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="storiesScrollPanel" min="-2" pref="592" max="-2" attributes="0"/>
                   <Component id="postsScrollPanel" max="32767" attributes="0"/>
-                  <Component id="createStoryBtn" min="-2" max="-2" attributes="0"/>
-                  <Component id="createPostBtn" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="myprofilr" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel2" alignment="1" min="-2" pref="185" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jLabel1" min="-2" pref="185" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="myProfileBtn" max="32767" attributes="0"/>
+                  <Component id="refreshBtn" max="32767" attributes="0"/>
+                  <Component id="myFriendsBtn" alignment="0" max="32767" attributes="0"/>
+                  <Component id="friendSuggestionsBtn" alignment="0" max="32767" attributes="0"/>
+                  <Component id="createStoryBtn" max="32767" attributes="0"/>
+                  <Component id="createPostBtn" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,52 +46,37 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="myprofilr" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="241" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="268" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="storiesScrollPanel" min="-2" pref="119" max="-2" attributes="0"/>
+                      <Component id="refreshBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="myProfileBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="myFriendsBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="friendSuggestionsBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="createStoryBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="postsScrollPanel" pref="0" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="createPostBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="storiesScrollPanel" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="postsScrollPanel" pref="362" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="myprofilr">
+    <Component class="javax.swing.JButton" name="myProfileBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="My Profile"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myprofilrActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myProfileBtnActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Friends suggestion area"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Friends online area"/>
-      </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="storiesScrollPanel">
 
@@ -112,7 +92,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="146" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="166" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -156,10 +136,29 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createPostBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="refreshBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Refresh"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="myFriendsBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="My  Friends"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myFriendsBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="friendSuggestionsBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Friend Suggestion"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="friendSuggestionsBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -25,7 +25,7 @@ import javax.swing.JScrollPane;
 public class FriendSuggestions extends JFrame {
     public FriendSuggestions(User u) {
         setTitle("Friend Suggestions");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));

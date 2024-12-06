@@ -1,6 +1,6 @@
 [
     {
-        "password": "124682e4ba20b7e43a7379d8dc80c229bb9a70e07be3445a57efaf3637119ed3",
+        "password": "27480556aaf72c7dbfed3217cf2ed312fdef399f76089d06b249bc76ab3ec50c",
         "profilePhoto": "path/to/photo.jpg",
         "coverPhoto": "path/to/cover.jpg",
         "bio": "Hello, I am John Doe!",
@@ -12,7 +12,7 @@
         "username": "johndoe"
     },
     {
-        "password": "2f472cfab748c064200f39eb49b4f7b4dabb0184916e90f675dd124a7f62eeac",
+        "password": "e8bdc9852790c6cf7e6b5eae189cfc460c98da72cc07a4a934676cd417cb9d05",
         "profilePhoto": "path/to/photo2.jpg",
         "coverPhoto": "path/to/cover2.jpg",
         "bio": "Hi, I'm Jane Doe!",
@@ -24,7 +24,7 @@
         "username": "janedoe"
     },
     {
-        "password": "2f472cfab748c064200f39eb49b4f7b4dabb0184916e90f675dd124a7f62eeac",
+        "password": "e8bdc9852790c6cf7e6b5eae189cfc460c98da72cc07a4a934676cd417cb9d05",
         "profilePhoto": "path/to/photo2.jpg",
         "coverPhoto": "path/to/cover2.jpg",
         "bio": "Hi, I'm Jene Doe!",
@@ -36,27 +36,12 @@
         "username": "janedoe"
     },
     {
-        "password": "8af14af5a6275283755a68b923ff59f91972fe4c766cb86829ec7eecf6367289",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "25-6-2000",
-        "isOnline": false,
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": true,
         "userId": "User10004",
-        "email": "john389@gmail.com",
+        "email": "john@gmail.com",
         "friends": [],
-        "username": "tony"
-    },
-    {
-        "password": "8af14af5a6275283755a68b923ff59f91972fe4c766cb86829ec7eecf6367289",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "25-6-2000",
-        "isOnline": false,
-        "userId": "User10005",
-        "email": "wael38@gmail.com",
-        "friends": [],
-        "username": "kamolya"
+        "username": "john"
     }
 ]

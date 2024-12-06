@@ -141,7 +141,7 @@ public class LogInPage extends javax.swing.JFrame {
             p += k;
         }
         User user = admin.login(email, p);
-        if (user != null) {
+        if (user == null) {
             JOptionPane.showMessageDialog(this, "User not found", "Input error", JOptionPane.ERROR_MESSAGE);
         } 
         else {

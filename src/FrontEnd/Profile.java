@@ -1,4 +1,3 @@
-
 package FrontEnd;
 
 import connecthub.Content;
@@ -11,48 +10,46 @@ import javax.swing.*;
 import java.util.List;
 import org.json.JSONArray;
 
-
 public class Profile extends javax.swing.JFrame {
-    
+
     User user;
 
     public Profile(User user) {
         initComponents();
-        this.user=user;
+        this.user = user;
 
-        
         loadCoverPhoto();
         loadProfilePhoto();
         loadUserDetails();
         loadUserPosts();
-        loadUserFriends();  
-  
+        loadUserFriends();
+
     }
+
     private void loadCoverPhoto() {
         try {
-        Image coverPhoto = new ImageIcon(user.getCoverPhoto()).getImage();
-        Image scaledCoverPhoto = coverPhoto.getScaledInstance(CoverPhotoPanel.getWidth(), CoverPhotoPanel.getHeight(), Image.SCALE_SMOOTH);
+            Image coverPhoto = new ImageIcon(user.getCoverPhoto()).getImage();
+            Image scaledCoverPhoto = coverPhoto.getScaledInstance(CoverPhotoPanel.getWidth(), CoverPhotoPanel.getHeight(), Image.SCALE_SMOOTH);
 
+            JPanel coverPhotoPanel = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(scaledCoverPhoto, 0, 0, getWidth(), getHeight(), this);
+                }
+            };
+            coverPhotoPanel.setBounds(0, 0, CoverPhotoPanel.getWidth(), CoverPhotoPanel.getHeight());
+            CoverPhotoPanel.add(coverPhotoPanel);
+            CoverPhotoPanel.repaint();
+            loadProfilePhoto();
 
-        JPanel coverPhotoPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(scaledCoverPhoto, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-        coverPhotoPanel.setBounds(0, 0, CoverPhotoPanel.getWidth(), CoverPhotoPanel.getHeight());
-        CoverPhotoPanel.add(coverPhotoPanel);
-        CoverPhotoPanel.repaint();
-        loadProfilePhoto();
-        
-        // Ensure the panel updates
-       } catch (Exception e) {
-           JLabel errorLabel = new JLabel("Cover Photo Not Available");
-           errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-           CoverPhotoPanel.add(errorLabel);
-           CoverPhotoPanel.repaint();
-       }
+            // Ensure the panel updates
+        } catch (Exception e) {
+            JLabel errorLabel = new JLabel("Cover Photo Not Available");
+            errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            CoverPhotoPanel.add(errorLabel);
+            CoverPhotoPanel.repaint();
+        }
     }
 
     private void loadProfilePhoto() {
@@ -69,7 +66,7 @@ public class Profile extends javax.swing.JFrame {
             };
             profilePhotoPanel.setBounds(0, 0, ProfilePhotoPanel.getWidth(), ProfilePhotoPanel.getHeight());
             ProfilePhotoPanel.add(profilePhotoPanel);
-            ProfilePhotoPanel.repaint(); 
+            ProfilePhotoPanel.repaint();
             loadUserDetails();
         } catch (Exception e) {
             JLabel errorLabel = new JLabel("Profile Photo Not Available");
@@ -92,11 +89,10 @@ public class Profile extends javax.swing.JFrame {
         UsersDatabase db = new UsersDatabase();
         db.loadUsers();
 
-
         NewsFeed myContent = new NewsFeed(db);
 
         for (Content content : myContent.getContentById(user.getUserId())) {
-            
+
             String contentText = content.getContent();
             String contentImgDir = content.getImg();
 
@@ -116,7 +112,7 @@ public class Profile extends javax.swing.JFrame {
         PostsPanelScroll.setViewportView(postsPanel);
 
     }
-    
+
     private void loadUserFriends() {
         JPanel friendsPanel = new JPanel();
         friendsPanel.setLayout(new BoxLayout(friendsPanel, BoxLayout.Y_AXIS));
@@ -126,16 +122,17 @@ public class Profile extends javax.swing.JFrame {
             friendLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             friendsPanel.add(friendLabel);
         }
-            friendsPanel.revalidate();
-            friendsPanel.repaint();
+        friendsPanel.revalidate();
+        friendsPanel.repaint();
         FriendsPanelScroll.setViewportView(friendsPanel);
     }
+
     public void reloadProfileDetails() {
-        loadCoverPhoto();  
-        loadProfilePhoto(); 
-        loadUserDetails();   
-        loadUserFriends();  
-        
+        loadCoverPhoto();
+        loadProfilePhoto();
+        loadUserDetails();
+        loadUserFriends();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -334,9 +331,9 @@ public class Profile extends javax.swing.JFrame {
     }//GEN-LAST:event_settingsActionPerformed
 
     private void retrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrunActionPerformed
-//        NewsFeed newsfeedWindow = new NewsFeed();
-//        newsfeedWindow.setVisible(true);
-//        this.setVisible(false);
+        NewsFeedWindow newsFeed = new NewsFeedWindow(user);
+        newsFeed.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_retrunActionPerformed
 
     /**
@@ -368,7 +365,6 @@ public class Profile extends javax.swing.JFrame {
 
         UsersDatabase database = new UsersDatabase();
         database.loadUsers();
-        
 
         // Step 1: Create a new list of users
         java.util.List<User> users = new ArrayList<>();
@@ -421,7 +417,7 @@ public class Profile extends javax.swing.JFrame {
 
         // Step 2: Save the users to a JSON file
         database.saveUsers(users);
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
