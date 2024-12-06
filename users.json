@@ -1,6 +1,6 @@
 [
     {
-        "password": "d294ee4414d5a2282151b5cecddb4bc50bb7fe22ae9be1943d335c862e274d5a",
+        "password": "9bf75c2b9e4237fdb2a8cf853dc7c20ca4d05ac9ca7cc2e749a3d13f983cf063",
         "profilePhoto": "path/to/photo.jpg",
         "coverPhoto": "path/to/cover.jpg",
         "bio": "Hello, I am John Doe!",
@@ -12,7 +12,7 @@
         "username": "johndoe"
     },
     {
-        "password": "bb735e92599795d7e590464df0e6fe5080f214fa5860d7afe0fcda7df03bddee",
+        "password": "47cb0339d21fe6c9bfda91c09df56c7017c2e32328b6e1c6350d50cd24cf06fa",
         "profilePhoto": "path/to/photo2.jpg",
         "coverPhoto": "path/to/cover2.jpg",
         "bio": "Hi, I'm Jane Doe!",
@@ -24,7 +24,7 @@
         "username": "janedoe"
     },
     {
-        "password": "bb735e92599795d7e590464df0e6fe5080f214fa5860d7afe0fcda7df03bddee",
+        "password": "47cb0339d21fe6c9bfda91c09df56c7017c2e32328b6e1c6350d50cd24cf06fa",
         "profilePhoto": "path/to/photo2.jpg",
         "coverPhoto": "path/to/cover2.jpg",
         "bio": "Hi, I'm Jene Doe!",
@@ -36,7 +36,7 @@
         "username": "janedoe"
     },
     {
-        "password": "e623b619a2e76d4dd697f2f7cba267d14f075c4ff860b8881fa408686f79de9d",
+        "password": "4249353bc07b403829a3a5c9cc9249bafd0ce93b6a6fb16a8172ba4b684cc6c3",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -48,7 +48,7 @@
         "username": "john"
     },
     {
-        "password": "1dae9310f2e85ea9678d4f92954d14ffba34a1e704f49118ad121ff8139a74f7",
+        "password": "a777eea513029eef28a41a5eec45fda5b34a924acc93200d70e1f6c144e2fbf6",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -60,7 +60,7 @@
         "username": "kamal"
     },
     {
-        "password": "5847c674719a7244d1056549c8fe9efa7c49432fbbc0154fb7295d3d825e1676",
+        "password": "b6067ac8d7e67100cac56f34a931601de0170d7d27630c89cff266e7dc5c095a",
         "profilePhoto": "",
         "coverPhoto": "",
         "bio": "",
@@ -70,5 +70,29 @@
         "email": "john389@gmail.com",
         "friends": [],
         "username": "kamolya"
+    },
+    {
+        "password": "dd4fa9de1f8e98693b34f9dacefae9bbfd97c9721720bb913ccedec95371d7f2",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "25-6-2000",
+        "isOnline": true,
+        "userId": "User10007",
+        "email": "john3589@gmail.com",
+        "friends": [],
+        "username": "tony"
+    },
+    {
+        "password": "1c91ab1c162fd0cae60a5bb9880f3e7d5a133a65b6057a644b26973d9c55dcfe",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "25-6-2000",
+        "isOnline": true,
+        "userId": "User10008",
+        "email": "waelnakhla38@gmail.com",
+        "friends": [],
+        "username": "kamal"
     }
 ]

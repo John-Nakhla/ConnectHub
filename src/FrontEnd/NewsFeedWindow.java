@@ -38,6 +38,10 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         refresh();
     }
 
+    private NewsFeedWindow() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -294,7 +298,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         User u1 = new User("waeljohn389@gmail.com", "ayman", "1456", "25-6-2000", null, null, null);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewsFeedWindow(u1).setVisible(true);
+                new NewsFeedWindow().setVisible(true);
             }
         });
     }
