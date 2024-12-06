@@ -42,7 +42,10 @@ public class User {
     {
         this.password = generatePassword(password);
     }
-    
+    public void setRealPassword(String password)
+    {
+        this.password = password;
+    }
     // generates hashed password to save in the file
     private String generatePassword(String password){
         try {
