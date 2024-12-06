@@ -5,20 +5,20 @@ import java.security.MessageDigest;
 import java.util.*;
 
 public class User {
-    private final String userId;
+    private String userId;
     private String email;
     private String username;
-    private final String password;
-    private final String DOB;
+    private String password;
+    private String DOB;
     private boolean status;
     private String profilePhoto;
     private String coverPhoto;
     private String bio;
-    private final List<User> friends;
-    private final List<FriendRequest> friendRequests;
-    private final List<User> blockedUsers; 
+    private  List<User> friends;
+    private  List<FriendRequest> friendRequests;
+    private  List<User> blockedUsers; 
     private static int users_count=10000;
-
+    private UsersDatabase database = new UsersDatabase();
     public User(String email, String username, String password, String DOB, String profilePhoto, String coverPhoto, String bio) {
         this.userId = UniqueId();
         this.email = email;
@@ -37,6 +37,10 @@ public class User {
     private String UniqueId(){
         users_count++; 
         return "User" + users_count;
+    }
+    public void setPassword(String password)
+    {
+        this.password = generatePassword(password);
     }
     
     // generates hashed password to save in the file
@@ -83,6 +87,10 @@ public class User {
     public String getCoverPhoto() {
         return coverPhoto;
     }
+    public void setID(String id)
+    {
+        this.userId = id;
+    }
 
     public String getBio() {
         return bio;
@@ -100,27 +108,33 @@ public class User {
     // Setters
     public void setStatus(boolean status) {
         this.status = status;
+        database.refresh(this);
     }
 
     public void setEmail(String email) {
         this.email = email;
+        database.refresh(this);
     }
 
     public void setUsername(String username) {
         this.username = username;
+        database.refresh(this);
     }
 
     public void changeProfilePhoto(String path)
     {
         this.profilePhoto = path;
+        database.refresh(this);
     }
     public void changeCoverPhoto(String path)
     {
         this.coverPhoto = path;
+        database.refresh(this);
     }
     public void changeBio(String bio)
     {
         this.bio = bio;
+        database.refresh(this);
     }
     // FRIENDS MANAGEMENT PART
 
@@ -133,6 +147,7 @@ public class User {
     public void removeFriend(User friend) {
         if(friends.contains(friend)){
             friends.remove(friend);
+            database.refresh(this);
             }
     }
     
@@ -141,6 +156,7 @@ public class User {
     public void sendFriendRequest(User receiver) {
         FriendRequest request = new FriendRequest(this, receiver);
         receiver.receiveFriendRequest(request);
+        database.refresh(this);
     }
 
     public void receiveFriendRequest(FriendRequest request) {
@@ -169,6 +185,7 @@ public class User {
         if (!blockedUsers.contains(user)) {
             blockedUsers.add(user);
             friends.remove(user); 
+            user.removeFriend(this);
         }
     }
 

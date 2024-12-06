@@ -80,7 +80,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        myprofilr = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         storiesScrollPanel = new javax.swing.JScrollPane();
@@ -93,7 +93,12 @@ public class NewsFeedWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("My Profile");
+        myprofilr.setText("My Profile");
+        myprofilr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myprofilrActionPerformed(evt);
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Friends suggestion area");
@@ -160,7 +165,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jButton4)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1))
+                            .addComponent(myprofilr))
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -172,7 +177,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                            .addComponent(myprofilr)
                             .addComponent(jButton4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,6 +234,11 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_createPostBtnActionPerformed
 
+    private void myprofilrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myprofilrActionPerformed
+           Profile profile = new Profile(user);
+           profile.setVisible(true);
+    }//GEN-LAST:event_myprofilrActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -269,10 +279,10 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createPostBtn;
     private javax.swing.JButton createStoryBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton myprofilr;
     private javax.swing.JPanel postsPanel;
     private javax.swing.JScrollPane postsScrollPanel;
     private javax.swing.JPanel storiesPanel;

@@ -215,14 +215,13 @@ public class SignUpPage extends javax.swing.JFrame {
         String month = Month.getText();
         String year = Year.getText();
         int y = Integer.parseInt(year);
-        
         if (!day.matches("\\d+") || !month.matches("\\d+") || !year.matches("\\d+") || y > 2024 || y < 1) {
             JOptionPane.showMessageDialog(null, "Invalid date. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         } 
         else {
             String DOB = day + "-" + month + "-" + year;
             
-            if(admin.signup(email, username, password, DOB, null, null, null))
+            if(admin.signup(email, username, password, DOB, null, null, null)!=null)
                 user = admin.login(email, password);
         }
         

@@ -9,6 +9,19 @@ public class UsersDatabase {
     private static final String FILE_PATH = "users.json";
 
     // Load users from file 
+    public void refresh(User u)
+    {
+        List<User> users = this.loadUsers();
+        for(User k : users)
+        {
+            if(k.getUserId().equals(u.getUserId()))
+            {
+                users.remove(k);
+                users.add(u);
+                this.saveUsers(users);
+            }
+        }
+    }
     public ArrayList<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -35,6 +48,7 @@ public class UsersDatabase {
                         userJson.optString("bio", "")
                 );
                 user.setStatus(userJson.getBoolean("isOnline"));
+                user.setID(userJson.getString("userId"));
                 users.add(user);
             }
             for (int i = 0; i < userArray.length(); i++) {

@@ -212,7 +212,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         }
         
         // Update password
-        window.user.checkPassword(newPassword); 
+        window.user.setPassword(newPassword);
             JOptionPane.showMessageDialog(this, "Password updated successfully!");
         } else {
             JOptionPane.showMessageDialog(this, "Password cannot be empty.");
