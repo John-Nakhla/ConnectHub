@@ -339,92 +339,92 @@ public class Profile extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        UsersDatabase database = new UsersDatabase();
-        database.loadUsers();
-
-        // Step 1: Create a new list of users
-        java.util.List<User> users = new ArrayList<>();
-
-        // Add some users to the list
-        User user1 = new User(
-                "johndoe@example.com",
-                "johndoe",
-                "password123",
-                "1995-05-15",
-                "path/to/photo.jpg",
-                "path/to/cover.jpg",
-                "Hello, I am John Doe!"
-        );
-        user1.setStatus(true);
-
-        User user2 = new User(
-                "janedoe@example.com",
-                "janedoe",
-                "password456",
-                "1998-03-22",
-                "path/to/photo2.jpg",
-                "path/to/cover2.jpg",
-                "Hi, I'm Jane Doe!"
-        );
-        user2.setStatus(false);
-
-        User user3 = new User(
-                "janedoe@example.com",
-                "janedoe",
-                "password456",
-                "1998-03-22",
-                "path/to/photo2.jpg",
-                "path/to/cover2.jpg",
-                "Hi, I'm Jene Doe!"
-        );
-        user3.setStatus(true);
-
-        // Establish friendship between user1 and user2
-        user1.addFriend(user2);
-        user2.addFriend(user1);
-        user1.addFriend(user3);
-        user3.addFriend(user1);
-        user3.addFriend(user2);
-        user2.addFriend(user3);
-        // Add users to the list
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-
-        // Step 2: Save the users to a JSON file
-        database.saveUsers(users);
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Profile(user1).setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        UsersDatabase database = new UsersDatabase();
+//        database.loadUsers();
+//
+//        // Step 1: Create a new list of users
+//        java.util.List<User> users = new ArrayList<>();
+//
+//        // Add some users to the list
+//        User user1 = new User(
+//                "johndoe@example.com",
+//                "johndoe",
+//                "password123",
+//                "1995-05-15",
+//                "path/to/photo.jpg",
+//                "path/to/cover.jpg",
+//                "Hello, I am John Doe!"
+//        );
+//        user1.setStatus(true);
+//
+//        User user2 = new User(
+//                "janedoe@example.com",
+//                "janedoe",
+//                "password456",
+//                "1998-03-22",
+//                "path/to/photo2.jpg",
+//                "path/to/cover2.jpg",
+//                "Hi, I'm Jane Doe!"
+//        );
+//        user2.setStatus(false);
+//
+//        User user3 = new User(
+//                "janedoe@example.com",
+//                "janedoe",
+//                "password456",
+//                "1998-03-22",
+//                "path/to/photo2.jpg",
+//                "path/to/cover2.jpg",
+//                "Hi, I'm Jene Doe!"
+//        );
+//        user3.setStatus(true);
+//
+//        // Establish friendship between user1 and user2
+//        user1.addFriend(user2);
+//        user2.addFriend(user1);
+//        user1.addFriend(user3);
+//        user3.addFriend(user1);
+//        user3.addFriend(user2);
+//        user2.addFriend(user3);
+//        // Add users to the list
+//        users.add(user1);
+//        users.add(user2);
+//        users.add(user3);
+//
+//        // Step 2: Save the users to a JSON file
+//        database.saveUsers(users);
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Profile(user1).setVisible(true);
+//            }
+//        });
+//    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
