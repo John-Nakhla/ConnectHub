@@ -54,7 +54,7 @@ public class Content {
         contentObj.put("timestamp", this.timestamp.toString());
         contentObj.put("isStory", this.isStory);
 
-        contentArray.put(0, contentObj);
+        contentArray.put(contentObj);
         db.saveContent(contentArray);
     }
 }
