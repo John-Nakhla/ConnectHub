@@ -22,7 +22,7 @@ public class UsersDatabase {
             }
         }
     }
-    public ArrayList<User> loadUsers() {
+    public List<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             StringBuilder Data = new StringBuilder();
@@ -47,7 +47,7 @@ public class UsersDatabase {
                         userJson.optString("coverPhoto", ""),
                         userJson.optString("bio", "")
                 );
-                user.setStatus(userJson.getBoolean("isOnline"));
+                user.status = userJson.getBoolean("isOnline");
                 user.setID(userJson.getString("userId"));
                 users.add(user);
             }

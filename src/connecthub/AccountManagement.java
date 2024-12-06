@@ -5,7 +5,7 @@ import java.util.regex.*;
 
 public class AccountManagement {
 
-    private ArrayList<User> Users;
+    private List<User> Users;
 
     public AccountManagement() {
         this.Users = new ArrayList<>();

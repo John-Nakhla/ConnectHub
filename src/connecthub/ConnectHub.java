@@ -18,8 +18,8 @@ public class ConnectHub {
         AccountManagement admin = new AccountManagement();
 //        User u1 = new User("john389@gmail.com","tony","1456","25-6-2000",null,null,null);
 //        User u2 = new User("wael38@gmail.com","kamal","1456","25-6-2000",null,null,null);
-//        admin.signup("john389@gmail.com","tony","1456","25-6-2000",null,null,null);
-//        admin.signup("wael38@gmail.com","kamal","1456","25-6-2000",null,null,null);
+          admin.signup("john389@gmail.com","tony","1456","25-6-2000",null,null,null);
+          admin.signup("wael38@gmail.com","kamal","1456","25-6-2000",null,null,null);
 //        u1.addFriend(u2);
 //        u2.addFriend(u1);
         UsersDatabase database= new UsersDatabase();

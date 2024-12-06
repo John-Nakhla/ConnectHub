@@ -1,18 +1,18 @@
 [
     {
-        "password": "27480556aaf72c7dbfed3217cf2ed312fdef399f76089d06b249bc76ab3ec50c",
+        "password": "d294ee4414d5a2282151b5cecddb4bc50bb7fe22ae9be1943d335c862e274d5a",
         "profilePhoto": "path/to/photo.jpg",
         "coverPhoto": "path/to/cover.jpg",
         "bio": "Hello, I am John Doe!",
         "dateOfBirth": "1995-05-15",
-        "isOnline": true,
+        "isOnline": false,
         "userId": "User10001",
         "email": "johndoe@example.com",
         "friends": [],
         "username": "johndoe"
     },
     {
-        "password": "e8bdc9852790c6cf7e6b5eae189cfc460c98da72cc07a4a934676cd417cb9d05",
+        "password": "bb735e92599795d7e590464df0e6fe5080f214fa5860d7afe0fcda7df03bddee",
         "profilePhoto": "path/to/photo2.jpg",
         "coverPhoto": "path/to/cover2.jpg",
         "bio": "Hi, I'm Jane Doe!",
@@ -24,24 +24,51 @@
         "username": "janedoe"
     },
     {
-        "password": "e8bdc9852790c6cf7e6b5eae189cfc460c98da72cc07a4a934676cd417cb9d05",
+        "password": "bb735e92599795d7e590464df0e6fe5080f214fa5860d7afe0fcda7df03bddee",
         "profilePhoto": "path/to/photo2.jpg",
         "coverPhoto": "path/to/cover2.jpg",
         "bio": "Hi, I'm Jene Doe!",
         "dateOfBirth": "1998-03-22",
-        "isOnline": true,
+        "isOnline": false,
         "userId": "User10003",
         "email": "janedoe@example.com",
         "friends": [],
         "username": "janedoe"
     },
     {
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "password": "e623b619a2e76d4dd697f2f7cba267d14f075c4ff860b8881fa408686f79de9d",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "1-5-2003",
-        "isOnline": true,
+        "isOnline": false,
         "userId": "User10004",
         "email": "john@gmail.com",
         "friends": [],
         "username": "john"
+    },
+    {
+        "password": "1dae9310f2e85ea9678d4f92954d14ffba34a1e704f49118ad121ff8139a74f7",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "25-6-2000",
+        "isOnline": false,
+        "userId": "User10006",
+        "email": "wael38@gmail.com",
+        "friends": [],
+        "username": "kamal"
+    },
+    {
+        "password": "5847c674719a7244d1056549c8fe9efa7c49432fbbc0154fb7295d3d825e1676",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
+        "dateOfBirth": "25-6-2000",
+        "isOnline": false,
+        "userId": "User10005",
+        "email": "john389@gmail.com",
+        "friends": [],
+        "username": "kamolya"
     }
 ]

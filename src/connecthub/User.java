@@ -10,7 +10,7 @@ public class User {
     private String username;
     private String password;
     private String DOB;
-    private boolean status;
+    public boolean status;
     private String profilePhoto;
     private String coverPhoto;
     private String bio;
