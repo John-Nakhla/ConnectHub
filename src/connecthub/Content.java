@@ -9,7 +9,7 @@ public class Content {
     private final String authorId;
     private final String content;
     private final String img;
-    private final LocalDateTime timestamp;
+    private LocalDateTime timestamp;
     private final boolean isStory;
 
     public Content(String contentId, String authorId, String content, String img, boolean isStory) {
@@ -41,6 +41,11 @@ public class Content {
     public boolean isStory() {
         return isStory;
     }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = LocalDateTime.parse(timestamp);
+    }
+    
 
     // Save this content to file
     public void saveToFile() {
