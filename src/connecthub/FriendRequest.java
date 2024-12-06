@@ -12,6 +12,7 @@ public class FriendRequest {
         this.status = "Pending";
     }
 
+    // Getters
     public User getSender() {
         return sender;
     }
@@ -24,6 +25,7 @@ public class FriendRequest {
         return status;
     }
 
+    // accepting or declining a request
     public void accept() {
         this.status = "Accepted";
     }
@@ -32,6 +34,7 @@ public class FriendRequest {
         this.status = "Declined";
     }
 
+    // checks if a request is pending
     public boolean isPending() {
         return this.status.equals("Pending");
     }

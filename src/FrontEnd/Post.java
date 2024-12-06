@@ -36,7 +36,6 @@ public class Post extends JPanel {
 
         PostTextLbl = new javax.swing.JLabel(text);
         add(PostTextLbl);
-        System.out.println("label: " + PostTextLbl.getHeight());
 
         if (imgDir != null && !imgDir.trim().isEmpty()) {
             img = new MyCanvas(imgDir);

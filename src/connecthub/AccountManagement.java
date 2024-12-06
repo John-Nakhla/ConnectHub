@@ -1,33 +1,34 @@
-
 package connecthub;
 
 import java.util.*;
 import java.util.regex.*;
 
-
 public class AccountManagement {
-    private List<User> Users;
+
+    private ArrayList<User> Users;
 
     public AccountManagement() {
         this.Users = new ArrayList<>();
         loadUsers();
     }
-    
-    public boolean signup(String email, String username, String password, String dateOfBirth, String profilePhoto, String coverPhoto, String bio) {
+
+    // sign up a new user and save in the file
+    public User signup(String email, String username, String password, String dateOfBirth, String profilePhoto, String coverPhoto, String bio) {
         if (!isValidEmail(email) || emailExists(email)) {
-            return false;
+            return null;
         }
 
         if (username.isEmpty() || password.isEmpty() || dateOfBirth.isEmpty()) {
-            return false;
+            return null;
         }
 
         User newUser = new User(email, username, password, dateOfBirth, profilePhoto, coverPhoto, bio);
         Users.add(newUser);
         saveUsers();
-        return true;
+        return newUser;
     }
-    
+
+    // login a user and set as Online
     public User login(String email, String password) {
         for (User user : Users) {
             if (user.getEmail().equals(email) && user.checkPassword(password)) {
@@ -39,26 +40,27 @@ public class AccountManagement {
         return null;
     }
 
-
+    // logout a user and set as Offline
     public void logout(User user) {
         user.setStatus(false);
-        saveUsers(); 
+        saveUsers();
     }
-    
+
+    // Helping methods
     private boolean emailExists(String email) {
-        
+
         for (User user : Users) {
             if (user.getEmail().equals(email)) {
-                return true; 
+                return true;
             }
         }
-        return false; 
+        return false;
     }
 
     private boolean isValidEmail(String email) {
-    Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
-    Matcher matcher = pattern.matcher(email);
-    return matcher.matches();
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     private void saveUsers() {
@@ -70,5 +72,5 @@ public class AccountManagement {
         UsersDatabase database = new UsersDatabase();
         this.Users = database.loadUsers();
     }
-    
+
 }

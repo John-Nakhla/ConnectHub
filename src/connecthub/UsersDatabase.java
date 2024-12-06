@@ -1,16 +1,16 @@
-
 package connecthub;
 
 import java.io.*;
 import java.util.*;
 import org.json.*;
 
-
 public class UsersDatabase {
+
     private static final String FILE_PATH = "users.json";
 
-    public List<User> loadUsers() {
-        List<User> users = new ArrayList<>();
+    // Load users from file 
+    public ArrayList<User> loadUsers() {
+        ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             StringBuilder Data = new StringBuilder();
             String line;
@@ -24,47 +24,45 @@ public class UsersDatabase {
                 if (!userJson.has("email") || !userJson.has("username") || !userJson.has("password") || !userJson.has("dateOfBirth")) {
                     continue;
                 }
-                
 
                 User user = new User(
                         userJson.getString("email"),
                         userJson.getString("username"),
-                        userJson.getString("password"), 
+                        userJson.getString("password"),
                         userJson.getString("dateOfBirth"),
-                        userJson.optString("profilePhoto",""),
-                        userJson.optString("coverPhoto",""),
-                        userJson.optString("bio","")
+                        userJson.optString("profilePhoto", ""),
+                        userJson.optString("coverPhoto", ""),
+                        userJson.optString("bio", "")
                 );
                 user.setStatus(userJson.getBoolean("isOnline"));
                 users.add(user);
             }
             for (int i = 0; i < userArray.length(); i++) {
-            JSONObject userJson = userArray.getJSONObject(i);
-            User user = users.get(i);
+                JSONObject userJson = userArray.getJSONObject(i);
+                User user = users.get(i);
 
-            JSONArray friendsArray = userJson.optJSONArray("friends");
+                JSONArray friendsArray = userJson.optJSONArray("friends");
 
-            if (friendsArray != null && friendsArray.length() > 0) {
-                for (int j = 0; j < friendsArray.length(); j++) {
-                    String friendId = friendsArray.getString(j);
-                    for (User Friend : users) {
-                        if (Friend.getUserId().equals(friendId)) {
-                            user.addFriend(Friend); 
-                            break; 
+                if (friendsArray != null && friendsArray.length() > 0) {
+                    for (int j = 0; j < friendsArray.length(); j++) {
+                        String friendId = friendsArray.getString(j);
+                        for (User Friend : users) {
+                            if (Friend.getUserId().equals(friendId)) {
+                                user.addFriend(Friend);
+                                break;
+                            }
                         }
                     }
                 }
             }
-            }
-                    
-                
-             
+
         } catch (IOException e) {
             System.out.println("Error loading users: " + e.getMessage());
         }
         return users;
     }
 
+    // save users to file 
     public void saveUsers(List<User> users) {
         JSONArray userArray = new JSONArray();
         for (User user : users) {
@@ -90,6 +88,5 @@ public class UsersDatabase {
         } catch (IOException e) {
             System.out.println("Error saving users: " + e.getMessage());
         }
-    }    
+    }
 }
-

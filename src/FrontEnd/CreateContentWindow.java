@@ -5,6 +5,7 @@
 package FrontEnd;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -17,7 +18,9 @@ public class CreateContentWindow extends javax.swing.JDialog {
     private String contentText = "";
     private String contentImgDir = "";
     private String type;
+    private LocalDateTime time;
     private MyCanvas ImagePreview;
+    private static final String postsPath = "content.json";
 
     /**
      * Creates new form NewJDialog
@@ -135,6 +138,7 @@ public class CreateContentWindow extends javax.swing.JDialog {
             if (!"".equals(postTextEditorTxtArea.getText())) {
                 contentText = "<html><div style='width:90px;'>" + postTextEditorTxtArea.getText() + "</div></html>";
             }
+            time = LocalDateTime.now();
             dispose();
         }
     }//GEN-LAST:event_postBtnActionPerformed
@@ -170,6 +174,10 @@ public class CreateContentWindow extends javax.swing.JDialog {
 
     protected String getContentImgDir() {
         return contentImgDir;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
     }
 
     /**

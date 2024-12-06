@@ -1,6 +1,9 @@
 [
     {
-        "password": "35fccec597f243e6fa655206a984a31543f1883f1bafc0f819889550c9069014",
+        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10001",
@@ -9,7 +12,10 @@
         "username": "john"
     },
     {
-        "password": "35fccec597f243e6fa655206a984a31543f1883f1bafc0f819889550c9069014",
+        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10002",
@@ -18,7 +24,10 @@
         "username": "hala"
     },
     {
-        "password": "35fccec597f243e6fa655206a984a31543f1883f1bafc0f819889550c9069014",
+        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10003",
@@ -27,7 +36,10 @@
         "username": "john"
     },
     {
-        "password": "f0b29bcb86e7ab3d7267519193a0c5ffb8582178dbf7306d0c2b3cee69855330",
+        "password": "04a24e8195382cbfe6c81dda873d2be49b13c1bd09b01f0bfeeba952de3c59cd",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10004",
@@ -36,7 +48,10 @@
         "username": "john"
     },
     {
-        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10005",
@@ -45,7 +60,10 @@
         "username": "john"
     },
     {
-        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10006",
@@ -54,7 +72,10 @@
         "username": "ahmed"
     },
     {
-        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10007",
@@ -63,7 +84,10 @@
         "username": "mina"
     },
     {
-        "password": "fef3d83e32b4d981b0c0f75206e891268c6aa8bd8db5a315db7bf24168a4be27",
+        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
         "userId": "User10008",
@@ -72,12 +96,24 @@
         "username": "maria"
     },
     {
-        "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+        "password": "a0b83a7e9f8a1839ba6082143ab8c76caf6fd187c04df47758f27e09ae5d0daa",
+        "profilePhoto": "",
+        "coverPhoto": "",
+        "bio": "",
         "dateOfBirth": "30-8-2004",
         "isOnline": false,
-        "userId": "User10010",
+        "userId": "User10009",
         "email": "waeljohn55@gmail.com",
         "friends": [],
         "username": "raef"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": false,
+        "userId": "User10010",
+        "email": "john@gmail.com",
+        "friends": [],
+        "username": "john1212"
     }
 ]

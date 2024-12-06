@@ -225,7 +225,14 @@ public class SignIn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Invalid date. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             String DOB = day + "-" + month + "-" + year;
-            admin.signup(email, username, password, DOB, null, null, null);
+            User user = admin.signup(email, username, password, DOB, null, null, null);
+            if (user == null) {
+                JOptionPane.showMessageDialog(this, "Invalid Inputs", "Input error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                NewsFeedWindow newsFeed = new NewsFeedWindow(user);
+                newsFeed.setVisible(true);
+                dispose();
+            }
         }
     }//GEN-LAST:event_signinActionPerformed
 

@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
+
 import connecthub.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author John
@@ -14,6 +17,7 @@ public class LogInPage extends javax.swing.JFrame {
      * Creates new form LogInPage
      */
     AccountManagement admin = new AccountManagement();
+
     public LogInPage(AccountManagement admin) {
         this.admin = admin;
         initComponents();
@@ -138,13 +142,18 @@ public class LogInPage extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         String Email = email.getText();
-        char[] pass  = password.getPassword();
-        String p="" ;
-        for(char k:pass)
-            p+=k;
-        if(admin.login(Email, p)!=null)
-        {
-            
+        char[] pass = password.getPassword();
+        String p = "";
+        for (char k : pass) {
+            p += k;
+        }
+        User user = admin.login(Email, p);
+        if (user != null) {
+            NewsFeedWindow newsFeed = new NewsFeedWindow(user);
+            newsFeed.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "User not found", "Input error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginActionPerformed
 
