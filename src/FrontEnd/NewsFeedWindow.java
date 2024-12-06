@@ -19,8 +19,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     private User user;
     private UsersDatabase usersDatabase = new UsersDatabase();
     private NewsFeed newsFeed = new NewsFeed(usersDatabase);
-    private ArrayList<Content> posts = newsFeed.getPostsOnly();
-    private List<Content> stories = newsFeed.getStoriesOnly();
+    private List<Content> posts ;
+    private List<Content> stories; 
     private ContentDatabase contentDatabase = new ContentDatabase();
 
     /**
@@ -30,8 +30,11 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
     public NewsFeedWindow(User user) {
         this.user = user;
+        posts = newsFeed.getPostsOnly(user);
+        stories = newsFeed.getStoriesOnly(user);
         System.out.println(posts.size());
         for (int i = 0; i < posts.size(); i++) {
+            System.out.println("here after for");
             CreateContentWindow content = new CreateContentWindow(this, true, "p");
             content.pack();
             content.setVisible(true);

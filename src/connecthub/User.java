@@ -4,7 +4,6 @@ package connecthub;
 import java.security.MessageDigest;
 import java.util.*;
 
-
 public class User {
     private final String userId;
     private String email;
@@ -123,8 +122,6 @@ public class User {
     {
         this.bio = bio;
     }
-
-    
     // FRIENDS MANAGEMENT PART
 
     // add or remove a friend

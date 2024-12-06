@@ -1,119 +1,47 @@
 [
     {
-        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": false,
-        "userId": "User10001",
-        "email": "djfjdskf",
-        "friends": ["User10002"],
-        "username": "john"
+        "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+        "profilePhoto": "path/to/photo.jpg",
+        "coverPhoto": "path/to/cover.jpg",
+        "bio": "Hello, I am John Doe!",
+        "dateOfBirth": "1995-05-15",
+        "isOnline": true,
+        "userId": "User10011",
+        "email": "johndoe@example.com",
+        "friends": [
+            "User10012",
+            "User10013"
+        ],
+        "username": "johndoe"
     },
     {
-        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
+        "password": "c6ba91b90d922e159893f46c387e5dc1b3dc5c101a5a4522f03b987177a24a91",
+        "profilePhoto": "path/to/photo2.jpg",
+        "coverPhoto": "path/to/cover2.jpg",
+        "bio": "Hi, I'm Jane Doe!",
+        "dateOfBirth": "1998-03-22",
         "isOnline": false,
-        "userId": "User10002",
-        "email": "waeljohn306@gmail.com",
-        "friends": ["User10001"],
-        "username": "hala"
+        "userId": "User10012",
+        "email": "janedoe@example.com",
+        "friends": [
+            "User10011",
+            "User10013"
+        ],
+        "username": "janedoe"
     },
     {
-        "password": "c8adc32b12982247ab4a60c3e569aeae832b73611227629ba3b47d1b9271fb3f",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": false,
-        "userId": "User10003",
-        "email": "waeljohn306@gmail.com",
-        "friends": [],
-        "username": "john"
-    },
-    {
-        "password": "04a24e8195382cbfe6c81dda873d2be49b13c1bd09b01f0bfeeba952de3c59cd",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": false,
-        "userId": "User10004",
-        "email": "waeljohn306@gmail.com",
-        "friends": [],
-        "username": "john"
-    },
-    {
-        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": false,
-        "userId": "User10005",
-        "email": "waeljohn30@gmail.com",
-        "friends": [],
-        "username": "john"
-    },
-    {
-        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": false,
-        "userId": "User10006",
-        "email": "waeljohn06@gmail.com",
-        "friends": [],
-        "username": "ahmed"
-    },
-    {
-        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": false,
-        "userId": "User10007",
-        "email": "waeljohn36@gmail.com",
-        "friends": [],
-        "username": "mina"
-    },
-    {
-        "password": "7ff702d2e0efd446be5eaf53d639af86187f273d91fe45b8d3eba29fb8f56a19",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": false,
-        "userId": "User10008",
-        "email": "waeljohn6@gmail.com",
-        "friends": [],
-        "username": "maria"
-    },
-    {
-        "password": "a0b83a7e9f8a1839ba6082143ab8c76caf6fd187c04df47758f27e09ae5d0daa",
-        "profilePhoto": "",
-        "coverPhoto": "",
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": false,
-        "userId": "User10009",
-        "email": "waeljohn55@gmail.com",
-        "friends": [],
-        "username": "raef"
-    },
-    {
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "dateOfBirth": "1-5-2003",
-        "isOnline": false,
-        "userId": "User10010",
-        "email": "john@gmail.com",
-        "friends": [],
-        "username": "john1212"
+        "password": "c6ba91b90d922e159893f46c387e5dc1b3dc5c101a5a4522f03b987177a24a91",
+        "profilePhoto": "path/to/photo2.jpg",
+        "coverPhoto": "path/to/cover2.jpg",
+        "bio": "Hi, I'm Jene Doe!",
+        "dateOfBirth": "1998-03-22",
+        "isOnline": true,
+        "userId": "User10013",
+        "email": "janedoe@example.com",
+        "friends": [
+            "User10011",
+            "User10012"
+        ],
+        "username": "janedoe"
     }
 ]
