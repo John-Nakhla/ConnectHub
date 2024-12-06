@@ -151,11 +151,13 @@ public class WelcomePage extends javax.swing.JFrame {
     private void signinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinActionPerformed
         SignIn s = new SignIn(admin);
         s.setVisible(true);
+        dispose();
     }//GEN-LAST:event_signinActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
        LogInPage l = new LogInPage(admin);
        l.setVisible(true);
+       dispose();
     }//GEN-LAST:event_loginActionPerformed
 
     /**
