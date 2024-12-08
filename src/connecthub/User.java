@@ -146,6 +146,7 @@ public class User {
     public void addFriend(User friend) {
         if (!friends.contains(friend) && !blockedUsers.contains(friend)) {
             friends.add(friend);
+            database.refresh(this);
         }
     }
 
@@ -160,11 +161,13 @@ public class User {
     public void sendFriendRequest(User receiver) {
         FriendRequest request = new FriendRequest(this, receiver);
         receiver.receiveFriendRequest(request);
-        database.refresh(this);
+        database.refresh(receiver);
+        
     }
 
     public void receiveFriendRequest(FriendRequest request) {
         friendRequests.add(request);
+       
     }
 
     // accept or decline a request

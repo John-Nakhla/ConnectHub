@@ -5,21 +5,26 @@ import java.util.*;
 import org.json.*;
 
 public class UsersDatabase {
-    
+
     private static final String FILE_PATH = "users.json";
 
     // Load users from file 
     public void refresh(User u) {
         List<User> users = this.loadUsers();
-        for (User k : users) {
+        List<User> updatedUsers = new ArrayList<>(); 
+        for (User k : users) 
+        {
             if (k.getUserId().equals(u.getUserId())) {
-                users.remove(k);
-                users.add(u);
-                this.saveUsers(users);
+                updatedUsers.add(u);
+            }
+            else
+            {
+                updatedUsers.add(k);
             }
         }
+        this.saveUsers(updatedUsers);
     }
-    
+
     public List<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -31,11 +36,11 @@ public class UsersDatabase {
             JSONArray userArray = new JSONArray(Data.toString());
             for (int i = 0; i < userArray.length(); i++) {
                 JSONObject userJson = userArray.getJSONObject(i);
-                
+
                 if (!userJson.has("email") || !userJson.has("username") || !userJson.has("password") || !userJson.has("dateOfBirth")) {
                     continue;
                 }
-                
+
                 User user = new User(
                         userJson.getString("email"),
                         userJson.getString("username"),
@@ -53,9 +58,9 @@ public class UsersDatabase {
             for (int i = 0; i < userArray.length(); i++) {
                 JSONObject userJson = userArray.getJSONObject(i);
                 User user = users.get(i);
-                
+
                 JSONArray friendsArray = userJson.optJSONArray("friends");
-                
+
                 if (friendsArray != null && friendsArray.length() > 0) {
                     for (int j = 0; j < friendsArray.length(); j++) {
                         String friendId = friendsArray.getString(j);
@@ -67,9 +72,9 @@ public class UsersDatabase {
                         }
                     }
                 }
-                
+
                 JSONArray friendRequestsSendersArray = userJson.optJSONArray("FriendRequestSenders");
-                
+
                 if (friendRequestsSendersArray != null && friendRequestsSendersArray.length() > 0) {
                     for (int j = 0; j < friendRequestsSendersArray.length(); j++) {
                         String SenderId = friendRequestsSendersArray.getString(j);
@@ -81,9 +86,9 @@ public class UsersDatabase {
                         }
                     }
                 }
-                
+
                 JSONArray blockedFriendsArray = userJson.optJSONArray("blockedFriends");
-                
+
                 if (blockedFriendsArray != null && blockedFriendsArray.length() > 0) {
                     for (int j = 0; j < blockedFriendsArray.length(); j++) {
                         String blockedId = blockedFriendsArray.getString(j);
@@ -96,7 +101,7 @@ public class UsersDatabase {
                     }
                 }
             }
-            
+
         } catch (IOException e) {
             System.out.println("Error loading users: " + e.getMessage());
         }
@@ -105,6 +110,7 @@ public class UsersDatabase {
 
     // save users to file 
     public void saveUsers(List<User> users) {
+        System.out.println("here/////////");
         JSONArray userArray = new JSONArray();
         for (User user : users) {
             JSONObject userJson = new JSONObject();
@@ -121,6 +127,8 @@ public class UsersDatabase {
             userJson.put("friends", friendsArray);
             JSONArray friendRequestsArray = new JSONArray();
             for (FriendRequest request : user.getFriendRequests()) {
+                System.out.println("================");
+                System.out.println(request.getSender().getUserId());
                 friendRequestsArray.put(request.getSender().getUserId());
             }
             userJson.put("FriendRequestSenders", friendRequestsArray);

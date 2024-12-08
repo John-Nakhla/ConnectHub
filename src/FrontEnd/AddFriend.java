@@ -121,16 +121,11 @@ public class AddFriend extends javax.swing.JFrame {
             }
             for (User k : users)
             {
-                System.out.println(k.getUsername());
                 if ((k.getUsername().equals(userName))&& flag1 && flag2)
                 {
                     System.out.println(k.getUsername()+" "+userName);
                     System.out.println(k.getUserId());
                     u.sendFriendRequest(k);
-                    for(FriendRequest j : k.getFriendRequests())
-                    {
-                        System.out.println(j.getSender().getUsername()+" "+j.getReceiver().getUsername());
-                    }
                     JOptionPane.showMessageDialog(null, "Friend request sent", "Alert", JOptionPane.INFORMATION_MESSAGE);
                     flag3=false;
                     break;
