@@ -234,42 +234,50 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             contentDatabase.createContent(user.getUserId(), contentText, contentImgDir, false);
         }
     }//GEN-LAST:event_createPostBtnActionPerformed
-//user views his profile
+
+    //user views his profile
     private void myProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myProfileBtnActionPerformed
         Profile profile = new Profile(user);
         profile.setVisible(true);
         dispose();
     }//GEN-LAST:event_myProfileBtnActionPerformed
-//user views his friends
+
+    //user views his friends
     private void myFriendsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myFriendsBtnActionPerformed
         Friends friends = new Friends(user);
         friends.pack();
         friends.setVisible(true);
     }//GEN-LAST:event_myFriendsBtnActionPerformed
-//user views friends suggestions
+
+    //user views friends suggestions
     private void friendSuggestionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendSuggestionsBtnActionPerformed
         FriendSuggestions friendSuggestions = new FriendSuggestions(user);
         friendSuggestions.pack();
         friendSuggestions.setVisible(true);
     }//GEN-LAST:event_friendSuggestionsBtnActionPerformed
-//refresh feed for latest posts
+
+    //refresh feed for latest posts
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         refresh();
     }//GEN-LAST:event_refreshBtnActionPerformed
-//user searches for a specific friend to add
+
+    //user searches for a specific friend to add
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AddFriend window=new AddFriend(user);
+        AddFriend window = new AddFriend(user);
         window.setVisible(true);
-         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jButton1ActionPerformed
-//user views his pending friend requests
+
+    //user views his pending friend requests
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        FriendRequests N=new FriendRequests(user);
+        FriendRequests N = new FriendRequests(user);
         N.setVisible(true);
         N.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_jButton2ActionPerformed
-//Refresh method
-    private void refresh() {// adding posts of friends
+
+    //Refresh method
+    private void refresh() {
+        // adding posts of friends
         posts = newsFeed.getPostsOnly(user);
         System.out.println(posts.size());
         for (int i = 0; i < posts.size(); i++) {
@@ -302,7 +310,6 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createPostBtn;

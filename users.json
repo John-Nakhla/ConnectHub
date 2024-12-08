@@ -102,10 +102,14 @@
         "profilePhoto": "",
         "blockedFriends": [],
         "coverPhoto": "",
+<<<<<<< Updated upstream
         "FriendRequestSenders": [
             "User10072",
             "User10072"
         ],
+=======
+        "FriendRequestSenders": [],
+>>>>>>> Stashed changes
         "bio": "",
         "dateOfBirth": "5-5-5",
         "isOnline": true,
@@ -113,5 +117,75 @@
         "email": "hala1@gmail.com",
         "friends": [],
         "username": "hala abdelsalam"
+<<<<<<< Updated upstream
+=======
+    },
+    {
+        "password": "30c666b924f7a1ba7209e4622ef8362e2557deacee9e404aafbd388fe74433e7",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "30-8-2004",
+        "isOnline": true,
+        "userId": "User10072",
+        "email": "waelnakhla38@gmail.com",
+        "friends": ["User10029"],
+        "username": "janajeno"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": true,
+        "userId": "User10009",
+        "email": "john1@gmail.com",
+        "friends": [],
+        "username": "john1"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": true,
+        "userId": "User10010",
+        "email": "soso@gmail.com",
+        "friends": [],
+        "username": "soso"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": true,
+        "userId": "User10011",
+        "email": "lolo@gmail.com",
+        "friends": [],
+        "username": "lolo"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "blockedFriends": [],
+        "FriendRequestSenders": [],
+        "dateOfBirth": "1-5-2003",
+        "isOnline": true,
+        "userId": "User10012",
+        "email": "toto@gmail.com",
+        "friends": [],
+        "username": "toto"
+>>>>>>> Stashed changes
     }
 ]
