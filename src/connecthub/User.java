@@ -41,6 +41,7 @@ public class User {
     public void setPassword(String password)
     {
         this.password = generatePassword(password);
+        database.refresh(this);
     }
     public void setRealPassword(String password)
     {

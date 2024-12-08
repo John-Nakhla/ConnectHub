@@ -1,8 +1,10 @@
+
 package FrontEnd;
 
 import connecthub.*;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
+
 
 public class SignUpPage extends javax.swing.JFrame {
 
@@ -210,24 +212,30 @@ public class SignUpPage extends javax.swing.JFrame {
         String day = Day.getText();
         String month = Month.getText();
         String year = Year.getText();
-        int y = Integer.parseInt(year);
-
-        if (!day.matches("\\d+") || !month.matches("\\d+") || !year.matches("\\d+") || y > 2024 || y < 1) {
+        if (email.equals("") || username.equals("") || password.equals("") || day.equals("") || month.equals("") || year.equals("")) {
+            JOptionPane.showMessageDialog(null, "some fields are empty", "Error", JOptionPane.ERROR_MESSAGE);
+        } 
+        else if (admin.emailExists(email))
+        {
+            JOptionPane.showMessageDialog(null, "this email already has an account", "Error", JOptionPane.ERROR_MESSAGE);
+        } 
+        else if(!admin.isValidEmail(email))
+        {
+            JOptionPane.showMessageDialog(null,"this email already has an account", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if (!day.matches("\\d+") || !month.matches("\\d+") || !year.matches("\\d+") || Integer.parseInt(year) > 2024 || Integer.parseInt(year) < 1) 
+        {
             JOptionPane.showMessageDialog(null, "Invalid date. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+        }
+        else
+        {
             String DOB = day + "-" + month + "-" + year;
-
             if (admin.signup(email, username, password, DOB, null, null, null) != null) {
                 user = admin.login(email, password);
+                NewsFeedWindow newsFeed = new NewsFeedWindow(user);
+                newsFeed.setVisible(true);
+                dispose();
             }
-        }
-
-        if (user == null) {
-            JOptionPane.showMessageDialog(this, "Invalid Inputs", "Input error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            NewsFeedWindow newsFeed = new NewsFeedWindow(user);
-            newsFeed.setVisible(true);
-            dispose();
         }
     }//GEN-LAST:event_signupActionPerformed
 
