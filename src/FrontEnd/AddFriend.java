@@ -121,7 +121,7 @@ public class AddFriend extends javax.swing.JFrame {
             }
             for (User k : users)
             {
-                if ((k.getUsername().equals(userName))&& flag1 && flag2)
+                if ((k.getUsername().equals(userName))&& flag1 && flag2&&k!=u)
                 {
                     System.out.println(k.getUsername()+" "+userName);
                     System.out.println(k.getUserId());

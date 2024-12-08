@@ -166,15 +166,15 @@ public class User {
     }
 
     public void receiveFriendRequest(FriendRequest request) {
-        friendRequests.add(request);
-       
+        friendRequests.add(request);       
     }
 
     // accept or decline a request
     public void acceptFriendRequest(FriendRequest request) {
         if (request.getReceiver().equals(this) && request.isPending()) {
-            friends.add(request.getSender());
-            request.getSender().friends.add(this);
+            this.getFriendRequests().remove(request);
+            this.addFriend(request.getSender());
+            request.getSender().addFriend(this);
             request.accept();
         }
     }
@@ -182,6 +182,8 @@ public class User {
     public void declineFriendRequest(FriendRequest request) {
         if (request.getReceiver().equals(this) && request.isPending()) {
             request.decline();
+            this.getFriendRequests().remove(request);
+            database.refresh(this);
         }
     }
 
@@ -189,7 +191,7 @@ public class User {
     public void blockUser(User user) {
         if (!blockedUsers.contains(user)) {
             blockedUsers.add(user);
-            friends.remove(user);
+            this.removeFriend(user);
             user.removeFriend(this);
         }
     }
@@ -197,6 +199,7 @@ public class User {
     public void unblockUser(User user) {
         if (blockedUsers.contains(user)) {
             blockedUsers.remove(user);
+            database.refresh(this);
         }
     }
 
