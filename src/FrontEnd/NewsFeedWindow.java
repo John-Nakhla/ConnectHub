@@ -57,8 +57,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         refreshBtn = new javax.swing.JButton();
         myFriendsBtn = new javax.swing.JButton();
         friendSuggestionsBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        addFriendBtn = new javax.swing.JButton();
+        friendRequestBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,17 +130,17 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Add Friend");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addFriendBtn.setText("Add Friend");
+        addFriendBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addFriendBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Friend Requests");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        friendRequestBtn.setText("Friend Requests");
+        friendRequestBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                friendRequestBtnActionPerformed(evt);
             }
         });
 
@@ -161,8 +161,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                     .addComponent(friendSuggestionsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(createStoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(createPostBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addFriendBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(friendRequestBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -189,9 +189,9 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                         .addComponent(postsScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                         .addGap(0, 10, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(addFriendBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(friendRequestBtn)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -215,7 +215,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             contentDatabase.createContent(user.getUserId(), contentText, contentImgDir, true);
         }
     }//GEN-LAST:event_createStoryBtnActionPerformed
-// user creates post
+    // user creates post
     private void createPostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPostBtnActionPerformed
         CreateContentWindow content = new CreateContentWindow(this, true, "p");
         content.pack();
@@ -225,7 +225,6 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         String contentImgDir = content.getContentImgDir();
 
         if (!"".equals(contentText) || !"".equals(contentImgDir)) {
-//            Post post = new Post(contentText, contentImgDir);
             Post post = new Post(contentText, contentImgDir);
             post.setMaximumSize(new Dimension(550, post.getPreferredSize().height));
             postsPanel.add(post);
@@ -258,22 +257,25 @@ public class NewsFeedWindow extends javax.swing.JFrame {
 
     //refresh feed for latest posts
     private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+        postsPanel.removeAll();
+        postsPanel.revalidate();
+        postsPanel.repaint();
         refresh();
     }//GEN-LAST:event_refreshBtnActionPerformed
 
     //user searches for a specific friend to add
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addFriendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriendBtnActionPerformed
         AddFriend window = new AddFriend(user);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addFriendBtnActionPerformed
 
     //user views his pending friend requests
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void friendRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendRequestBtnActionPerformed
         FriendRequests N = new FriendRequests(user);
         N.setVisible(true);
         N.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_friendRequestBtnActionPerformed
 
     //Refresh method
     private void refresh() {
@@ -312,11 +314,11 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addFriendBtn;
     private javax.swing.JButton createPostBtn;
     private javax.swing.JButton createStoryBtn;
+    private javax.swing.JButton friendRequestBtn;
     private javax.swing.JButton friendSuggestionsBtn;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton myFriendsBtn;
     private javax.swing.JButton myProfileBtn;
     private javax.swing.JPanel postsPanel;
