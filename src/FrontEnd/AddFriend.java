@@ -123,8 +123,6 @@ public class AddFriend extends javax.swing.JFrame {
             {
                 if ((k.getUsername().equals(userName))&& flag1 && flag2&&k!=u)
                 {
-                    System.out.println(k.getUsername()+" "+userName);
-                    System.out.println(k.getUserId());
                     u.sendFriendRequest(k);
                     JOptionPane.showMessageDialog(null, "Friend request sent", "Alert", JOptionPane.INFORMATION_MESSAGE);
                     flag3=false;

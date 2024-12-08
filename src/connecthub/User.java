@@ -161,12 +161,12 @@ public class User {
     public void sendFriendRequest(User receiver) {
         FriendRequest request = new FriendRequest(this, receiver);
         receiver.receiveFriendRequest(request);
-        database.refresh(receiver);
         
     }
 
     public void receiveFriendRequest(FriendRequest request) {
-        friendRequests.add(request);       
+        friendRequests.add(request);  
+        database.refresh(request.getReceiver());
     }
 
     // accept or decline a request
