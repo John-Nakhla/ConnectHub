@@ -1,10 +1,10 @@
-
 package connecthub;
 
 import java.security.MessageDigest;
 import java.util.*;
 
 public class User {
+
     private String userId;
     private String email;
     private String username;
@@ -14,11 +14,12 @@ public class User {
     private String profilePhoto;
     private String coverPhoto;
     private String bio;
-    private  List<User> friends;
-    private  List<FriendRequest> friendRequests;
-    private  List<User> blockedUsers; 
-    private static int users_count=10000;
+    private List<User> friends;
+    private List<FriendRequest> friendRequests;
+    private List<User> blockedUsers;
+    private static int users_count = 10000;
     private UsersDatabase database = new UsersDatabase();
+
     public User(String email, String username, String password, String DOB, String profilePhoto, String coverPhoto, String bio) {
         this.userId = UniqueId();
         this.email = email;
@@ -32,22 +33,23 @@ public class User {
         this.friends = new ArrayList<>();
         this.friendRequests = new ArrayList<>();
         this.blockedUsers = new ArrayList<>();
-    }    
-    
-    private String UniqueId(){
-        users_count++; 
+    }
+
+    private String UniqueId() {
+        users_count++;
         return "User" + users_count;
     }
-    public void setPassword(String password)
-    {
+
+    public void setPassword(String password) {
         this.password = generatePassword(password);
     }
-    public void setRealPassword(String password)
-    {
+
+    public void setRealPassword(String password) {
         this.password = password;
     }
+
     // generates hashed password to save in the file
-    private String generatePassword(String password){
+    private String generatePassword(String password) {
         try {
             MessageDigest message = MessageDigest.getInstance("SHA-256");
             byte[] hashedBytes = message.digest(password.getBytes());
@@ -60,12 +62,12 @@ public class User {
             throw new RuntimeException("Error hashing password", e);
         }
     }
-    
+
     // checks a password: used in login
     public boolean checkPassword(String password) {
         return this.password.equals(generatePassword(password));
     }
-    
+
     // Getters
     public String getUserId() {
         return userId;
@@ -90,8 +92,8 @@ public class User {
     public String getCoverPhoto() {
         return coverPhoto;
     }
-    public void setID(String id)
-    {
+
+    public void setID(String id) {
         this.userId = id;
     }
 
@@ -101,13 +103,12 @@ public class User {
 
     public String getPassword() {
         return password;
-    }   
-    
+    }
+
     public boolean isStatus() {
         return status;
     }
 
-    
     // Setters
     public void setStatus(boolean status) {
         this.status = status;
@@ -124,18 +125,17 @@ public class User {
         database.refresh(this);
     }
 
-    public void changeProfilePhoto(String path)
-    {
+    public void changeProfilePhoto(String path) {
         this.profilePhoto = path;
         database.refresh(this);
     }
-    public void changeCoverPhoto(String path)
-    {
+
+    public void changeCoverPhoto(String path) {
         this.coverPhoto = path;
         database.refresh(this);
     }
-    public void changeBio(String bio)
-    {
+
+    public void changeBio(String bio) {
         this.bio = bio;
         database.refresh(this);
     }
@@ -147,14 +147,14 @@ public class User {
             friends.add(friend);
         }
     }
+
     public void removeFriend(User friend) {
-        if(friends.contains(friend)){
+        if (friends.contains(friend)) {
             friends.remove(friend);
             database.refresh(this);
-            }
+        }
     }
-    
-    
+
     // send or recieve a request
     public void sendFriendRequest(User receiver) {
         FriendRequest request = new FriendRequest(this, receiver);
@@ -165,7 +165,6 @@ public class User {
     public void receiveFriendRequest(FriendRequest request) {
         friendRequests.add(request);
     }
-
 
     // accept or decline a request
     public void acceptFriendRequest(FriendRequest request) {
@@ -182,30 +181,29 @@ public class User {
         }
     }
 
-    
     // block or unblock a user
     public void blockUser(User user) {
         if (!blockedUsers.contains(user)) {
             blockedUsers.add(user);
-            friends.remove(user); 
+            friends.remove(user);
             user.removeFriend(this);
         }
     }
 
     public void unblockUser(User user) {
-        if(blockedUsers.contains(user))
-        blockedUsers.remove(user);
+        if (blockedUsers.contains(user)) {
+            blockedUsers.remove(user);
+        }
     }
 
     // check if user is blocked
     public boolean isBlocked(User user) {
         return blockedUsers.contains(user);
     }
-    
 
     // Getters for: {friends, friend requests, mutual friends, blocked users} lists
     public List<User> getFriends() {
-        return friends; 
+        return friends;
     }
 
     public List<FriendRequest> getFriendRequests() {
@@ -216,31 +214,28 @@ public class User {
         return blockedUsers;
     }
 
-    public List<User> friendsOfFriends()
-    {
+    public List<User> friendsOfFriends() {
         List<User> fof = new ArrayList<>();
-        for(User k : this.getFriends())
-        {
-            for(User u : k.getFriends())
-            {
-                if((!this.getFriends().contains(u))&&(!this.isBlocked(u)))
+        for (User k : this.getFriends()) {
+            for (User u : k.getFriends()) {
+                if ((!this.getFriends().contains(u)) && (!this.isBlocked(u))) {
                     fof.add(u);
+                }
             }
         }
         return fof;
-    }    
-    
-    
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", dateOfBirth='" + DOB + '\'' +
-                ", status=" + (status ? "Online" : "Offline") +
-                ", friends=" + friends +
-                '}';
+        return "User{"
+                + "userId='" + userId + '\''
+                + ", email='" + email + '\''
+                + ", username='" + username + '\''
+                + ", dateOfBirth='" + DOB + '\''
+                + ", status=" + (status ? "Online" : "Offline")
+                + ", friends=" + friends
+                + '}';
     }
 
 }
