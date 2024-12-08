@@ -102,14 +102,10 @@
         "profilePhoto": "",
         "blockedFriends": [],
         "coverPhoto": "",
-<<<<<<< Updated upstream
         "FriendRequestSenders": [
             "User10072",
             "User10072"
         ],
-=======
-        "FriendRequestSenders": [],
->>>>>>> Stashed changes
         "bio": "",
         "dateOfBirth": "5-5-5",
         "isOnline": true,
@@ -117,8 +113,6 @@
         "email": "hala1@gmail.com",
         "friends": [],
         "username": "hala abdelsalam"
-<<<<<<< Updated upstream
-=======
     },
     {
         "password": "30c666b924f7a1ba7209e4622ef8362e2557deacee9e404aafbd388fe74433e7",
@@ -131,7 +125,9 @@
         "isOnline": true,
         "userId": "User10072",
         "email": "waelnakhla38@gmail.com",
-        "friends": ["User10029"],
+        "friends": [
+            "User10029"
+        ],
         "username": "janajeno"
     },
     {
@@ -186,6 +182,5 @@
         "email": "toto@gmail.com",
         "friends": [],
         "username": "toto"
->>>>>>> Stashed changes
     }
 ]
