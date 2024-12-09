@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.util.List;
 import org.json.JSONArray;
 
-public class Profile extends javax.swing.JFrame {
+public class Profile extends JFrame {
 
     User user;
 
@@ -23,7 +23,7 @@ public class Profile extends javax.swing.JFrame {
         loadUserDetails();
         loadUserPosts();
         loadUserFriends();
-
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     private void loadCoverPhoto() {
@@ -425,7 +425,6 @@ public class Profile extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CoverPhotoPanel;

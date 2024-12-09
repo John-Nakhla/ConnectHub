@@ -1,44 +1,30 @@
 [
     {
         "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "profilePhoto": "",
+        "profilePhoto": "D:\\Photos\\9A8CC6BC-C550-43B2-B70B-B435FEA779F6.jpg",
         "blockedFriends": [],
-        "coverPhoto": "",
+        "coverPhoto": "D:\\Word insert a horizontal line.png",
         "FriendRequestSenders": [],
-        "bio": "",
+        "bio": "hiiiiiiiiii",
         "dateOfBirth": "1-5-2003",
-        "isOnline": true,
+        "isOnline": false,
         "userId": "User10001",
-        "email": "john1@gmail.com",
-        "friends": [],
-        "username": "john1"
+        "email": "soso@gmail.com",
+        "friends": ["User10008"],
+        "username": "soso"
     },
     {
-        "password": "61aa5cffea151ba7854ccfa0737b177c393059c8001d7f38269aebfad2130da2",
-        "profilePhoto": "",
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "profilePhoto": "D:\\Word insert a horizontal line.png",
         "blockedFriends": [],
-        "coverPhoto": "",
+        "coverPhoto": "D:\\Photos\\9A8CC6BC-C550-43B2-B70B-B435FEA779F6.jpg",
         "FriendRequestSenders": [],
-        "bio": "",
-        "dateOfBirth": "5-5-2005",
-        "isOnline": true,
-        "userId": "User10002",
-        "email": "hala1@gmail.com",
-        "friends": ["User10007"],
-        "username": "hala abdelsalam"
-    },
-    {
-        "password": "1c91ab1c162fd0cae60a5bb9880f3e7d5a133a65b6057a644b26973d9c55dcfe",
-        "profilePhoto": "",
-        "blockedFriends": [],
-        "coverPhoto": "",
-        "FriendRequestSenders": [],
-        "bio": "",
-        "dateOfBirth": "30-8-2004",
-        "isOnline": true,
-        "userId": "User10007",
-        "email": "waelnakhla38@gmail.com",
-        "friends": ["User10002"],
-        "username": "janajeno"
+        "bio": "hey",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": false,
+        "userId": "User10008",
+        "email": "lolo@gmail.com",
+        "friends": ["User10001"],
+        "username": "lolo"
     }
 ]

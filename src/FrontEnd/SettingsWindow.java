@@ -13,17 +13,20 @@ import javax.swing.*;
  * @author ADMIN
  */
 public class SettingsWindow extends javax.swing.JFrame {
+    
     private Profile window;
+
     /**
      * Creates new form SettingsWindow
      */
     public SettingsWindow(Profile window) {
-        this.window=window;
+        this.window = window;
         initComponents();
     }
+    
     private void saveChanges() {
-     
-        window.reloadProfileDetails(); 
+        
+        window.reloadProfileDetails();
     }
 
     /**
@@ -171,7 +174,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String newCoverPhotoPath = selectedFile.getAbsolutePath();
-            
+
             // Update the user's cover photo
             window.user.changeCoverPhoto(newCoverPhotoPath); //me7taga a7ot hena saveto data base!!!!
             saveChanges();
@@ -181,38 +184,38 @@ public class SettingsWindow extends javax.swing.JFrame {
 
     private void UpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePasswordActionPerformed
         String newPassword = JOptionPane.showInputDialog(this, "Enter new password:");
-         if (newPassword != null && !newPassword.trim().isEmpty()) {
-             // Password validations
-             if (newPassword.length() < 8) {
-                 JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.");
-                 return;
-             }
-             if (!newPassword.matches(".*[A-Z].*")) {
-                 JOptionPane.showMessageDialog(this, "Password must contain at least one uppercase letter.");
-                 return;
-             }
-             if (!newPassword.matches(".*[a-z].*")) {
-                 JOptionPane.showMessageDialog(this, "Password must contain at least one lowercase letter.");
-                 return;
-             }
-             if (!newPassword.matches(".*\\d.*")) {
-                 JOptionPane.showMessageDialog(this, "Password must contain at least one number.");
-                 return;
-             }
-             if (newPassword.matches(".*(password|12345|admin|qwerty).*")) {
-                 JOptionPane.showMessageDialog(this, "Password is too weak. Avoid common words or sequences.");
-                 return;
-             }
+        if (newPassword != null && !newPassword.trim().isEmpty()) {
+            // Password validations
+            if (newPassword.length() < 8) {
+                JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.");
+                return;
+            }
+            if (!newPassword.matches(".*[A-Z].*")) {
+                JOptionPane.showMessageDialog(this, "Password must contain at least one uppercase letter.");
+                return;
+            }
+            if (!newPassword.matches(".*[a-z].*")) {
+                JOptionPane.showMessageDialog(this, "Password must contain at least one lowercase letter.");
+                return;
+            }
+            if (!newPassword.matches(".*\\d.*")) {
+                JOptionPane.showMessageDialog(this, "Password must contain at least one number.");
+                return;
+            }
+            if (newPassword.matches(".*(password|12345|admin|qwerty).*")) {
+                JOptionPane.showMessageDialog(this, "Password is too weak. Avoid common words or sequences.");
+                return;
+            }
 
-             // Confirm password
-             String confirmPassword = JOptionPane.showInputDialog(this, "Confirm new password:");
-             if (!newPassword.equals(confirmPassword)) {
-                 JOptionPane.showMessageDialog(this, "Passwords do not match. Try again.");
-                 return;
-        }
-        
-        // Update password
-        window.user.setPassword(newPassword);
+            // Confirm password
+            String confirmPassword = JOptionPane.showInputDialog(this, "Confirm new password:");
+            if (!newPassword.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(this, "Passwords do not match. Try again.");
+                return;
+            }
+
+            // Update password
+            window.user.setPassword(newPassword);
             JOptionPane.showMessageDialog(this, "Password updated successfully!");
         } else {
             JOptionPane.showMessageDialog(this, "Password cannot be empty.");
@@ -229,7 +232,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String newProfilePhotoPath = selectedFile.getAbsolutePath();
-            
+
             // Update the user's cover photo
             window.user.changeProfilePhoto(newProfilePhotoPath); //me7taga a7ot hena saveto data base!!!!
         }
@@ -259,22 +262,22 @@ public class SettingsWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_UpdateBioActionPerformed
 //logout of the ConnecHub
     private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
-        WelcomePage welcome=new WelcomePage();
+        window.user.setStatus(false);
+        WelcomePage welcome = new WelcomePage();
         welcome.setVisible(true);
         this.dispose();
         window.dispose();
     }//GEN-LAST:event_LogOutActionPerformed
 //view blocked users
     private void BlockedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockedActionPerformed
-       Blocked b= new Blocked(window.user);
-       b.setVisible(true);
-       b.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Blocked b = new Blocked(window.user);
+        b.setVisible(true);
+        b.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_BlockedActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Blocked;

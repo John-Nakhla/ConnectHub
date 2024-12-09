@@ -225,7 +225,7 @@ public class User {
         List<User> fof = new ArrayList<>();
         for (User k : this.getFriends()) {
             for (User u : k.getFriends()) {
-                if ((!this.getFriends().contains(u)) && (!this.isBlocked(u))) {
+                if ((!this.getFriends().contains(u)) && (!this.isBlocked(u)) && !(u.getUserId().equals(this.getUserId()))) {
                     fof.add(u);
                 }
             }

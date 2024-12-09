@@ -7,6 +7,8 @@ package FrontEnd;
 import java.awt.*;
 import javax.swing.*;
 import connecthub.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,19 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         initComponents();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         storiesPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Custom behavior
+                user.setStatus(false);
+                dispose();
+                WelcomePage welcomePage = new WelcomePage();
+                welcomePage.pack();
+                welcomePage.setVisible(true);
+            }
+        });
 
         refresh();
     }
@@ -238,7 +253,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     private void myProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myProfileBtnActionPerformed
         Profile profile = new Profile(user);
         profile.setVisible(true);
-        dispose();
+//        dispose();
     }//GEN-LAST:event_myProfileBtnActionPerformed
 
     //user views his friends
