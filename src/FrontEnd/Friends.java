@@ -19,6 +19,7 @@ import javax.swing.*;
 public class Friends extends JFrame {
 
     public Friends(User u) {
+        u.update();
         setTitle("Friends");
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);

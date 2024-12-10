@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 public class LogInPage extends javax.swing.JFrame {
 
-    AccountManagement admin = new AccountManagement();
+    AccountManagement admin = AccountManagement.getAdmin();
 
     public LogInPage(AccountManagement admin) {
         this.admin = admin;

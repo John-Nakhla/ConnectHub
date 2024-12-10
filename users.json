@@ -17,17 +17,14 @@
         "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
         "profilePhoto": "D:\\Word insert a horizontal line.png",
         "blockedFriends": [],
-        "coverPhoto": "D:\\Photos\\9A8CC6BC-C550-43B2-B70B-B435FEA779F6.jpg",
+        "coverPhoto": "C:\\Users\\waelj\\Pictures\\Screenshots\\Screenshot 2024-12-05 001705.png",
         "FriendRequestSenders": [],
         "bio": "hey",
         "dateOfBirth": "1-5-2003",
         "isOnline": false,
         "userId": "User10008",
         "email": "lolo@gmail.com",
-        "friends": [
-            "User10001",
-            "User10003"
-        ],
+        "friends": ["User10001"],
         "username": "lolo"
     },
     {

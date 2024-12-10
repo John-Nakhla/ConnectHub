@@ -17,7 +17,7 @@ public class Profile extends JFrame {
     public Profile(User user, boolean allowSettings) {
         initComponents();
         this.user = user;
-
+        user.update();
         loadCoverPhoto();
         loadProfilePhoto();
         loadUserDetails();

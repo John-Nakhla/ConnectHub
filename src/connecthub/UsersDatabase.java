@@ -7,7 +7,6 @@ import org.json.*;
 public class UsersDatabase {
 
     private static final String FILE_PATH = "users.json";
-
     // Load users from file 
     public void refresh(User u) {
         List<User> users = this.loadUsers();

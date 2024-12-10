@@ -255,7 +255,7 @@ public class SettingsWindow extends javax.swing.JFrame {
     private void UpdateUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateUsernameActionPerformed
         String newUsername = JOptionPane.showInputDialog(this, "Enter new username:");
         if (newUsername != null && !newUsername.trim().isEmpty()) {
-            window.user.setUsername(newUsername);
+            window.user.changeUsername(newUsername);
             JOptionPane.showMessageDialog(this, "Username updated successfully!");
         } else {
             JOptionPane.showMessageDialog(this, "Username cannot be empty.");

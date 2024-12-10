@@ -120,8 +120,11 @@ public class User {
         this.email = email;
         database.refresh(this);
     }
-
-    public void setUsername(String username) {
+    public void setUsername(String name)
+    {
+        this.username = name;
+    }
+    public void changeUsername(String username) {
         this.username = username;
         database.refresh(this);
     }
@@ -171,7 +174,9 @@ public class User {
 
     // accept or decline a request
     public void acceptFriendRequest(FriendRequest request) {
-        if (request.getReceiver().equals(this) && request.isPending()) {
+        System.out.println("here in accept in user");
+        if (request.getReceiver().getUserId().equals(this.getUserId()) && request.isPending()) {
+            System.out.println("here in condition");
             this.getFriendRequests().remove(request);
             this.addFriend(request.getSender());
             request.getSender().addFriend(this);
@@ -212,13 +217,23 @@ public class User {
     public List<User> getFriends() {
         return friends;
     }
-
+    public void setFriends(List<User> friends)
+    {
+        this.friends = friends;
+    }
     public List<FriendRequest> getFriendRequests() {
         return friendRequests;
     }
-
+    public void setFriendRequests(List<FriendRequest> requests)
+    {
+        this.friendRequests = requests;
+    }
     public List<User> getBlockedUsers() {
         return blockedUsers;
+    }
+    public void setBlocked(List<User> blocked)
+    {
+        this.blockedUsers = blocked;
     }
 
     public List<User> friendsOfFriends() {
@@ -231,6 +246,10 @@ public class User {
             }
         }
         return fof;
+    }
+    public void update()
+    {
+        AccountManagement.getAdmin().updateUser(this);
     }
 
     @Override

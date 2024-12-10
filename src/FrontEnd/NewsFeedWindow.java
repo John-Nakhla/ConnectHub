@@ -32,7 +32,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
     public NewsFeedWindow(User user) {
         this.user = user;
-
+        user.update();
         initComponents();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         storiesPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));

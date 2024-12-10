@@ -19,6 +19,7 @@ import java.util.*;
 public class FriendRequests extends JFrame {
 
     public FriendRequests(User u) {
+        u.update();
         setTitle("Friend Requests");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);
@@ -43,6 +44,7 @@ public class FriendRequests extends JFrame {
             acceptButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    System.out.println("here in accept button");
                     u.acceptFriendRequest(k);
                     JOptionPane.showMessageDialog(FriendRequests.this, "Accepted");
                     mainPanel.remove(objectPanel);

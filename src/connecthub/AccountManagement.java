@@ -6,10 +6,19 @@ import java.util.regex.*;
 public class AccountManagement {
 
     private List<User> Users;
+    private static AccountManagement admin;
 
-    public AccountManagement() {
+    private AccountManagement() {
         this.Users = new ArrayList<>();
         loadUsers();
+    }
+    public static AccountManagement getAdmin()
+    {
+        if(admin==null)
+        {
+            admin=new AccountManagement();
+        }
+        return admin;
     }
 
     // sign up a new user and save in the file
@@ -62,6 +71,29 @@ public class AccountManagement {
     private void loadUsers() {
         UsersDatabase database = new UsersDatabase();
         this.Users = database.loadUsers();
+    }
+    public void updateUser(User u)
+    {
+        loadUsers();
+        for(User k : Users)
+        {
+            if(k.getUserId().equals(u.getUserId()))
+            {
+                u.setUsername(k.getUsername());
+                u.status = k.isStatus();
+                u.setRealPassword(k.getPassword());
+                u.setBlocked(k.getBlockedUsers());
+                u.setFriends(k.getFriends());
+                u.setFriendRequests(k.getFriendRequests());
+                for(FriendRequest f :k.getFriendRequests())
+                {
+                    System.out.println(f.getSender().getUsername()+" "+f.getReceiver().getUsername());
+                }
+                u.changeBio(k.getBio());
+                u.changeCoverPhoto(k.getCoverPhoto());
+                u.changeProfilePhoto(k.getProfilePhoto());
+            }
+        }
     }
 
 }

@@ -30,5 +30,21 @@
         "authorId": "User10001",
         "content": "<html><div style='width:90px;'>vuhbkj<\/div><\/html>",
         "timestamp": "2024-12-10T18:07:10.448727700"
+    },
+    {
+        "img": "C:\\Users\\waelj\\Pictures\\Screenshots\\Screenshot 2024-12-04 012451.png",
+        "contentId": "20001",
+        "isStory": false,
+        "authorId": "User10001",
+        "content": "<html><div style='width:90px;'>hello I am soso<\/div><\/html>",
+        "timestamp": "2024-12-10T20:40:50.785377700"
+    },
+    {
+        "img": "",
+        "contentId": "20001",
+        "isStory": true,
+        "authorId": "User10008",
+        "content": "<html><div style='width:90px;'>hello i am lolo<\/div><\/html>",
+        "timestamp": "2024-12-10T20:41:23.290044800"
     }
 ]
