@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 
 public class GroupAdmin extends GroupMember{
     
-    public GroupAdmin(String userId, String userName, String groupId) {
-        super(userId, userName, groupId);
+    public GroupAdmin(String userName, String groupname) {
+        super(userName, groupname);
     }
     
     // Remove member
     public void removeMember(GroupMember member){
-        member.leaveGroup(getGroupId());
+        member.leaveGroup(getGroupname());
     }
     
     // Edit post
@@ -20,9 +20,9 @@ public class GroupAdmin extends GroupMember{
         PostsDatabase posts = new PostsDatabase();
         Post post = posts.getPostById(postId);
         LocalDateTime time = post.getTimestamp();
-        String author = post.getAuthorId();
+        String username = post.getUsername();
         posts.deletePost(post.getPostId());
-        Post newPost = new Post(postId, author, getGroupId(), content, img);
+        Post newPost = new Post(postId, username, getGroupname(), content, img);
         newPost.setTimestamp(time.toString());
         newPost.saveToFile();
     }

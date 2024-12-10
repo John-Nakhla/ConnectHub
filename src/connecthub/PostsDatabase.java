@@ -38,10 +38,10 @@ public class PostsDatabase {
     }
     
     // Create post with unique id
-    public void createPost(String authorId, String content, String groupId, String img) {
+    public void createPost(String username, String content, String groupname, String img) {
 
         String postId = String.valueOf(uniqueId());
-        Post newPost = new Post(postId, authorId, groupId, content, img);
+        Post newPost = new Post(postId, username, groupname, content, img);
         newPost.saveToFile();
     }
     
@@ -91,10 +91,10 @@ public class PostsDatabase {
 
     
     // returns member's posts in a group 
-    public List<Post> getMemberPostsById(String memberId, String groupId) {
+    public List<Post> getMemberPostsInGroup(String username, String groupname) {
         List<Post> content = new ArrayList<>();
         for (Post post : allPosts) {
-            if (post.getAuthorId().equals(memberId) && post.getGroupId().equals(groupId)) {
+            if (post.getUsername().equals(username) && post.getGroupname().equals(groupname)) {
                 content.add(post);
             }
         }
@@ -102,10 +102,10 @@ public class PostsDatabase {
     }
         
     // returns posts of a specific group 
-    public List<Post> getGroupPostsById(String groupId) {
+    public List<Post> getGroupPostsById(String groupname) {
         List<Post> content = new ArrayList<>();
         for (Post post : allPosts) {
-            if (post.getGroupId().equals(groupId)) {
+            if (post.getGroupname().equals(groupname)) {
                 content.add(post);
             }
         }
@@ -139,8 +139,8 @@ public class PostsDatabase {
 
             Post post = new Post(
                 postJson.getString("postId"),
-                postJson.getString("authorId"),
-                postJson.getString("groupId"),
+                postJson.getString("username"),
+                postJson.getString("groupname"),
                 postJson.getString("content"),
                 postJson.optString("img", "")
             );

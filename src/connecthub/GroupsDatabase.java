@@ -36,9 +36,9 @@ public class GroupsDatabase {
     }
     
     // Create a new group
-    public void createGroup(String groupName, String description, String groupPhoto, String creatorId) {
+    public void createGroup(String groupName, String description, String groupPhoto, String creatorUsername) {
         String groupId = String.valueOf(uniqueId());
-        Group group = new Group(groupId, groupName, description, groupPhoto, creatorId);
+        Group group = new Group(groupId, groupName, description, groupPhoto, creatorUsername);
         group.saveToFile();
     }
     
@@ -91,10 +91,10 @@ public class GroupsDatabase {
     }
     
     // Groups suggestions
-    public List<Group> getGroupsSuggestions(String userId){
+    public List<Group> getGroupsSuggestions(String username){
         List<Group> suggestions = new ArrayList<>();
         for(Group group: groups){
-            if(!group.isMember(userId) || !group.isRemovedMember(userId) )
+            if(!group.isMember(username) || !group.isAdmin(username) || !group.isCreator(username) || !group.isRemovedMember(username) )
                 suggestions.add(group);
         }
         return suggestions;
@@ -113,7 +113,7 @@ public class GroupsDatabase {
                 groupJson.getString("groupName"),
                 groupJson.getString("description"),
                 groupJson.getString("groupPhoto"),
-                groupJson.getString("creatorId")
+                groupJson.getString("creatorUsername")
             );
 
             // Add members to the group
@@ -123,7 +123,6 @@ public class GroupsDatabase {
                 for (int j = 0; j < membersArray.length(); j++) {
                     JSONObject memberJson = membersArray.getJSONObject(j);
                     GroupMember member = new GroupMember(
-                        memberJson.getString("userId"),
                         memberJson.getString("userName"),
                         memberJson.getString("groupId")
                     );
@@ -139,7 +138,6 @@ public class GroupsDatabase {
                 for (int j = 0; j < removedMembersArray.length(); j++) {
                     JSONObject memberJson = removedMembersArray.getJSONObject(j);
                     GroupMember member = new GroupMember(
-                        memberJson.getString("userId"),
                         memberJson.getString("userName"),
                         memberJson.getString("groupId")
                     );
@@ -156,7 +154,7 @@ public class GroupsDatabase {
                     JSONObject postJson = postsArray.getJSONObject(j);
                     Post post = new Post(
                         postJson.getString("postId"),
-                        postJson.getString("authorId"),
+                        postJson.getString("username"),
                         postJson.getString("groupId"),
                         postJson.getString("content"),
                         postJson.optString("img", "")

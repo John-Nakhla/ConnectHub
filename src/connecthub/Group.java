@@ -9,22 +9,26 @@ public class Group {
     private String groupName;
     private String description;
     private String groupPhoto;
-    private final String creatorId;
+    private final String creatorUsername;
     public List<GroupMember> members;
     public List<GroupAdmin> admins;
     private List<GroupMember> removedMembers;
     private List<Post> posts;
+    private List<String> groupPeople;
+    private List<String> requests;
 
-    public Group(String groupId, String groupName, String description, String groupPhoto, String creatorId) {
+    public Group(String groupId, String groupName, String description, String groupPhoto, String creatorUsername) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.description = description;
         this.groupPhoto = groupPhoto;
-        this.creatorId = creatorId;
+        this.creatorUsername = creatorUsername;
         this.members = new ArrayList<>();
         this.admins = new ArrayList<>();
         this.removedMembers = new ArrayList<>();
         this.posts = new ArrayList<>();
+        this.groupPeople = new ArrayList<>();
+        this.requests = new ArrayList<>();
     }
 
     // Getters
@@ -44,8 +48,8 @@ public class Group {
         return groupPhoto;
     }
 
-    public String getCreatorId() {
-        return creatorId;
+    public String getCreatorUsername() {
+        return creatorUsername;
     }
 
     public List<GroupMember> getMembers() {
@@ -81,18 +85,32 @@ public class Group {
     }
     
     // Check if member
-    public boolean isMember(String userId){
+    public boolean isMember(String username){
         for(GroupMember member: members){
-            if (member.getUserId().equals(userId))
+            if (member.getUsername().equals(username))
                 return true;
         }
         return false;
     }
     
+    // Check if admin
+    public boolean isAdmin(String username){
+        for(GroupAdmin admin: admins){
+            if (admin.getUsername().equals(username))
+                return true;
+        }
+        return false;
+    }
+    
+    // Check if admin
+    public boolean isCreator(String username){
+        return creatorUsername.equals(username);
+    }
+    
     // Check if removed member
-    public boolean isRemovedMember(String userId){
+    public boolean isRemovedMember(String username){
         for(GroupMember member: removedMembers){
-            if (member.getUserId().equals(userId))
+            if (member.getUsername().equals(username))
                 return true;
         }
         return false;
@@ -104,9 +122,9 @@ public class Group {
     }
 
     // Remove a member
-    public void removeMember(String userId) {
+    public void removeMember(String username) {
         for (GroupMember member:members){
-            if(member.getUserId().equals(userId)){
+            if(member.getUsername().equals(username)){
                 removedMembers.add(member);
                 members.remove(member);
                 break;
@@ -114,10 +132,37 @@ public class Group {
         }
     }
     
+    // Send join request
+    public void sendJoinRequest(String username){
+        requests.add(username);
+    }
+    
+    // Remove join request
+    public void removeJoinRequest(String username){
+        requests.remove(username);
+    }
+    
+    // Get join requests
+    public List<String> getJoinRequests(){
+        return requests;
+    }
+    
     // Delete group from database
     public void deleteFromDatabase(){
         GroupsDatabase db = new GroupsDatabase();
         db.deleteGroup(groupId);
+    }
+    
+    // Get all Group People
+    public List<String> GetGroupPeople(){
+        groupPeople.add(creatorUsername + " (Creator)");
+        for(GroupAdmin admin: admins){
+            groupPeople.add(admin.getUsername() + " (Admin)");
+        }
+        for(GroupMember member: members){
+            groupPeople.add(member.getUsername() + " (Member)");
+        }
+        return groupPeople;
     }
     
     // Save this content to file
@@ -130,14 +175,13 @@ public class Group {
         groupObj.put("groupName", this.groupName);
         groupObj.put("description", this.description);
         groupObj.put("groupPhoto", this.groupPhoto);
-        groupObj.put("creatorId", this.creatorId);
+        groupObj.put("creatorUsername", this.creatorUsername);
         
         JSONArray groupMembers = new JSONArray();
         for (GroupMember member : members) {
             JSONObject memberObj = new JSONObject();
-            memberObj.put("userId", member.getUserId());
-            memberObj.put("userName", member.getUserName());
-            memberObj.put("groupId", member.getGroupId());
+            memberObj.put("userName", member.getUsername());
+            memberObj.put("groupname", member.getGroupname());
             groupMembers.put(memberObj);
         }
         groupObj.put("members", groupMembers);
@@ -145,9 +189,8 @@ public class Group {
         JSONArray groupremovedMembers = new JSONArray();
         for (GroupMember member : removedMembers) {
             JSONObject memberObj = new JSONObject();
-            memberObj.put("userId", member.getUserId());
-            memberObj.put("userName", member.getUserName());
-            memberObj.put("groupId", member.getGroupId());
+            memberObj.put("userName", member.getUsername());
+            memberObj.put("groupname", member.getGroupname());
             groupremovedMembers.put(memberObj);
         }
         groupObj.put("removedMembers", groupremovedMembers);
@@ -156,8 +199,8 @@ public class Group {
         for (Post post : posts) {
             JSONObject postsObj = new JSONObject();
             postsObj.put("postId", post.getPostId());
-            postsObj.put("authorId", post.getAuthorId());
-            postsObj.put("groupId", post.getGroupId());
+            postsObj.put("username", post.getUsername());
+            postsObj.put("groupname", post.getGroupname());
             postsObj.put("content", post.getContent());
             postsObj.put("img", post.getImg());
             postsObj.put("timestamp", post.getTimestamp().toString());
