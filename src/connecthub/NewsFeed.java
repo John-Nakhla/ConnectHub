@@ -5,20 +5,19 @@ import org.json.*;
 
 public class NewsFeed {
 
-    private final UsersDatabase usersDatabase;
-    private final List<Content> allPosts;
+    private  UsersDatabase usersDatabase;
+    private  List<Content> allPosts;
     ContentDatabase db = new ContentDatabase();
 
     public NewsFeed(UsersDatabase usersDatabase) {
         this.usersDatabase = usersDatabase;
         this.allPosts = convertJsonArrayToContentList(db.loadContent());
-
     }
 
     // friend posts and stories
     public List<Content> PostsAndStories(User user) {
+        allPosts = convertJsonArrayToContentList(db.loadContent());
         List<Content> ALlPosts = new ArrayList<>();
-
         if (user != null) {
             for (User friend : user.getFriends()) {
                 for (Content post : allPosts) {
@@ -129,8 +128,6 @@ public class NewsFeed {
             content.setTimestamp(contentJson.getString("timestamp"));
             contentList.add(content);
         }
-
         return contentList;
     }
-
 }

@@ -275,6 +275,9 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         postsPanel.removeAll();
         postsPanel.revalidate();
         postsPanel.repaint();
+        storiesPanel.removeAll();
+        storiesPanel.revalidate();
+        storiesPanel.repaint();
         refresh();
     }//GEN-LAST:event_refreshBtnActionPerformed
 
