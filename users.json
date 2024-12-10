@@ -24,7 +24,52 @@
         "isOnline": false,
         "userId": "User10008",
         "email": "lolo@gmail.com",
-        "friends": ["User10001"],
+        "friends": [
+            "User10001",
+            "User10003"
+        ],
         "username": "lolo"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "profilePhoto": "D:\\Photos\\9A8CC6BC-C550-43B2-B70B-B435FEA779F6.jpg",
+        "blockedFriends": [],
+        "coverPhoto": "D:\\Word insert a horizontal line.png",
+        "FriendRequestSenders": [],
+        "bio": "heeggege ge tge ge",
+        "dateOfBirth": "30-2-2000",
+        "isOnline": true,
+        "userId": "User10003",
+        "email": "hala@gmail",
+        "friends": [],
+        "username": "john"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": false,
+        "userId": "User10007",
+        "email": "toto@gmail.com",
+        "friends": [],
+        "username": "toto"
+    },
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": false,
+        "userId": "User10005",
+        "email": "john122@gmail.com",
+        "friends": [],
+        "username": "jooooooohn"
     }
 ]

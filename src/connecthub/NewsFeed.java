@@ -1,11 +1,10 @@
-
 package connecthub;
 
 import java.util.*;
 import org.json.*;
 
-
 public class NewsFeed {
+
     private final UsersDatabase usersDatabase;
     private final List<Content> allPosts;
     ContentDatabase db = new ContentDatabase();
@@ -13,23 +12,23 @@ public class NewsFeed {
     public NewsFeed(UsersDatabase usersDatabase) {
         this.usersDatabase = usersDatabase;
         this.allPosts = convertJsonArrayToContentList(db.loadContent());
-        
+
     }
-        
+
     // friend posts and stories
     public List<Content> PostsAndStories(User user) {
-        List<Content> friendPosts = new ArrayList<>();
+        List<Content> ALlPosts = new ArrayList<>();
 
         if (user != null) {
             for (User friend : user.getFriends()) {
                 for (Content post : allPosts) {
-                    if (post.getAuthorId().equals(friend.getUserId())) {
-                        friendPosts.add(post);
+                    if (post.getAuthorId().equals(friend.getUserId()) || post.getAuthorId().equals(user.getUserId())) {
+                        ALlPosts.add(post);
                     }
                 }
             }
         }
-        return friendPosts;
+        return ALlPosts;
     }
 
     // friends' status 
@@ -71,12 +70,12 @@ public class NewsFeed {
         }
         return null;
     }
-    
+
     // returns all posts only 
     public List<Content> getPostsOnly(User user) {
         List<Content> posts = new ArrayList<>();
-        List<Content> friendsPosts =  PostsAndStories(user);
-        for (Content post : friendsPosts) {
+        List<Content> postsAndStories = PostsAndStories(user);
+        for (Content post : postsAndStories) {
             if (!post.isStory()) {
                 posts.add(post);
             }
@@ -87,7 +86,7 @@ public class NewsFeed {
     // returns all stories only 
     public List<Content> getStoriesOnly(User user) {
         List<Content> stories = new ArrayList<>();
-        List<Content> friendsStories =  PostsAndStories(user);
+        List<Content> friendsStories = PostsAndStories(user);
 
         for (Content post : friendsStories) {
             if (post.isStory()) {
@@ -96,7 +95,7 @@ public class NewsFeed {
         }
         return stories;
     }
-    
+
     // returns a content of a specific user 
     public List<Content> getContentById(String id) {
         List<Content> content = new ArrayList<>();
@@ -107,8 +106,7 @@ public class NewsFeed {
         }
         return content;
     }
-    
-    
+
     //Helping method to convert JsonArray to Content List
     public List<Content> convertJsonArrayToContentList(JSONArray jsonArray) {
         List<Content> contentList = new ArrayList<>();
@@ -121,11 +119,11 @@ public class NewsFeed {
             }
 
             Content content = new Content(
-                contentJson.getString("contentId"),
-                contentJson.getString("authorId"),
-                contentJson.getString("content"),
-                contentJson.optString("img", ""),
-                contentJson.getBoolean("isStory")
+                    contentJson.getString("contentId"),
+                    contentJson.getString("authorId"),
+                    contentJson.getString("content"),
+                    contentJson.optString("img", ""),
+                    contentJson.getBoolean("isStory")
             );
 
             content.setTimestamp(contentJson.getString("timestamp"));
@@ -136,4 +134,3 @@ public class NewsFeed {
     }
 
 }
-

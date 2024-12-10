@@ -40,7 +40,7 @@ public class FriendSuggestions extends JFrame {
             profileButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Profile p = new Profile(k);
+                    Profile p = new Profile(k, false);
                     p.setVisible(true);
                 }
             });

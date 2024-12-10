@@ -251,7 +251,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
 
     //user views his profile
     private void myProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myProfileBtnActionPerformed
-        Profile profile = new Profile(user);
+        Profile profile = new Profile(user, true);
         profile.setVisible(true);
 //        dispose();
     }//GEN-LAST:event_myProfileBtnActionPerformed

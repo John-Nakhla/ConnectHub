@@ -40,7 +40,6 @@ public class AccountManagement {
 
     // Helping methods
     public boolean emailExists(String email) {
-
         for (User user : Users) {
             if (user.getEmail().equals(email)) {
                 return true;
@@ -50,7 +49,7 @@ public class AccountManagement {
     }
 
     public boolean isValidEmail(String email) {
-        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }

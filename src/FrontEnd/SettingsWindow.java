@@ -13,7 +13,7 @@ import javax.swing.*;
  * @author ADMIN
  */
 public class SettingsWindow extends javax.swing.JFrame {
-    
+
     private Profile window;
 
     /**
@@ -23,9 +23,9 @@ public class SettingsWindow extends javax.swing.JFrame {
         this.window = window;
         initComponents();
     }
-    
+
     private void saveChanges() {
-        
+
         window.reloadProfileDetails();
     }
 
@@ -169,7 +169,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         // Open file chooser to select new cover photo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select a new Cover Photo");
-        
+
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -178,12 +178,25 @@ public class SettingsWindow extends javax.swing.JFrame {
             // Update the user's cover photo
             window.user.changeCoverPhoto(newCoverPhotoPath); //me7taga a7ot hena saveto data base!!!!
             saveChanges();
-            
+
         }
     }//GEN-LAST:event_UpdateCoverPhotoActionPerformed
 
     private void UpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePasswordActionPerformed
-        String newPassword = JOptionPane.showInputDialog(this, "Enter new password:");
+        JPasswordField passwordField = new JPasswordField();
+
+        JOptionPane.showConfirmDialog(null, passwordField, "Enter old password:", JOptionPane.ERROR_MESSAGE);
+        char[] password = passwordField.getPassword();
+        String oldPassword = new String(password);
+        if (!window.user.checkPassword(oldPassword)) {
+            JOptionPane.showMessageDialog(this, "invalid password.");
+            return;
+        }
+
+        passwordField.setText("");
+        JOptionPane.showConfirmDialog(null, passwordField, "Enter new password:", JOptionPane.ERROR_MESSAGE);
+        password = passwordField.getPassword();
+        String newPassword = new String(password);
         if (newPassword != null && !newPassword.trim().isEmpty()) {
             // Password validations
             if (newPassword.length() < 8) {
@@ -227,7 +240,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         // Open file chooser to select new cover photo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select a new Profile Photo");
-        
+
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();

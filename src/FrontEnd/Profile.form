@@ -73,8 +73,8 @@
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="retrun" max="32767" attributes="0"/>
-                              <Component id="settings" max="32767" attributes="0"/>
+                              <Component id="retrunBtn" max="32767" attributes="0"/>
+                              <Component id="settingsBtn" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -93,9 +93,9 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="settings" min="-2" max="-2" attributes="0"/>
+                          <Component id="settingsBtn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                          <Component id="retrun" min="-2" max="-2" attributes="0"/>
+                          <Component id="retrunBtn" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -243,7 +243,7 @@
             <Property name="text" type="java.lang.String" value="Bio"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="settings">
+        <Component class="javax.swing.JButton" name="settingsBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
@@ -257,10 +257,10 @@
             <Property name="text" type="java.lang.String" value="Settings"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="settingsActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="settingsBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="retrun">
+        <Component class="javax.swing.JButton" name="retrunBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
@@ -274,7 +274,7 @@
             <Property name="text" type="java.lang.String" value="Return"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="retrunActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="retrunBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
