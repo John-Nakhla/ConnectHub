@@ -40,6 +40,10 @@ public class AccountManagement {
         }
         return null;
     }
+    public List<User> getUsers()
+    {
+        return Users;
+    }
 
     // logout a user and set as Offline
     public void logout(User user) {

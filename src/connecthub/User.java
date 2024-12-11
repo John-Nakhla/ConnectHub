@@ -145,6 +145,18 @@ public class User {
     }
     // FRIENDS MANAGEMENT PART
 
+    // checks if user is friend
+    public boolean isFriend(User u)
+    {
+       for(User k : this.getFriends())
+       {
+           if(k.getUserId().equals(u.getUserId()))
+           {
+               return true;
+           }
+       }
+       return false;
+    }
     // add or remove a friend
     public void addFriend(User friend) {
         if (!friends.contains(friend) && !blockedUsers.contains(friend)) {
@@ -154,14 +166,20 @@ public class User {
     }
 
     public void removeFriend(User friend) {
-        if (friends.contains(friend)) {
-            friends.remove(friend);
-            database.refresh(this);
+        for(User k : friends)
+        {
+            if(k.getUserId().equals(friend.getUserId()))
+            {
+                friends.remove(k);
+                break;
+            }
         }
+        database.refresh(this);
     }
 
     // send or recieve a request
     public void sendFriendRequest(User receiver) {
+        System.out.println("in send friend requese");
         FriendRequest request = new FriendRequest(this, receiver);
         receiver.receiveFriendRequest(request);
         

@@ -17,7 +17,6 @@ import javax.swing.*;
  * @author waelj
  */
 public class Friends extends JFrame {
-
     public Friends(User u) {
         u.update();
         setTitle("Friends");

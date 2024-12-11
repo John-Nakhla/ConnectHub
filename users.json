@@ -1,20 +1,6 @@
 [
     {
         "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "profilePhoto": "D:\\Photos\\9A8CC6BC-C550-43B2-B70B-B435FEA779F6.jpg",
-        "blockedFriends": [],
-        "coverPhoto": "D:\\Word insert a horizontal line.png",
-        "FriendRequestSenders": [],
-        "bio": "hiiiiiiiiii",
-        "dateOfBirth": "1-5-2003",
-        "isOnline": false,
-        "userId": "User10001",
-        "email": "soso@gmail.com",
-        "friends": ["User10008"],
-        "username": "soso"
-    },
-    {
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
         "profilePhoto": "D:\\Word insert a horizontal line.png",
         "blockedFriends": [],
         "coverPhoto": "C:\\Users\\waelj\\Pictures\\Screenshots\\Screenshot 2024-12-05 001705.png",
@@ -24,7 +10,7 @@
         "isOnline": false,
         "userId": "User10008",
         "email": "lolo@gmail.com",
-        "friends": ["User10001"],
+        "friends": [],
         "username": "lolo"
     },
     {
