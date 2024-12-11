@@ -10,7 +10,7 @@ import org.json.*;
 public class PostsDatabase {
     
     private final String FILE_PATH = "groups content.json";
-    private List<Post> allPosts = convertJsonArrayToPostList(loadPosts());
+    private List<Posts> allPosts = convertJsonArrayToPostList(loadPosts());
     
 
     // Load posts from file
@@ -41,7 +41,7 @@ public class PostsDatabase {
     public void createPost(String username, String content, String groupname, String img) {
 
         String postId = String.valueOf(uniqueId());
-        Post newPost = new Post(postId, username, groupname, content, img);
+        Posts newPost = new Posts(postId, username, groupname, content, img);
         newPost.saveToFile();
     }
     
@@ -80,8 +80,8 @@ public class PostsDatabase {
     }
     
     // Get post by id
-    public Post getPostById(String postId){
-        for(Post post: allPosts){
+    public Posts getPostById(String postId){
+        for(Posts post: allPosts){
             if (post.getPostId().equals(postId)){
                 return post;
             }
@@ -91,9 +91,9 @@ public class PostsDatabase {
 
     
     // returns member's posts in a group 
-    public List<Post> getMemberPostsInGroup(String username, String groupname) {
-        List<Post> content = new ArrayList<>();
-        for (Post post : allPosts) {
+    public List<Posts> getMemberPostsInGroup(String username, String groupname) {
+        List<Posts> content = new ArrayList<>();
+        for (Posts post : allPosts) {
             if (post.getUsername().equals(username) && post.getGroupname().equals(groupname)) {
                 content.add(post);
             }
@@ -102,9 +102,9 @@ public class PostsDatabase {
     }
         
     // returns posts of a specific group 
-    public List<Post> getGroupPostsById(String groupname) {
-        List<Post> content = new ArrayList<>();
-        for (Post post : allPosts) {
+    public List<Posts> getGroupPostsById(String groupname) {
+        List<Posts> content = new ArrayList<>();
+        for (Posts post : allPosts) {
             if (post.getGroupname().equals(groupname)) {
                 content.add(post);
             }
@@ -131,13 +131,13 @@ public class PostsDatabase {
     }
     
     //Helping method to convert JsonArray to Posts List
-    public List<Post> convertJsonArrayToPostList(JSONArray jsonArray) {
-        List<Post> postsList = new ArrayList<>();
+    public List<Posts> convertJsonArrayToPostList(JSONArray jsonArray) {
+        List<Posts> postsList = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject postJson = jsonArray.getJSONObject(i);
 
-            Post post = new Post(
+            Posts post = new Posts(
                 postJson.getString("postId"),
                 postJson.getString("username"),
                 postJson.getString("groupname"),

@@ -4,25 +4,17 @@ package connecthub;
 import java.util.*;
 import org.json.*;
 
-public class Group {
-    private final String groupId;
-    private String groupName;
-    private String description;
-    private String groupPhoto;
-    private final String creatorUsername;
+public class Group extends GroupManagement{
+    
     public List<GroupMember> members;
     public List<GroupAdmin> admins;
     private List<GroupMember> removedMembers;
-    private List<Post> posts;
+    private List<Posts> posts;
     private List<String> groupPeople;
     private List<String> requests;
 
     public Group(String groupId, String groupName, String description, String groupPhoto, String creatorUsername) {
-        this.groupId = groupId;
-        this.groupName = groupName;
-        this.description = description;
-        this.groupPhoto = groupPhoto;
-        this.creatorUsername = creatorUsername;
+        super(groupId, groupName, description, groupPhoto, creatorUsername);
         this.members = new ArrayList<>();
         this.admins = new ArrayList<>();
         this.removedMembers = new ArrayList<>();
@@ -31,45 +23,14 @@ public class Group {
         this.requests = new ArrayList<>();
     }
 
-    // Getters
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getGroupPhoto() {
-        return groupPhoto;
-    }
-
-    public String getCreatorUsername() {
-        return creatorUsername;
-    }
-
+    
+    // Getters & Setters
     public List<GroupMember> getMembers() {
         return members;
     }
 
-    public List<Post> getPosts() {
+    public List<Posts> getPosts() {
         return posts;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setGroupPhoto(String groupPhoto) {
-        this.groupPhoto = groupPhoto;
     }
 
     public void setMembers(List<GroupMember> members) {
@@ -80,7 +41,7 @@ public class Group {
         this.removedMembers = removedMembers;
     }
 
-    public void setPosts(List<Post> posts) {
+    public void setPosts(List<Posts> posts) {
         this.posts = posts;
     }
     
@@ -104,7 +65,7 @@ public class Group {
     
     // Check if admin
     public boolean isCreator(String username){
-        return creatorUsername.equals(username);
+        return super.getCreatorUsername().equals(username);
     }
     
     // Check if removed member
@@ -150,12 +111,12 @@ public class Group {
     // Delete group from database
     public void deleteFromDatabase(){
         GroupsDatabase db = new GroupsDatabase();
-        db.deleteGroup(groupId);
+        db.deleteGroup(super.getGroupId());
     }
     
     // Get all Group People
     public List<String> GetGroupPeople(){
-        groupPeople.add(creatorUsername + " (Creator)");
+        groupPeople.add(super.getCreatorUsername() + " (Creator)");
         for(GroupAdmin admin: admins){
             groupPeople.add(admin.getUsername() + " (Admin)");
         }
@@ -171,11 +132,11 @@ public class Group {
         JSONArray groupsArray = db.loadGroups();
 
         JSONObject groupObj = new JSONObject();
-        groupObj.put("groupId", this.groupId);
-        groupObj.put("groupName", this.groupName);
-        groupObj.put("description", this.description);
-        groupObj.put("groupPhoto", this.groupPhoto);
-        groupObj.put("creatorUsername", this.creatorUsername);
+        groupObj.put("groupId", super.getGroupId());
+        groupObj.put("groupName", super.getGroupName());
+        groupObj.put("description", super.getDescription());
+        groupObj.put("groupPhoto", super.getGroupPhoto());
+        groupObj.put("creatorUsername", super.getCreatorUsername());
         
         JSONArray groupMembers = new JSONArray();
         for (GroupMember member : members) {
@@ -196,7 +157,7 @@ public class Group {
         groupObj.put("removedMembers", groupremovedMembers);
 
         JSONArray groupPosts = new JSONArray();
-        for (Post post : posts) {
+        for (Posts post : posts) {
             JSONObject postsObj = new JSONObject();
             postsObj.put("postId", post.getPostId());
             postsObj.put("username", post.getUsername());

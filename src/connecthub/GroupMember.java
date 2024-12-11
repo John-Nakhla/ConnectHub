@@ -26,7 +26,7 @@ public class GroupMember{
     }
 
     
-    // Post a content
+    // Posts a content
     public void postContent(String content, String img){
         db.createPost(username, content, groupname, img);
     }
@@ -35,8 +35,8 @@ public class GroupMember{
     public void leaveGroup(String groupId){
         GroupsDatabase groups = new GroupsDatabase();
         Group group = groups.searchGroup(groupname);
-        List<Post> posts = db.getMemberPostsInGroup(username, groupname);
-        for(Post post: posts){
+        List<Posts> posts = db.getMemberPostsInGroup(username, groupname);
+        for(Posts post: posts){
             db.deletePost(post.getPostId());
         }
         group.removeMember(username);

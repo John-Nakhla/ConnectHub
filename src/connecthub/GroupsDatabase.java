@@ -148,11 +148,11 @@ public class GroupsDatabase {
 
             // Add posts to the group
             JSONArray postsArray = groupJson.optJSONArray("posts");
-            List<Post> postsList = new ArrayList<>();
+            List<Posts> postsList = new ArrayList<>();
             if (postsArray != null) {
                 for (int j = 0; j < postsArray.length(); j++) {
                     JSONObject postJson = postsArray.getJSONObject(j);
-                    Post post = new Post(
+                    Posts post = new Posts(
                         postJson.getString("postId"),
                         postJson.getString("username"),
                         postJson.getString("groupId"),

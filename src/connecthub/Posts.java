@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.json.*;
 
 
-public class Post {
+public class Posts {
     
     private final String postId;
     private final String username;
@@ -14,7 +14,7 @@ public class Post {
     private String img;
     private LocalDateTime timestamp;
 
-    public Post(String postId, String username, String groupname, String content, String img) {
+    public Posts(String postId, String username, String groupname, String content, String img) {
         this.postId = postId;
         this.username = username;
         this.groupname = groupname;
