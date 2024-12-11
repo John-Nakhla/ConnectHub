@@ -32,7 +32,7 @@ public class GroupMember{
     }
     
     // Leave group
-    public void leaveGroup(String groupId){
+    public void leaveGroup(String groupname){
         GroupsDatabase groups = new GroupsDatabase();
         Group group = groups.searchGroup(groupname);
         List<Posts> posts = db.getMemberPostsInGroup(username, groupname);

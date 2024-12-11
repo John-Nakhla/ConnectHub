@@ -29,6 +29,10 @@ public class Group extends GroupManagement{
         return members;
     }
 
+    public List<GroupAdmin> getAdmins() {
+        return admins;
+    }
+
     public List<Posts> getPosts() {
         return posts;
     }

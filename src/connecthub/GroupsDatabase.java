@@ -100,6 +100,15 @@ public class GroupsDatabase {
         return suggestions;
     }
 
+    // My Groups
+    public List<Group> myGroups(String username){
+        List<Group> mygroups = new ArrayList<>();
+        for(Group group: groups){
+            if(group.isMember(username) || group.isAdmin(username) || group.isCreator(username))
+                mygroups.add(group);
+        }
+        return mygroups;
+    }
     
     //Helping method to convert JsonArray to Group List
     public List<Group> convertJsonArrayToGroupList(JSONArray jsonArray) {

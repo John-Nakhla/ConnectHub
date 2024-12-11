@@ -102,7 +102,7 @@ public class PostsDatabase {
     }
         
     // returns posts of a specific group 
-    public List<Posts> getGroupPostsById(String groupname) {
+    public List<Posts> getGroupPosts(String groupname) {
         List<Posts> content = new ArrayList<>();
         for (Posts post : allPosts) {
             if (post.getGroupname().equals(groupname)) {
