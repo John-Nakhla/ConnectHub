@@ -13,7 +13,7 @@ public class Group {
     public List<GroupMember> members;
     public List<GroupAdmin> admins;
     private List<GroupMember> removedMembers;
-    private List<Post> posts;
+    private List<Posts> posts;
 
     public Group(String groupId, String groupName, String description, String groupPhoto, String creatorId) {
         this.groupId = groupId;
@@ -36,6 +36,11 @@ public class Group {
         return groupName;
     }
 
+    public List<GroupAdmin> getAdmins() {
+        return admins;
+    }
+    
+
     public String getDescription() {
         return description;
     }
@@ -52,7 +57,7 @@ public class Group {
         return members;
     }
 
-    public List<Post> getPosts() {
+    public List<Posts> getPosts() {
         return posts;
     }
 
@@ -76,7 +81,7 @@ public class Group {
         this.removedMembers = removedMembers;
     }
 
-    public void setPosts(List<Post> posts) {
+    public void setPosts(List<Posts> posts) {
         this.posts = posts;
     }
     
@@ -95,6 +100,7 @@ public class Group {
             if (member.getUserId().equals(userId))
                 return true;
         }
+        
         return false;
     }
     
@@ -110,6 +116,13 @@ public class Group {
                 removedMembers.add(member);
                 members.remove(member);
                 break;
+            }
+        }
+        for(GroupAdmin admin: admins){
+            if(admin.getUserId().equals(userId)){
+                removedMembers.add(admin);
+                admins.remove(admin);
+                break;   
             }
         }
     }
@@ -153,7 +166,7 @@ public class Group {
         groupObj.put("removedMembers", groupremovedMembers);
 
         JSONArray groupPosts = new JSONArray();
-        for (Post post : posts) {
+        for (Posts post : posts) {
             JSONObject postsObj = new JSONObject();
             postsObj.put("postId", post.getPostId());
             postsObj.put("authorId", post.getAuthorId());

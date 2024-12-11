@@ -18,17 +18,17 @@ public class GroupAdmin extends GroupMember{
     // Edit post
     public void editPost(String postId, String content, String img){
         PostsDatabase posts = new PostsDatabase();
-        Post post = posts.getPostById(postId);
+        Posts post = posts.getPostById(postId);
         LocalDateTime time = post.getTimestamp();
         String author = post.getAuthorId();
         posts.deletePost(post.getPostId());
-        Post newPost = new Post(postId, author, getGroupId(), content, img);
+        Posts newPost = new Posts(postId, author, getGroupId(), content, img);
         newPost.setTimestamp(time.toString());
         newPost.saveToFile();
     }
     
     // Delete post
-    public void deletePost(Post post){
+    public void deletePost(Posts post){
         PostsDatabase posts = new PostsDatabase();
         posts.deletePost(post.getPostId());
     }

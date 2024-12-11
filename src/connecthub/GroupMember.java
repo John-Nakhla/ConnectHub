@@ -41,8 +41,8 @@ public class GroupMember{
     public void leaveGroup(String groupId){
         GroupsDatabase groups = new GroupsDatabase();
         Group group = groups.searchGroup(groupId);
-        List<Post> posts = db.getMemberPostsById(userId, groupId);
-        for(Post post: posts){
+        List<Posts> posts = db.getMemberPostsById(userId, groupId);
+        for(Posts post: posts){
             db.deletePost(post.getPostId());
         }
         group.removeMember(userId);
