@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 public class LogInPage extends javax.swing.JFrame {
 
-    AccountManagement admin = new AccountManagement();
+    AccountManagement admin = AccountManagement.getAdmin();
 
     public LogInPage(AccountManagement admin) {
         this.admin = admin;
@@ -137,7 +137,7 @@ public class LogInPage extends javax.swing.JFrame {
             p += k;
         }
         User user = admin.login(email, p);
-        if (user != null) {
+        if (user == null) {
             JOptionPane.showMessageDialog(this, "User not found", "Input error", JOptionPane.ERROR_MESSAGE);
         } else {
             NewsFeedWindow newsFeed = new NewsFeedWindow(user);

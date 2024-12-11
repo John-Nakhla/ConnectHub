@@ -42,6 +42,7 @@ public class User {
 
     public void setPassword(String password) {
         this.password = generatePassword(password);
+        database.refresh(this);
     }
 
     public void setRealPassword(String password) {
@@ -119,8 +120,11 @@ public class User {
         this.email = email;
         database.refresh(this);
     }
-
-    public void setUsername(String username) {
+    public void setUsername(String name)
+    {
+        this.username = name;
+    }
+    public void changeUsername(String username) {
         this.username = username;
         database.refresh(this);
     }
@@ -141,36 +145,59 @@ public class User {
     }
     // FRIENDS MANAGEMENT PART
 
+    // checks if user is friend
+    public boolean isFriend(User u)
+    {
+       for(User k : this.getFriends())
+       {
+           if(k.getUserId().equals(u.getUserId()))
+           {
+               return true;
+           }
+       }
+       return false;
+    }
     // add or remove a friend
     public void addFriend(User friend) {
         if (!friends.contains(friend) && !blockedUsers.contains(friend)) {
             friends.add(friend);
-        }
-    }
-
-    public void removeFriend(User friend) {
-        if (friends.contains(friend)) {
-            friends.remove(friend);
             database.refresh(this);
         }
     }
 
-    // send or recieve a request
-    public void sendFriendRequest(User receiver) {
-        FriendRequest request = new FriendRequest(this, receiver);
-        receiver.receiveFriendRequest(request);
+    public void removeFriend(User friend) {
+        for(User k : friends)
+        {
+            if(k.getUserId().equals(friend.getUserId()))
+            {
+                friends.remove(k);
+                break;
+            }
+        }
         database.refresh(this);
     }
 
+    // send or recieve a request
+    public void sendFriendRequest(User receiver) {
+        System.out.println("in send friend requese");
+        FriendRequest request = new FriendRequest(this, receiver);
+        receiver.receiveFriendRequest(request);
+        
+    }
+
     public void receiveFriendRequest(FriendRequest request) {
-        friendRequests.add(request);
+        friendRequests.add(request);  
+        database.refresh(request.getReceiver());
     }
 
     // accept or decline a request
     public void acceptFriendRequest(FriendRequest request) {
-        if (request.getReceiver().equals(this) && request.isPending()) {
-            friends.add(request.getSender());
-            request.getSender().friends.add(this);
+        System.out.println("here in accept in user");
+        if (request.getReceiver().getUserId().equals(this.getUserId()) && request.isPending()) {
+            System.out.println("here in condition");
+            this.getFriendRequests().remove(request);
+            this.addFriend(request.getSender());
+            request.getSender().addFriend(this);
             request.accept();
         }
     }
@@ -178,6 +205,8 @@ public class User {
     public void declineFriendRequest(FriendRequest request) {
         if (request.getReceiver().equals(this) && request.isPending()) {
             request.decline();
+            this.getFriendRequests().remove(request);
+            database.refresh(this);
         }
     }
 
@@ -185,7 +214,7 @@ public class User {
     public void blockUser(User user) {
         if (!blockedUsers.contains(user)) {
             blockedUsers.add(user);
-            friends.remove(user);
+            this.removeFriend(user);
             user.removeFriend(this);
         }
     }
@@ -193,6 +222,7 @@ public class User {
     public void unblockUser(User user) {
         if (blockedUsers.contains(user)) {
             blockedUsers.remove(user);
+            database.refresh(this);
         }
     }
 
@@ -205,25 +235,39 @@ public class User {
     public List<User> getFriends() {
         return friends;
     }
-
+    public void setFriends(List<User> friends)
+    {
+        this.friends = friends;
+    }
     public List<FriendRequest> getFriendRequests() {
         return friendRequests;
     }
-
+    public void setFriendRequests(List<FriendRequest> requests)
+    {
+        this.friendRequests = requests;
+    }
     public List<User> getBlockedUsers() {
         return blockedUsers;
+    }
+    public void setBlocked(List<User> blocked)
+    {
+        this.blockedUsers = blocked;
     }
 
     public List<User> friendsOfFriends() {
         List<User> fof = new ArrayList<>();
         for (User k : this.getFriends()) {
             for (User u : k.getFriends()) {
-                if ((!this.getFriends().contains(u)) && (!this.isBlocked(u))) {
+                if ((!this.getFriends().contains(u)) && (!this.isBlocked(u)) && !(u.getUserId().equals(this.getUserId()))) {
                     fof.add(u);
                 }
             }
         }
         return fof;
+    }
+    public void update()
+    {
+        AccountManagement.getAdmin().updateUser(this);
     }
 
     @Override

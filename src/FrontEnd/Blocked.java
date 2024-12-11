@@ -16,6 +16,7 @@ import java.util.*;
  */
 public class Blocked extends JFrame {
     public Blocked(User u) {
+        u.update();
         setTitle("Blocked");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);

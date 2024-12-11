@@ -5,21 +5,25 @@ import java.util.*;
 import org.json.*;
 
 public class UsersDatabase {
-    
-    private static final String FILE_PATH = "users.json";
 
+    private static final String FILE_PATH = "users.json";
     // Load users from file 
     public void refresh(User u) {
         List<User> users = this.loadUsers();
-        for (User k : users) {
+        List<User> updatedUsers = new ArrayList<>(); 
+        for (User k : users) 
+        {
             if (k.getUserId().equals(u.getUserId())) {
-                users.remove(k);
-                users.add(u);
-                this.saveUsers(users);
+                updatedUsers.add(u);
+            }
+            else
+            {
+                updatedUsers.add(k);
             }
         }
+        this.saveUsers(updatedUsers);
     }
-    
+
     public List<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -31,11 +35,11 @@ public class UsersDatabase {
             JSONArray userArray = new JSONArray(Data.toString());
             for (int i = 0; i < userArray.length(); i++) {
                 JSONObject userJson = userArray.getJSONObject(i);
-                
+
                 if (!userJson.has("email") || !userJson.has("username") || !userJson.has("password") || !userJson.has("dateOfBirth")) {
                     continue;
                 }
-                
+
                 User user = new User(
                         userJson.getString("email"),
                         userJson.getString("username"),
@@ -53,50 +57,50 @@ public class UsersDatabase {
             for (int i = 0; i < userArray.length(); i++) {
                 JSONObject userJson = userArray.getJSONObject(i);
                 User user = users.get(i);
-                
+
                 JSONArray friendsArray = userJson.optJSONArray("friends");
-                
+
                 if (friendsArray != null && friendsArray.length() > 0) {
                     for (int j = 0; j < friendsArray.length(); j++) {
                         String friendId = friendsArray.getString(j);
                         for (User Friend : users) {
                             if (Friend.getUserId().equals(friendId)) {
-                                user.addFriend(Friend);
+                                user.getFriends().add(Friend);
                                 break;
                             }
                         }
                     }
                 }
-                
+
                 JSONArray friendRequestsSendersArray = userJson.optJSONArray("FriendRequestSenders");
-                
+
                 if (friendRequestsSendersArray != null && friendRequestsSendersArray.length() > 0) {
                     for (int j = 0; j < friendRequestsSendersArray.length(); j++) {
                         String SenderId = friendRequestsSendersArray.getString(j);
                         for (User sender : users) {
                             if (sender.getUserId().equals(SenderId)) {
-                                user.receiveFriendRequest(new FriendRequest(sender, user));
+                                user.getFriendRequests().add(new FriendRequest(sender, user));
                                 break;
                             }
                         }
                     }
                 }
-                
+
                 JSONArray blockedFriendsArray = userJson.optJSONArray("blockedFriends");
-                
+
                 if (blockedFriendsArray != null && blockedFriendsArray.length() > 0) {
                     for (int j = 0; j < blockedFriendsArray.length(); j++) {
                         String blockedId = blockedFriendsArray.getString(j);
                         for (User blocked : users) {
                             if (blocked.getUserId().equals(blockedId)) {
-                                user.blockUser(blocked);
+                                user.getBlockedUsers().add(blocked);
                                 break;
                             }
                         }
                     }
                 }
             }
-            
+
         } catch (IOException e) {
             System.out.println("Error loading users: " + e.getMessage());
         }

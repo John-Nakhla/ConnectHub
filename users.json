@@ -2,7 +2,9 @@
     {
         "password": "9bf75c2b9e4237fdb2a8cf853dc7c20ca4d05ac9ca7cc2e749a3d13f983cf063",
         "profilePhoto": "path/to/photo.jpg",
+        "blockedFriends": [],
         "coverPhoto": "path/to/cover.jpg",
+        "FriendRequestSenders": [],
         "bio": "Hello, I am John Doe!",
         "dateOfBirth": "1995-05-15",
         "isOnline": false,
@@ -14,7 +16,9 @@
     {
         "password": "47cb0339d21fe6c9bfda91c09df56c7017c2e32328b6e1c6350d50cd24cf06fa",
         "profilePhoto": "path/to/photo2.jpg",
+        "blockedFriends": [],
         "coverPhoto": "path/to/cover2.jpg",
+        "FriendRequestSenders": [],
         "bio": "Hi, I'm Jane Doe!",
         "dateOfBirth": "1998-03-22",
         "isOnline": false,
@@ -26,7 +30,9 @@
     {
         "password": "47cb0339d21fe6c9bfda91c09df56c7017c2e32328b6e1c6350d50cd24cf06fa",
         "profilePhoto": "path/to/photo2.jpg",
+        "blockedFriends": [],
         "coverPhoto": "path/to/cover2.jpg",
+        "FriendRequestSenders": [],
         "bio": "Hi, I'm Jene Doe!",
         "dateOfBirth": "1998-03-22",
         "isOnline": false,
@@ -38,7 +44,9 @@
     {
         "password": "4249353bc07b403829a3a5c9cc9249bafd0ce93b6a6fb16a8172ba4b684cc6c3",
         "profilePhoto": "",
+        "blockedFriends": [],
         "coverPhoto": "",
+        "FriendRequestSenders": [],
         "bio": "",
         "dateOfBirth": "1-5-2003",
         "isOnline": false,
@@ -50,7 +58,9 @@
     {
         "password": "a777eea513029eef28a41a5eec45fda5b34a924acc93200d70e1f6c144e2fbf6",
         "profilePhoto": "",
+        "blockedFriends": [],
         "coverPhoto": "",
+        "FriendRequestSenders": [],
         "bio": "",
         "dateOfBirth": "25-6-2000",
         "isOnline": false,
@@ -62,7 +72,9 @@
     {
         "password": "b6067ac8d7e67100cac56f34a931601de0170d7d27630c89cff266e7dc5c095a",
         "profilePhoto": "",
+        "blockedFriends": [],
         "coverPhoto": "",
+        "FriendRequestSenders": [],
         "bio": "",
         "dateOfBirth": "25-6-2000",
         "isOnline": false,
@@ -74,7 +86,9 @@
     {
         "password": "dd4fa9de1f8e98693b34f9dacefae9bbfd97c9721720bb913ccedec95371d7f2",
         "profilePhoto": "",
+        "blockedFriends": [],
         "coverPhoto": "",
+        "FriendRequestSenders": [],
         "bio": "",
         "dateOfBirth": "25-6-2000",
         "isOnline": true,
@@ -86,7 +100,9 @@
     {
         "password": "1c91ab1c162fd0cae60a5bb9880f3e7d5a133a65b6057a644b26973d9c55dcfe",
         "profilePhoto": "",
+        "blockedFriends": [],
         "coverPhoto": "",
+        "FriendRequestSenders": [],
         "bio": "",
         "dateOfBirth": "25-6-2000",
         "isOnline": true,
@@ -94,5 +110,19 @@
         "email": "waelnakhla38@gmail.com",
         "friends": [],
         "username": "kamal"
+    },
+    {
+        "password": "4e2dfac2af26e6611ac037aaade7abb16d8f12b27996b3ac46848675194e89f5",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": false,
+        "userId": "User10009",
+        "email": "john12@gmail.com",
+        "friends": [],
+        "username": "john12"
     }
 ]
