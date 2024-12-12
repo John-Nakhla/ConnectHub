@@ -57,10 +57,16 @@ public class GroupsDatabase {
     public boolean deleteGroup(String groupId) {
         JSONArray groupsArray = loadGroups();
         boolean groupFound = false;
+        PostsDatabase pdb = new PostsDatabase();
+        List<Posts> posts;
 
         for (int i = 0; i < groupsArray.length(); i++) {
             JSONObject group = groupsArray.getJSONObject(i);
             if (group.getString("groupId").equals(groupId)) {
+                posts = pdb.getGroupPosts(group.getString("groupName"));
+                for(Posts post: posts){
+                    pdb.deletePost(post.getPostId());
+                }
                 groupsArray.remove(i);
                 groupFound = true;
                 break;
@@ -76,9 +82,9 @@ public class GroupsDatabase {
     }
 
     // Search for a group by ID
-    public Group searchGroup(String groupId) {
+    public Group searchGroup(String groupName) {
         for (Group group : groups) {
-            if (group.getGroupId().equals(groupId)) {
+            if (group.getGroupName().equals(groupName)) {
                 return group;
             }
         }
@@ -163,7 +169,7 @@ public class GroupsDatabase {
                     JSONObject postJson = postsArray.getJSONObject(j);
                     Posts post = new Posts(
                         postJson.getString("postId"),
-                        postJson.getString("username"),
+                        postJson.getString("userName"),
                         postJson.getString("groupId"),
                         postJson.getString("content"),
                         postJson.optString("img", "")

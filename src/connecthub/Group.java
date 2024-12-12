@@ -81,6 +81,15 @@ public class Group extends GroupManagement{
         return false;
     }
     
+    // Check if requested already
+    public boolean isRequested(String username){
+        for(String request: requests){
+            if(request.equals(username))
+                return true;
+        }
+        return false;
+    }
+    
     // Add a member
     public void addMember(GroupMember member) {
         members.add(member);
@@ -105,6 +114,12 @@ public class Group extends GroupManagement{
     // Remove join request
     public void removeJoinRequest(String username){
         requests.remove(username);
+    }
+    
+    // Accept join request
+    public void acceptJoinRequest(String username){
+        requests.remove(username);
+        addMember(new GroupMember(username, super.getGroupName()));
     }
     
     // Get join requests
@@ -133,6 +148,7 @@ public class Group extends GroupManagement{
     // Save this content to file
     public void saveToFile() {
         GroupsDatabase db = new GroupsDatabase();
+        db.deleteGroup(super.getGroupId());
         JSONArray groupsArray = db.loadGroups();
 
         JSONObject groupObj = new JSONObject();
@@ -146,7 +162,7 @@ public class Group extends GroupManagement{
         for (GroupMember member : members) {
             JSONObject memberObj = new JSONObject();
             memberObj.put("userName", member.getUsername());
-            memberObj.put("groupname", member.getGroupname());
+            memberObj.put("groupName", member.getGroupname());
             groupMembers.put(memberObj);
         }
         groupObj.put("members", groupMembers);
@@ -155,17 +171,25 @@ public class Group extends GroupManagement{
         for (GroupMember member : removedMembers) {
             JSONObject memberObj = new JSONObject();
             memberObj.put("userName", member.getUsername());
-            memberObj.put("groupname", member.getGroupname());
+            memberObj.put("groupName", member.getGroupname());
             groupremovedMembers.put(memberObj);
         }
         groupObj.put("removedMembers", groupremovedMembers);
+        
+        JSONArray joinRequests = new JSONArray();
+        for (String request : requests) {
+            JSONObject requestObj = new JSONObject();
+            requestObj.put("userName", request);
+            joinRequests.put(requestObj);
+        }
+        groupObj.put("joinRequests", joinRequests);
 
         JSONArray groupPosts = new JSONArray();
         for (Posts post : posts) {
             JSONObject postsObj = new JSONObject();
             postsObj.put("postId", post.getPostId());
-            postsObj.put("username", post.getUsername());
-            postsObj.put("groupname", post.getGroupname());
+            postsObj.put("userName", post.getUsername());
+            postsObj.put("groupName", post.getGroupname());
             postsObj.put("content", post.getContent());
             postsObj.put("img", post.getImg());
             postsObj.put("timestamp", post.getTimestamp().toString());

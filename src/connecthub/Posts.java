@@ -68,8 +68,8 @@ public class Posts {
 
         JSONObject postsObj = new JSONObject();
         postsObj.put("postId", this.postId);
-        postsObj.put("username", this.username);
-        postsObj.put("groupname", this.groupname);
+        postsObj.put("userName", this.username);
+        postsObj.put("groupName", this.groupname);
         postsObj.put("content", this.content);
         postsObj.put("img", this.img);
         postsObj.put("timestamp", this.timestamp.toString());

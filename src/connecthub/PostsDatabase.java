@@ -139,8 +139,8 @@ public class PostsDatabase {
 
             Posts post = new Posts(
                 postJson.getString("postId"),
-                postJson.getString("username"),
-                postJson.getString("groupname"),
+                postJson.getString("userName"),
+                postJson.getString("groupName"),
                 postJson.getString("content"),
                 postJson.optString("img", "")
             );

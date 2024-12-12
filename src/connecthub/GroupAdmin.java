@@ -34,6 +34,18 @@ public class GroupAdmin extends GroupMember{
     }
     
     // Approve join request
-    // Decline join request
+    public void approveJoinRequest(String username){
+        GroupsDatabase db = new GroupsDatabase();
+        Group group = db.searchGroup(getGroupname());
+        group.acceptJoinRequest(username);
+        group.saveToFile();
+    }
     
+    // Decline join request
+    public void declineJoinRequest(String username){
+        GroupsDatabase db = new GroupsDatabase();
+        Group group = db.searchGroup(getGroupname());
+        group.removeJoinRequest(username);
+        group.saveToFile();
+    }
 }

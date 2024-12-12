@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package FrontEnd;
 
 
@@ -11,18 +8,14 @@ import java.util.*;
 import javax.swing.*;
 
 
-/**
- *
- * @author ADMIN
- */
 public class GroupWindow extends javax.swing.JFrame {
     
     User user;
-    //GroupsDatabase db = new GroupsDatabase();
     Group group;
-    public GroupWindow( User user) {
+    public GroupWindow(User user, Group group) {
         initComponents();
         this.user=user;
+        this.group = group;
         
         loadCoverPhoto();
         loadGroupDetails();
@@ -66,7 +59,7 @@ public class GroupWindow extends javax.swing.JFrame {
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Set vertical layout
 
         GroupsDatabase db = new GroupsDatabase();
-        db.searchGroup(group.getGroupId());
+        db.searchGroup(group.getGroupName());
 
         PostsDatabase posts = new PostsDatabase();
         
@@ -276,12 +269,12 @@ public class GroupWindow extends javax.swing.JFrame {
 
     private void optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsActionPerformed
         if(user.getUsername().equals(group.getCreatorUsername())){
-            PrimaryAdminWindow priadmin=new PrimaryAdminWindow(user);
+            PrimaryAdminWindow priadmin=new PrimaryAdminWindow(user, group);
             priadmin.setVisible(true);
             priadmin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }  
         else if(group.isAdmin(user.getUsername())){
-            AdminWindow adminwindow=new AdminWindow(user);
+            AdminWindow adminwindow=new AdminWindow(user, group);
             adminwindow.setVisible(true);
             adminwindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
@@ -312,6 +305,9 @@ public class GroupWindow extends javax.swing.JFrame {
                 }
             }
         }
+        else if(group.isRequested(user.getUsername())){
+            JOptionPane.showMessageDialog(this, "You already sent a join request, Please wait.", "Request already Sent", JOptionPane.INFORMATION_MESSAGE);
+        }
         else{
             int choice = JOptionPane.showConfirmDialog(
                this,
@@ -322,8 +318,7 @@ public class GroupWindow extends javax.swing.JFrame {
            );
 
            if (choice == JOptionPane.YES_OPTION) {
-               GroupRequests join=new GroupRequests(group);
-               join.sendJoinRequest(user.getUserId(), user.getUsername());
+               group.sendJoinRequest(user.getUsername());
                JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
            } 
         }
