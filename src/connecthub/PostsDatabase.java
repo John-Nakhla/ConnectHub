@@ -42,7 +42,6 @@ public class PostsDatabase {
 
         String postId = String.valueOf(uniqueId());
         Posts newPost = new Posts(postId, username, groupname, content, img);
-        newPost.setStatus("Approved");
         newPost.saveToFile();
     }
     

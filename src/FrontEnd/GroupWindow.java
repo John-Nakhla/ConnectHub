@@ -276,10 +276,17 @@ public class GroupWindow extends javax.swing.JFrame {
               // Handle the option selected by the user
             if (choice == 0) {
                 // Open CreatePostWindow if "Create Post" is selected
-                CreateContentWindow createPostWindow = new CreateContentWindow(this,true,"p"); // Pass the parent GroupWindow instance
-                createPostWindow.pack();
-                createPostWindow.setVisible(true);
-                createPostWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                CreateContentWindow c = new CreateContentWindow(this,true,"p"); // Pass the parent GroupWindow instance
+                c.pack();
+                c.setVisible(true);
+                String contentText = c.getContentText();
+                String contentImgDir = c.getContentImgDir();
+
+                if (!"".equals(contentText) || !"".equals(contentImgDir)) {
+                    Post post = new Post(contentText, contentImgDir);
+                    PostsDatabase.createPost(user.getUsername(), contentText, group.getGroupName(),contentImgDir);
+                    JOptionPane.showMessageDialog(this, "Your post has been submitted for approval.", "Post Submitted", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else if (choice == 1) {
                 // Handle the "Leave Group" option
                 int confirmLeave = JOptionPane.showConfirmDialog(this, 
