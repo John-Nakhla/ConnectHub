@@ -59,6 +59,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         friendSuggestionsBtn = new javax.swing.JButton();
         addFriendBtn = new javax.swing.JButton();
         friendRequestBtn = new javax.swing.JButton();
+        CreateGroup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +145,13 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             }
         });
 
+        CreateGroup.setText("Create Group");
+        CreateGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateGroupActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,7 +170,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                     .addComponent(createStoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(createPostBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(addFriendBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(friendRequestBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(friendRequestBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CreateGroup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -192,6 +201,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                         .addComponent(addFriendBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(friendRequestBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CreateGroup)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -277,6 +288,12 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         N.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_friendRequestBtnActionPerformed
 
+    private void CreateGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateGroupActionPerformed
+       CreateGroup grp=new CreateGroup(user);
+       grp.setVisible(true);
+        grp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
+    }//GEN-LAST:event_CreateGroupActionPerformed
+
     //Refresh method
     private void refresh() {
         // adding posts of friends
@@ -314,6 +331,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CreateGroup;
     private javax.swing.JButton addFriendBtn;
     private javax.swing.JButton createPostBtn;
     private javax.swing.JButton createStoryBtn;
