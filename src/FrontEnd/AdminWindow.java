@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -153,7 +154,9 @@ public class AdminWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_managepostsActionPerformed
 
     private void viewrequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewrequestsActionPerformed
-        
+        GroupRequest g = new GroupRequest(admin);
+        g.setVisible(true);
+        g.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_viewrequestsActionPerformed
 
 
