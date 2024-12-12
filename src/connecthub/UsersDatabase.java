@@ -23,9 +23,20 @@ public class UsersDatabase {
         }
         this.saveUsers(updatedUsers);
     }
-
+    public User loadUser(String userId)
+    {
+        List<User> users = this.loadUsers();
+        for(User k : users)
+        {
+            if(k.getUserId().equals(userId))
+            {
+                return k;
+            }
+        }
+        return null;
+    }
     public List<User> loadUsers() {
-        ArrayList<User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             StringBuilder Data = new StringBuilder();
             String line;
