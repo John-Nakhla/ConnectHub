@@ -36,6 +36,7 @@ public class Group extends GroupManagement{
     public List<Posts> getPosts() {
         return posts;
     }
+    
 
     public void setMembers(List<GroupMember> members) {
         this.members = members;
@@ -103,6 +104,13 @@ public class Group extends GroupManagement{
                 members.remove(member);
                 break;
             }
+        }
+        for(GroupAdmin admin: admins){
+            if(admin.getUsername().equals(username)){
+                removedMembers.add(admin);
+                members.remove(admin);
+                break;
+            }  
         }
     }
     

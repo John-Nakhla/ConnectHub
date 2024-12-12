@@ -9,12 +9,13 @@ import javax.swing.*;
 
 
 public class PrimaryAdminWindow extends javax.swing.JPanel {
-
+    private GroupWindow window;
      GroupCreator creator;
      Group group;
      
-    public PrimaryAdminWindow(User user, Group group) {
+    public PrimaryAdminWindow(GroupWindow window,User user, Group group) {
         initComponents();
+        this.window=window;
         this.group = group;
         this.creator = new GroupCreator(user.getUsername(), group.getGroupName());
     }
@@ -199,7 +200,7 @@ public class PrimaryAdminWindow extends javax.swing.JPanel {
             if (isDemoted) {
                 JOptionPane.showMessageDialog(this, "Admin demoted to member successfully.", "Demotion Successful", JOptionPane.INFORMATION_MESSAGE);
                 group.saveToFile(); // Save changes to the file
-               // reloadGroupDetails(); // Refresh the UI
+               window.reloadGroupDetails(); // Refresh the UI
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to demote admin. User may already be a member.", "Demotion Failed", JOptionPane.ERROR_MESSAGE);
             }
@@ -256,8 +257,8 @@ public class PrimaryAdminWindow extends javax.swing.JPanel {
 
             if (isPromoted) {
                 JOptionPane.showMessageDialog(this, "Member promoted to admin successfully.", "Promotion Successful", JOptionPane.INFORMATION_MESSAGE);
-                group.saveToFile(); // Save changes to the file
-               // reloadGroupDetails(); // Refresh the UI
+                 group.saveToFile(); // Save changes to the file
+                 window.reloadGroupDetails();// Refresh the UI
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to promote member. User may already be an admin.", "Promotion Failed", JOptionPane.ERROR_MESSAGE);
             }
@@ -313,8 +314,9 @@ public class PrimaryAdminWindow extends javax.swing.JPanel {
             GroupMember selectedMember = allMembers.get(selectedIndex);
 
             
-            creator.removeMember(selectedMember);
-
+            group.removeMember(selectedMember.getUsername());
+            group.saveToFile();
+            window.reloadGroupDetails();
             if (group.isRemovedMember(selectedMember.getUsername())) {
                 JOptionPane.showMessageDialog(this, "Member removed successfully.", "Removal Successful", JOptionPane.INFORMATION_MESSAGE);
                 group.saveToFile(); // Save changes to the file
@@ -345,6 +347,7 @@ public class PrimaryAdminWindow extends javax.swing.JPanel {
             // Update the user's cover photo
             group.setGroupPhoto(newCoverPhotoPath); 
             group.saveToFile();
+            window.reloadGroupDetails();
             
         }
     }//GEN-LAST:event_changecoverphotoActionPerformed
@@ -358,6 +361,7 @@ public class PrimaryAdminWindow extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Group Name cannot be empty.");
         }
         group.saveToFile();
+        window.reloadGroupDetails();
     }//GEN-LAST:event_changenameActionPerformed
 
     private void changedescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changedescriptionActionPerformed
@@ -369,6 +373,7 @@ public class PrimaryAdminWindow extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Group Description cannot be empty.");
         }
         group.saveToFile();
+        window.reloadGroupDetails();
     }//GEN-LAST:event_changedescriptionActionPerformed
 
     private void deletegroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletegroupActionPerformed
@@ -391,8 +396,9 @@ public class PrimaryAdminWindow extends javax.swing.JPanel {
             // Delete the group
             group.deleteFromDatabase();
             JOptionPane.showMessageDialog(this, "Group deleted successfully.", "Deletion Successful", JOptionPane.INFORMATION_MESSAGE);
-
+            window.dispose();
         }
+       
     }//GEN-LAST:event_deletegroupActionPerformed
 
 
