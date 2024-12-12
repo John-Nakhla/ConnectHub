@@ -1,116 +1,27 @@
 package connecthub;
 
-import java.security.MessageDigest;
 import java.util.*;
 
-public class User {
+public class User extends UserManagement{
 
-    private String userId;
-    private String email;
-    private String username;
-    private String password;
-    private String DOB;
-    public boolean status;
-    private String profilePhoto;
-    private String coverPhoto;
-    private String bio;
+    
     private List<User> friends;
     private List<FriendRequest> friendRequests;
     private List<User> blockedUsers;
-    private static int users_count = 10000;
-    private UsersDatabase database = new UsersDatabase();
 
     public User(String email, String username, String password, String DOB, String profilePhoto, String coverPhoto, String bio) {
-        this.userId = UniqueId();
-        this.email = email;
-        this.username = username;
-        this.password = generatePassword(password);
-        this.DOB = DOB;
-        this.profilePhoto = profilePhoto;
-        this.coverPhoto = coverPhoto;
-        this.bio = bio;
-        this.status = false;
+        super(email, username, password, DOB, profilePhoto, coverPhoto, bio);
         this.friends = new ArrayList<>();
         this.friendRequests = new ArrayList<>();
         this.blockedUsers = new ArrayList<>();
     }
 
-    private String UniqueId() {
-        users_count++;
-        return "User" + users_count;
-    }
-
+    // Setters
     public void setPassword(String password) {
         this.password = generatePassword(password);
         database.refresh(this);
     }
 
-    public void setRealPassword(String password) {
-        this.password = password;
-    }
-
-    // generates hashed password to save in the file
-    private String generatePassword(String password) {
-        try {
-            MessageDigest message = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = message.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (Exception e) {
-            throw new RuntimeException("Error hashing password", e);
-        }
-    }
-
-    // checks a password: used in login
-    public boolean checkPassword(String password) {
-        return this.password.equals(generatePassword(password));
-    }
-
-    // Getters
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getDOB() {
-        return DOB;
-    }
-
-    public String getProfilePhoto() {
-        return profilePhoto;
-    }
-
-    public String getCoverPhoto() {
-        return coverPhoto;
-    }
-
-    public void setID(String id) {
-        this.userId = id;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    // Setters
     public void setStatus(boolean status) {
         this.status = status;
         database.refresh(this);
@@ -140,6 +51,8 @@ public class User {
         this.bio = bio;
         database.refresh(this);
     }
+    
+    
     // FRIENDS MANAGEMENT PART
 
     // add or remove a friend

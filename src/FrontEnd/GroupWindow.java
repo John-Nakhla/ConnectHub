@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package FrontEnd;
 
 
@@ -11,18 +8,14 @@ import java.util.*;
 import javax.swing.*;
 
 
-/**
- *
- * @author ADMIN
- */
 public class GroupWindow extends javax.swing.JFrame {
     
     User user;
-    //GroupsDatabase db = new GroupsDatabase();
     Group group;
-    public GroupWindow( User user) {
+    public GroupWindow(User user, Group group) {
         initComponents();
         this.user=user;
+        this.group = group;
         
         loadCoverPhoto();
         loadGroupDetails();
@@ -66,14 +59,15 @@ public class GroupWindow extends javax.swing.JFrame {
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Set vertical layout
 
         GroupsDatabase db = new GroupsDatabase();
-        db.searchGroup(group.getGroupId());
+        db.searchGroup(group.getGroupName());
 
         PostsDatabase posts = new PostsDatabase();
-        List<Posts> groupPosts = posts.getGroupPostsById(group.getGroupId());
         
-        for (Post content : groupPosts) {
+        java.util.List<Posts> groupPosts = posts.getGroupPosts(group.getGroupName());
+        
+        for (Posts content : groupPosts) {
 
-            String contentText = content.getcon();
+            String contentText = content.getContent();
             String contentImgDir = content.getImg();
 
             if ((contentText != null && !contentText.isEmpty()) || (contentImgDir != null && !contentImgDir.isEmpty())) {
@@ -96,8 +90,8 @@ public class GroupWindow extends javax.swing.JFrame {
     private void loadGroupMembers() {
         JPanel memberspanel = new JPanel();
         memberspanel.setLayout(new BoxLayout(memberspanel, BoxLayout.Y_AXIS));
-        for (GroupMember member : group.getMembers()) {
-            JLabel MemberLabel = new JLabel(member.getUserName()+ " (" +memberstatus(member)+ ")");
+        for (String member : group.GetGroupPeople()) {
+            JLabel MemberLabel = new JLabel(member);
             MemberLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             memberspanel.add(MemberLabel);
         }
@@ -106,18 +100,7 @@ public class GroupWindow extends javax.swing.JFrame {
         MembersPanelScroll.setViewportView(memberspanel);
     }
     
-    private String memberstatus (GroupMember member){
-       
-        if(group.getCreatorId().equals(member.getUserId())){
-            return "Primary Admin";
-        }
-        else if(group.getAdmins().contains(member.getUserId())){
-            return "Admin";
-         }
-        else
-            return "Member";
-        
-    }
+    
     public void reloadGroupDetails() {
         loadCoverPhoto();
         loadGroupDetails();
@@ -285,43 +268,47 @@ public class GroupWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsActionPerformed
-        if(user.getUserId().equals(group.getCreatorId())){
-            PrimaryAdminWindow priadmin=new PrimaryAdminWindow(user);
+        if(user.getUsername().equals(group.getCreatorUsername())){
+            PrimaryAdminWindow priadmin=new PrimaryAdminWindow(user, group);
             priadmin.setVisible(true);
             priadmin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }  
-        else if(group.getAdmins().contains(user.getUserId())){
-            AdminWindow adminwindow=new AdminWindow(user);
+        else if(group.isAdmin(user.getUsername())){
+            AdminWindow adminwindow=new AdminWindow(user, group);
             adminwindow.setVisible(true);
             adminwindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
-        else if(group.getMembers().contains(user.getUserId())){
-        String[] options = {"Create Post", "Leave Group"};
-          int choice = JOptionPane.showOptionDialog(this, 
-                                                     "What would you like to do?", 
-                                                     "Options", 
-                                                     JOptionPane.DEFAULT_OPTION, 
-                                                     JOptionPane.INFORMATION_MESSAGE, 
-                                                     null, options, options[0]);
+        else if(group.isMember(user.getUsername())){
+            String[] options = {"Create Post", "Leave Group"};
+              int choice = JOptionPane.showOptionDialog(this, 
+                                                         "What would you like to do?", 
+                                                         "Options", 
+                                                         JOptionPane.DEFAULT_OPTION, 
+                                                         JOptionPane.INFORMATION_MESSAGE, 
+                                                         null, options, options[0]);
 
-          // Handle the option selected by the user
-        if (choice == 0) {
-            // Open CreatePostWindow if "Create Post" is selected
-            CreateContentWindow createPostWindow = new CreateContentWindow(this,true,"p"); // Pass the parent GroupWindow instance
-            createPostWindow.pack();
-            createPostWindow.setVisible(true);
-            createPostWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        } else if (choice == 1) {
-            // Handle the "Leave Group" option
-            int confirmLeave = JOptionPane.showConfirmDialog(this, 
-                "Are you sure you want to leave the group?", "Leave Group", 
-                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+              // Handle the option selected by the user
+            if (choice == 0) {
+                // Open CreatePostWindow if "Create Post" is selected
+                CreateContentWindow createPostWindow = new CreateContentWindow(this,true,"p"); // Pass the parent GroupWindow instance
+                createPostWindow.pack();
+                createPostWindow.setVisible(true);
+                createPostWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            } else if (choice == 1) {
+                // Handle the "Leave Group" option
+                int confirmLeave = JOptionPane.showConfirmDialog(this, 
+                    "Are you sure you want to leave the group?", "Leave Group", 
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
-            if (confirmLeave == JOptionPane.YES_OPTION) {
-                //here member leaves
+                if (confirmLeave == JOptionPane.YES_OPTION) {
+                    //here member leaves
+                }
             }
         }
-        }else{
+        else if(group.isRequested(user.getUsername())){
+            JOptionPane.showMessageDialog(this, "You already sent a join request, Please wait.", "Request already Sent", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
             int choice = JOptionPane.showConfirmDialog(
                this,
                "You are not part of this group. Would you like to send a join request?",
@@ -331,8 +318,7 @@ public class GroupWindow extends javax.swing.JFrame {
            );
 
            if (choice == JOptionPane.YES_OPTION) {
-               GroupRequests join=new GroupRequests(group);
-               join.sendJoinRequest(user.getUserId(), user.getUsername());
+               group.sendJoinRequest(user.getUsername());
                JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
            } 
         }

@@ -36,9 +36,9 @@ public class GroupsDatabase {
     }
     
     // Create a new group
-    public void createGroup(String groupName, String description, String groupPhoto, String creatorId) {
+    public void createGroup(String groupName, String description, String groupPhoto, String creatorUsername) {
         String groupId = String.valueOf(uniqueId());
-        Group group = new Group(groupId, groupName, description, groupPhoto, creatorId);
+        Group group = new Group(groupId, groupName, description, groupPhoto, creatorUsername);
         group.saveToFile();
     }
     
@@ -57,10 +57,16 @@ public class GroupsDatabase {
     public boolean deleteGroup(String groupId) {
         JSONArray groupsArray = loadGroups();
         boolean groupFound = false;
+        PostsDatabase pdb = new PostsDatabase();
+        List<Posts> posts;
 
         for (int i = 0; i < groupsArray.length(); i++) {
             JSONObject group = groupsArray.getJSONObject(i);
             if (group.getString("groupId").equals(groupId)) {
+                posts = pdb.getGroupPosts(group.getString("groupName"));
+                for(Posts post: posts){
+                    pdb.deletePost(post.getPostId());
+                }
                 groupsArray.remove(i);
                 groupFound = true;
                 break;
@@ -76,9 +82,9 @@ public class GroupsDatabase {
     }
 
     // Search for a group by ID
-    public Group searchGroup(String groupId) {
+    public Group searchGroup(String groupName) {
         for (Group group : groups) {
-            if (group.getGroupId().equals(groupId)) {
+            if (group.getGroupName().equals(groupName)) {
                 return group;
             }
         }
@@ -91,15 +97,24 @@ public class GroupsDatabase {
     }
     
     // Groups suggestions
-    public List<Group> getGroupsSuggestions(String userId){
+    public List<Group> getGroupsSuggestions(String username){
         List<Group> suggestions = new ArrayList<>();
         for(Group group: groups){
-            if(!group.isMember(userId) || !group.isRemovedMember(userId) )
+            if(!group.isMember(username) || !group.isAdmin(username) || !group.isCreator(username) || !group.isRemovedMember(username) )
                 suggestions.add(group);
         }
         return suggestions;
     }
 
+    // My Groups
+    public List<Group> myGroups(String username){
+        List<Group> mygroups = new ArrayList<>();
+        for(Group group: groups){
+            if(group.isMember(username) || group.isAdmin(username) || group.isCreator(username))
+                mygroups.add(group);
+        }
+        return mygroups;
+    }
     
     //Helping method to convert JsonArray to Group List
     public List<Group> convertJsonArrayToGroupList(JSONArray jsonArray) {
@@ -113,7 +128,7 @@ public class GroupsDatabase {
                 groupJson.getString("groupName"),
                 groupJson.getString("description"),
                 groupJson.getString("groupPhoto"),
-                groupJson.getString("creatorId")
+                groupJson.getString("creatorUsername")
             );
 
             // Add members to the group
@@ -123,7 +138,6 @@ public class GroupsDatabase {
                 for (int j = 0; j < membersArray.length(); j++) {
                     JSONObject memberJson = membersArray.getJSONObject(j);
                     GroupMember member = new GroupMember(
-                        memberJson.getString("userId"),
                         memberJson.getString("userName"),
                         memberJson.getString("groupId")
                     );
@@ -139,13 +153,24 @@ public class GroupsDatabase {
                 for (int j = 0; j < removedMembersArray.length(); j++) {
                     JSONObject memberJson = removedMembersArray.getJSONObject(j);
                     GroupMember member = new GroupMember(
-                        memberJson.getString("userId"),
                         memberJson.getString("userName"),
                         memberJson.getString("groupId")
                     );
                     removedMembersList.add(member);
                 }
                 group.setRemovedMembers(removedMembersList);
+            }
+            
+            // Add join requests to the group
+            JSONArray requestsArray = groupJson.optJSONArray("joinRequests");
+            List<String> requests = new ArrayList<>();
+            if (requestsArray != null) {
+                for (int j = 0; j < requestsArray.length(); j++) {
+                    JSONObject requestJson = requestsArray.getJSONObject(j);
+                    String request = requestJson.getString("userName");
+                    requests.add(request);
+                }
+                group.setJoinRequests(requests);
             }
 
             // Add posts to the group
@@ -156,7 +181,7 @@ public class GroupsDatabase {
                     JSONObject postJson = postsArray.getJSONObject(j);
                     Posts post = new Posts(
                         postJson.getString("postId"),
-                        postJson.getString("authorId"),
+                        postJson.getString("userName"),
                         postJson.getString("groupId"),
                         postJson.getString("content"),
                         postJson.optString("img", "")

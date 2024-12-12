@@ -8,16 +8,16 @@ import org.json.*;
 public class Posts {
     
     private final String postId;
-    private final String authorId;
-    private final String groupId;
+    private final String username;
+    private final String groupname;
     private String content;
     private String img;
     private LocalDateTime timestamp;
 
-    public Posts(String postId, String authorId, String groupId, String content, String img) {
+    public Posts(String postId, String username, String groupname, String content, String img) {
         this.postId = postId;
-        this.authorId = authorId;
-        this.groupId = groupId;
+        this.username = username;
+        this.groupname = groupname;
         this.content = content;
         this.img = img;
         this.timestamp = LocalDateTime.now();
@@ -28,12 +28,12 @@ public class Posts {
         return postId;
     }
 
-    public String getAuthorId() {
-        return authorId;
+    public String getUsername() {
+        return username;
     }
 
-    public String getGroupId() {
-        return groupId;
+    public String getGroupname() {
+        return groupname;
     }
 
     public String getContent() {
@@ -68,8 +68,8 @@ public class Posts {
 
         JSONObject postsObj = new JSONObject();
         postsObj.put("postId", this.postId);
-        postsObj.put("authorId", this.authorId);
-        postsObj.put("groupId", this.groupId);
+        postsObj.put("userName", this.username);
+        postsObj.put("groupName", this.groupname);
         postsObj.put("content", this.content);
         postsObj.put("img", this.img);
         postsObj.put("timestamp", this.timestamp.toString());

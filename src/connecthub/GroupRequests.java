@@ -12,12 +12,14 @@ import java.util.*;
  */
 public class GroupRequests extends Group{
     private List<GroupJoinRequests> joinRequests;
-    
-    public GroupRequests(String groupId, String groupName, String description, String groupPhoto, String creatorId) {
-        super(groupId, groupName, description, groupPhoto, creatorId);
+
+    public GroupRequests(GroupManagement group) {
+        super(group.getGroupId(), group.getGroupName(), group.getDescription(), group.getGroupPhoto(), group.getCreatorUsername());
         this.joinRequests = new ArrayList<>();
     }
- 
+    
+    
+    
     public void sendJoinRequest(String senderId,String username) {
     GroupJoinRequests newRequest = new GroupJoinRequests(senderId, username,this.getGroupId());
 
@@ -28,7 +30,7 @@ public class GroupRequests extends Group{
     
     // Method to accept a join request
     public void acceptJoinRequest(GroupJoinRequests request) {
-        GroupMember member=new GroupMember(request.getSenderId(),request.getUsername(),this.getGroupId());
+        GroupMember member=new GroupMember(request.getUsername(),this.getGroupId());
         members.add(member);
         joinRequests.remove(request);
         request.setStatus("Accepted");

@@ -38,10 +38,10 @@ public class PostsDatabase {
     }
     
     // Create post with unique id
-    public void createPost(String authorId, String content, String groupId, String img) {
+    public void createPost(String username, String content, String groupname, String img) {
 
         String postId = String.valueOf(uniqueId());
-        Posts newPost = new Posts(postId, authorId, groupId, content, img);
+        Posts newPost = new Posts(postId, username, groupname, content, img);
         newPost.saveToFile();
     }
     
@@ -91,10 +91,10 @@ public class PostsDatabase {
 
     
     // returns member's posts in a group 
-    public List<Posts> getMemberPostsById(String memberId, String groupId) {
+    public List<Posts> getMemberPostsInGroup(String username, String groupname) {
         List<Posts> content = new ArrayList<>();
         for (Posts post : allPosts) {
-            if (post.getAuthorId().equals(memberId) && post.getGroupId().equals(groupId)) {
+            if (post.getUsername().equals(username) && post.getGroupname().equals(groupname)) {
                 content.add(post);
             }
         }
@@ -102,10 +102,10 @@ public class PostsDatabase {
     }
         
     // returns posts of a specific group 
-    public List<Posts> getGroupPostsById(String groupId) {
+    public List<Posts> getGroupPosts(String groupname) {
         List<Posts> content = new ArrayList<>();
         for (Posts post : allPosts) {
-            if (post.getGroupId().equals(groupId)) {
+            if (post.getGroupname().equals(groupname)) {
                 content.add(post);
             }
         }
@@ -139,8 +139,8 @@ public class PostsDatabase {
 
             Posts post = new Posts(
                 postJson.getString("postId"),
-                postJson.getString("authorId"),
-                postJson.getString("groupId"),
+                postJson.getString("userName"),
+                postJson.getString("groupName"),
                 postJson.getString("content"),
                 postJson.optString("img", "")
             );

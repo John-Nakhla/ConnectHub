@@ -4,12 +4,12 @@ package connecthub;
 
 public class GroupCreator extends GroupAdmin{
     
-    public GroupCreator(String userId, String userName, String groupId) {
-        super(userId, userName, groupId);
+    public GroupCreator(String username, String groupname) {
+        super(username, groupname);
     }
     
     GroupsDatabase db = new GroupsDatabase();
-    Group group = db.searchGroup(getGroupId());
+    Group group = db.searchGroup(getGroupname());
     
     // Promote a member to admin
     public boolean promoteToAdmin(GroupMember member) {
@@ -17,7 +17,7 @@ public class GroupCreator extends GroupAdmin{
             return false;
         } 
         else {
-            GroupAdmin admin = new GroupAdmin(member.getUserId(), member.getUserName(), member.getGroupId());
+            GroupAdmin admin = new GroupAdmin(member.getUsername(), member.getGroupname());
             group.members.remove(member);
             group.admins.add(admin);
             return true;
@@ -30,7 +30,7 @@ public class GroupCreator extends GroupAdmin{
             return false;
         } 
         else {
-            GroupMember member = new GroupMember(admin.getUserId(), admin.getUserName(), admin.getGroupId());
+            GroupMember member = new GroupMember(admin.getUsername(), admin.getGroupname());
             group.admins.remove(admin);
             group.members.add(member);
             return true;

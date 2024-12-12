@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 
 public class GroupAdmin extends GroupMember{
     
-    public GroupAdmin(String userId, String userName, String groupId) {
-        super(userId, userName, groupId);
+    public GroupAdmin(String userName, String groupname) {
+        super(userName, groupname);
     }
     
     // Remove member
     public void removeMember(GroupMember member){
-        member.leaveGroup(getGroupId());
+        member.leaveGroup(getGroupname());
     }
     
     // Edit post
@@ -20,9 +20,9 @@ public class GroupAdmin extends GroupMember{
         PostsDatabase posts = new PostsDatabase();
         Posts post = posts.getPostById(postId);
         LocalDateTime time = post.getTimestamp();
-        String author = post.getAuthorId();
+        String username = post.getUsername();
         posts.deletePost(post.getPostId());
-        Posts newPost = new Posts(postId, author, getGroupId(), content, img);
+        Posts newPost = new Posts(postId, username, getGroupname(), content, img);
         newPost.setTimestamp(time.toString());
         newPost.saveToFile();
     }
@@ -34,6 +34,18 @@ public class GroupAdmin extends GroupMember{
     }
     
     // Approve join request
-    // Decline join request
+    public void approveJoinRequest(String username){
+        GroupsDatabase db = new GroupsDatabase();
+        Group group = db.searchGroup(getGroupname());
+        group.acceptJoinRequest(username);
+        group.saveToFile();
+    }
     
+    // Decline join request
+    public void declineJoinRequest(String username){
+        GroupsDatabase db = new GroupsDatabase();
+        Group group = db.searchGroup(getGroupname());
+        group.removeJoinRequest(username);
+        group.saveToFile();
+    }
 }

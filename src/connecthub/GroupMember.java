@@ -6,45 +6,39 @@ import java.util.List;
 
 public class GroupMember{
     
-    private final String userId;
-    private final String userName;
-    private final String groupId;
+    private final String username;
+    private final String groupname;
     private PostsDatabase db;
 
-    public GroupMember(String userId, String userName, String groupId) {
-        this.userId = userId;
-        this.userName = userName;
-        this.groupId = groupId;
+    public GroupMember(String username, String groupname) {
+        this.username = username;
+        this.groupname = groupname;
         db = new PostsDatabase();
     }
     
     // Getters
-    public String getUserId() {
-        return userId;
+    public String getGroupname() {
+        return groupname;
     }
 
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     
-    // Post a content
+    // Posts a content
     public void postContent(String content, String img){
-        db.createPost(userId, content, groupId, img);
+        db.createPost(username, content, groupname, img);
     }
     
     // Leave group
-    public void leaveGroup(String groupId){
+    public void leaveGroup(String groupname){
         GroupsDatabase groups = new GroupsDatabase();
-        Group group = groups.searchGroup(groupId);
-        List<Posts> posts = db.getMemberPostsById(userId, groupId);
+        Group group = groups.searchGroup(groupname);
+        List<Posts> posts = db.getMemberPostsInGroup(username, groupname);
         for(Posts post: posts){
             db.deletePost(post.getPostId());
         }
-        group.removeMember(userId);
+        group.removeMember(username);
     }
 }
