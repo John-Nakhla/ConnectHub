@@ -17,6 +17,7 @@ public class User {
     private List<User> friends;
     private List<FriendRequest> friendRequests;
     private List<User> blockedUsers;
+    private List<Notification> notifications;
     private static int users_count = 10000;
     private UsersDatabase database = new UsersDatabase();
 
@@ -209,7 +210,15 @@ public class User {
             database.refresh(this);
         }
     }
-
+    public void recieveNotification(Notification n)
+    {
+        this.notifications.add(n);
+        database.refresh(this);
+    }
+    public List<Notification> getNotifications()
+    {
+        return this.notifications;
+    }
     // block or unblock a user
     public void blockUser(User user) {
         if (!blockedUsers.contains(user)) {
