@@ -259,7 +259,7 @@ public class GroupWindow extends javax.swing.JFrame {
             priadmin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }  
         else if(group.isAdmin(user.getUsername())){
-            AdminWindow adminwindow=new AdminWindow(user, group);
+            AdminWindow adminwindow=new AdminWindow(this,user, group);
             adminwindow.setVisible(true);
             adminwindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }

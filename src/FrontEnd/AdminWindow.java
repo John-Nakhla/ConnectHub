@@ -17,13 +17,14 @@ import javax.swing.ListSelectionModel;
 
 
 public class AdminWindow extends javax.swing.JPanel {
-
+    private GroupWindow window;
     Group group;
     GroupAdmin admin;
-    public AdminWindow(User user, Group group) {
+    public AdminWindow(GroupWindow window ,User user, Group group) {
         initComponents();
         this.group = group;
         this.admin = new GroupAdmin(user.getUsername(), group.getGroupName());
+        this.window=window;
     }
 
 
@@ -132,12 +133,12 @@ public class AdminWindow extends javax.swing.JPanel {
         if (selectedIndex != -1) {
             GroupMember selectedMember = members.get(selectedIndex);
 
-            admin.removeMember(selectedMember);
+            group.removeMember(selectedMember.getUsername());
 
             if (group.isRemovedMember(selectedMember.getUsername())) {
                 JOptionPane.showMessageDialog(this, "Member removed successfully.", "Removal Successful", JOptionPane.INFORMATION_MESSAGE);
                 group.saveToFile(); // Save changes to the file
-               // reloadGroupDetails(); // Refresh the UI
+                window.reloadGroupDetails(); // Refresh the UI
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to remove member.", "Removal Failed", JOptionPane.ERROR_MESSAGE);
             }
