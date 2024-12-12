@@ -48,4 +48,14 @@ public class GroupAdmin extends GroupMember{
         group.removeJoinRequest(username);
         group.saveToFile();
     }
+    
+    public void rejectPost(String postId) {
+        PostsDatabase posts = new PostsDatabase();
+        posts.approvePost(postId);
+    }
+    
+    public void approvePost(String postId) {
+        PostsDatabase posts = new PostsDatabase();
+        posts.rejectPost(postId);
+    }
 }

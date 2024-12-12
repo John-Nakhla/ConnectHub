@@ -11,6 +11,7 @@ public class Posts {
     private final String username;
     private final String groupname;
     private String content;
+    private String status;
     private String img;
     private LocalDateTime timestamp;
 
@@ -20,6 +21,7 @@ public class Posts {
         this.groupname = groupname;
         this.content = content;
         this.img = img;
+        this.status="Pending";
         this.timestamp = LocalDateTime.now();
     }
 
@@ -43,6 +45,10 @@ public class Posts {
     public String getImg() {
         return img;
     }
+    
+    public String getStatus() {
+        return status;
+    }
 
     public LocalDateTime getTimestamp() {
         return timestamp;
@@ -59,7 +65,10 @@ public class Posts {
     public void setImg(String img) {
         this.img = img;
     }
-
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
     // Save this post to file
     public void saveToFile() {
@@ -72,6 +81,7 @@ public class Posts {
         postsObj.put("groupName", this.groupname);
         postsObj.put("content", this.content);
         postsObj.put("img", this.img);
+        postsObj.put("status", this.status);
         postsObj.put("timestamp", this.timestamp.toString());
 
         postsArray.put(postsObj);

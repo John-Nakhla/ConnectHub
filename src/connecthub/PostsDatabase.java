@@ -42,6 +42,7 @@ public class PostsDatabase {
 
         String postId = String.valueOf(uniqueId());
         Posts newPost = new Posts(postId, username, groupname, content, img);
+        newPost.setStatus("Approved");
         newPost.saveToFile();
     }
     
@@ -130,6 +131,53 @@ public class PostsDatabase {
         return new JSONArray(postsList);
     }
     
+    // Approve a post by postId
+    public boolean approvePost(String postId) {
+        JSONArray postsArray = loadPosts();
+        boolean postFound = false;
+
+        for (int i = 0; i < postsArray.length(); i++) {
+            JSONObject post = postsArray.getJSONObject(i);
+
+            if (post.getString("postId").equals(postId)) {
+                post.put("status", "Approved"); // Update status to Approved
+                postFound = true;
+                break;
+            }
+        }
+
+        if (postFound) {
+            savePosts(postsArray); // Save the updated posts back to the file
+            return true;
+        } else {
+            System.out.println("Post not found for approval.");
+            return false;
+        }
+    }
+    
+    public boolean rejectPost(String postId) {
+        JSONArray postsArray = loadPosts();
+        boolean postFound = false;
+
+        for (int i = 0; i < postsArray.length(); i++) {
+            JSONObject post = postsArray.getJSONObject(i);
+
+            if (post.getString("postId").equals(postId)) {
+                post.put("status", "Rejected"); // Update status to Rejected
+                postFound = true;
+                break;
+            }
+        }
+
+        if (postFound) {
+            savePosts(postsArray); // Save the updated posts back to the file
+            return true;
+        } else {
+            System.out.println("Post not found for rejection.");
+            return false;
+        }
+    }
+    
     //Helping method to convert JsonArray to Posts List
     public List<Posts> convertJsonArrayToPostList(JSONArray jsonArray) {
         List<Posts> postsList = new ArrayList<>();
@@ -143,8 +191,9 @@ public class PostsDatabase {
                 postJson.getString("groupName"),
                 postJson.getString("content"),
                 postJson.optString("img", "")
+                   
             );
-
+            post.setStatus(postJson.getString("status"));
             post.setTimestamp(postJson.getString("timestamp"));
             postsList.add(post);
         }
