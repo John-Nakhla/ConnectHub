@@ -48,6 +48,10 @@ public class Group extends GroupManagement{
         this.removedMembers = removedMembers;
     }
 
+    public void setAdmins(List<GroupAdmin> admins) {
+        this.admins = admins;
+    }
+
     public void setPosts(List<Posts> posts) {
         this.posts = posts;
     }
