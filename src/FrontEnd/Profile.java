@@ -83,8 +83,6 @@ public class Profile extends JFrame {
     }
 
     private void loadUserPosts() {
-
-        JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Set vertical layout
 
         UsersDatabase db = new UsersDatabase();
@@ -94,14 +92,16 @@ public class Profile extends JFrame {
 
         for (Content content : myContent.getContentById(user.getUserId())) {
 
-            String contentText = content.getContent();
-            String contentImgDir = content.getImg();
+            if (!content.isStory()) {
+                String contentText = content.getContent();
+                String contentImgDir = content.getImg();
 
-            if ((contentText != null && !contentText.isEmpty()) || (contentImgDir != null && !contentImgDir.isEmpty())) {
-                // Create a custom Post component for each post
-                Post post = new Post(contentText, contentImgDir);
-                post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
-                postsPanel.add(post); // Add the post to the posts panel
+                if ((contentText != null && !contentText.isEmpty()) || (contentImgDir != null && !contentImgDir.isEmpty())) {
+                    // Create a custom Post component for each post
+                    Post post = new Post(contentText, contentImgDir);
+                    post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
+                    postsPanel.add(post); // Add the post to the posts panel
+                }
             }
         }
 
@@ -142,7 +142,7 @@ public class Profile extends JFrame {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         PostsPanelScroll = new javax.swing.JScrollPane();
-        PostsPanel = new javax.swing.JPanel();
+        postsPanel = new javax.swing.JPanel();
         FriendsPanelScroll = new javax.swing.JScrollPane();
         FriendsPanel = new javax.swing.JPanel();
         CoverPhotoPanel = new javax.swing.JPanel();
@@ -157,18 +157,18 @@ public class Profile extends JFrame {
 
         jLayeredPane1.setBackground(new java.awt.Color(153, 0, 255));
 
-        javax.swing.GroupLayout PostsPanelLayout = new javax.swing.GroupLayout(PostsPanel);
-        PostsPanel.setLayout(PostsPanelLayout);
-        PostsPanelLayout.setHorizontalGroup(
-            PostsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout postsPanelLayout = new javax.swing.GroupLayout(postsPanel);
+        postsPanel.setLayout(postsPanelLayout);
+        postsPanelLayout.setHorizontalGroup(
+            postsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 472, Short.MAX_VALUE)
         );
-        PostsPanelLayout.setVerticalGroup(
-            PostsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        postsPanelLayout.setVerticalGroup(
+            postsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 382, Short.MAX_VALUE)
         );
 
-        PostsPanelScroll.setViewportView(PostsPanel);
+        PostsPanelScroll.setViewportView(postsPanel);
 
         FriendsPanelScroll.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -298,10 +298,12 @@ public class Profile extends JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PostsPanelScroll)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addComponent(FriendsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 234, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(PostsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -429,12 +431,12 @@ public class Profile extends JFrame {
     private javax.swing.JPanel CoverPhotoPanel;
     private javax.swing.JPanel FriendsPanel;
     private javax.swing.JScrollPane FriendsPanelScroll;
-    private javax.swing.JPanel PostsPanel;
     private javax.swing.JScrollPane PostsPanelScroll;
     private javax.swing.JPanel ProfilePhotoPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel postsPanel;
     private javax.swing.JButton retrunBtn;
     private javax.swing.JButton settingsBtn;
     // End of variables declaration//GEN-END:variables

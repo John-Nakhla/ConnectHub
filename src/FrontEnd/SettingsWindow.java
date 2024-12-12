@@ -44,7 +44,6 @@ public class SettingsWindow extends javax.swing.JFrame {
         UpdateUsername = new javax.swing.JButton();
         UpdateBio = new javax.swing.JButton();
         Blocked = new javax.swing.JButton();
-        LogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -110,16 +109,6 @@ public class SettingsWindow extends javax.swing.JFrame {
             }
         });
 
-        LogOut.setBackground(new java.awt.Color(0, 102, 153));
-        LogOut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        LogOut.setForeground(new java.awt.Color(255, 255, 255));
-        LogOut.setText("LogOut");
-        LogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogOutActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,9 +125,7 @@ public class SettingsWindow extends javax.swing.JFrame {
                             .addComponent(UpdateBio, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Blocked, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                            .addComponent(LogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(Blocked, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -156,9 +143,7 @@ public class SettingsWindow extends javax.swing.JFrame {
                 .addComponent(UpdateBio)
                 .addGap(28, 28, 28)
                 .addComponent(Blocked)
-                .addGap(29, 29, 29)
-                .addComponent(LogOut)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -273,14 +258,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         }
         saveChanges();
     }//GEN-LAST:event_UpdateBioActionPerformed
-//logout of the ConnecHub
-    private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
-        window.user.setStatus(false);
-        WelcomePage welcome = new WelcomePage();
-        welcome.setVisible(true);
-        this.dispose();
-        window.dispose();
-    }//GEN-LAST:event_LogOutActionPerformed
+
 //view blocked users
     private void BlockedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockedActionPerformed
         Blocked b = new Blocked(window.user);
@@ -294,7 +272,6 @@ public class SettingsWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Blocked;
-    private javax.swing.JButton LogOut;
     private javax.swing.JButton UpdateBio;
     private javax.swing.JButton UpdateCoverPhoto;
     private javax.swing.JButton UpdatePassword;

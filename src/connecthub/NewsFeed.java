@@ -5,8 +5,8 @@ import org.json.*;
 
 public class NewsFeed {
 
-    private  UsersDatabase usersDatabase;
-    private  List<Content> allPosts;
+    private UsersDatabase usersDatabase;
+    private List<Content> allPosts;
     ContentDatabase db = new ContentDatabase();
 
     public NewsFeed(UsersDatabase usersDatabase) {
@@ -19,11 +19,17 @@ public class NewsFeed {
         allPosts = convertJsonArrayToContentList(db.loadContent());
         List<Content> ALlPosts = new ArrayList<>();
         if (user != null) {
-            for (User friend : user.getFriends()) {
-                for (Content post : allPosts) {
-                    if (post.getAuthorId().equals(friend.getUserId()) || post.getAuthorId().equals(user.getUserId())) {
+            for (Content post : allPosts) {
+                for (User friend : user.getFriends()) {
+                    if (post.getAuthorId().equals(friend.getUserId())) {
+                        System.out.println("friend post added\n");
                         ALlPosts.add(post);
+                        break;
                     }
+                }
+                if (post.getAuthorId().equals(user.getUserId())) {
+                    System.out.println("user post added\n");
+                    ALlPosts.add(post);
                 }
             }
         }
@@ -74,9 +80,9 @@ public class NewsFeed {
     public List<Content> getPostsOnly(User user) {
         List<Content> posts = new ArrayList<>();
         List<Content> postsAndStories = PostsAndStories(user);
-        for (Content post : postsAndStories) {
-            if (!post.isStory()) {
-                posts.add(post);
+        for (Content content : postsAndStories) {
+            if (!content.isStory()) {
+                posts.add(content);
             }
         }
         return posts;
@@ -87,9 +93,9 @@ public class NewsFeed {
         List<Content> stories = new ArrayList<>();
         List<Content> friendsStories = PostsAndStories(user);
 
-        for (Content post : friendsStories) {
-            if (post.isStory()) {
-                stories.add(post);
+        for (Content content : friendsStories) {
+            if (content.isStory()) {
+                stories.add(content);
             }
         }
         return stories;
