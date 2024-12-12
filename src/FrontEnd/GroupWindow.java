@@ -16,11 +16,13 @@ public class GroupWindow extends javax.swing.JFrame {
         initComponents();
         this.user=user;
         this.group = group;
-        
+        grpname.setText(group.getGroupName());
+        grpdesc.setText(group.getDescription());
         loadCoverPhoto();
         loadGroupDetails();
         loadGroupPosts();
         loadGroupMembers();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     private void loadCoverPhoto() {
         try {
@@ -90,6 +92,7 @@ public class GroupWindow extends javax.swing.JFrame {
     
     private void loadGroupMembers() {
         JPanel memberspanel = new JPanel();
+        
         memberspanel.setLayout(new BoxLayout(memberspanel, BoxLayout.Y_AXIS));
         
         for (String member : group.GetGroupPeople()) {
@@ -122,7 +125,6 @@ public class GroupWindow extends javax.swing.JFrame {
         PostsPanelScroll = new javax.swing.JScrollPane();
         postspanel = new javax.swing.JPanel();
         MembersPanelScroll = new javax.swing.JScrollPane();
-        memberspanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,11 +145,9 @@ public class GroupWindow extends javax.swing.JFrame {
         grpname.setBackground(new java.awt.Color(255, 255, 255));
         grpname.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         grpname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        grpname.setText("Group Name");
 
         grpdesc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         grpdesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        grpdesc.setText("Group Description");
 
         options.setBackground(new java.awt.Color(0, 102, 153));
         options.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -171,19 +171,6 @@ public class GroupWindow extends javax.swing.JFrame {
         );
 
         PostsPanelScroll.setViewportView(postspanel);
-
-        javax.swing.GroupLayout memberspanelLayout = new javax.swing.GroupLayout(memberspanel);
-        memberspanel.setLayout(memberspanelLayout);
-        memberspanelLayout.setHorizontalGroup(
-            memberspanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
-        );
-        memberspanelLayout.setVerticalGroup(
-            memberspanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 359, Short.MAX_VALUE)
-        );
-
-        MembersPanelScroll.setViewportView(memberspanel);
 
         jLayeredPane1.setLayer(CoverPhotoPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(grpname, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -255,12 +242,12 @@ public class GroupWindow extends javax.swing.JFrame {
 
     private void optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsActionPerformed
         if(user.getUsername().equals(group.getCreatorUsername())){
-            PrimaryAdminWindow priadmin=new PrimaryAdminWindow(this,user, group);
+            PrimaryAdminsWindow priadmin=new PrimaryAdminsWindow(this,user, group);
             priadmin.setVisible(true);
             priadmin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }  
         else if(group.isAdmin(user.getUsername())){
-            AdminWindow adminwindow=new AdminWindow(this,user, group);
+            AdminsWindow adminwindow=new AdminsWindow(this,user, group);
             adminwindow.setVisible(true);
             adminwindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
@@ -279,8 +266,10 @@ public class GroupWindow extends javax.swing.JFrame {
                 CreateContentWindow c = new CreateContentWindow(this,true,"p"); // Pass the parent GroupWindow instance
                 c.pack();
                 c.setVisible(true);
+                c.dispose();
                 String contentText = c.getContentText();
                 String contentImgDir = c.getContentImgDir();
+                
 
                 if (!"".equals(contentText) || !"".equals(contentImgDir)) {
                     PostsDatabase postsDb = new PostsDatabase();
@@ -332,7 +321,6 @@ public class GroupWindow extends javax.swing.JFrame {
     private javax.swing.JLabel grpdesc;
     private javax.swing.JLabel grpname;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel memberspanel;
     private javax.swing.JButton options;
     private javax.swing.JPanel postspanel;
     // End of variables declaration//GEN-END:variables

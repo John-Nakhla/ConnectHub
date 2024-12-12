@@ -36,10 +36,11 @@ public class GroupsDatabase {
     }
     
     // Create a new group
-    public void createGroup(String groupName, String description, String groupPhoto, String creatorUsername) {
+    public Group createGroup(String groupName, String description, String groupPhoto, String creatorUsername) {
         String groupId = String.valueOf(uniqueId());
         Group group = new Group(groupId, groupName, description, groupPhoto, creatorUsername);
         group.saveToFile();
+        return group;
     }
     
     private int uniqueId() {

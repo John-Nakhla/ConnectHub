@@ -10,7 +10,6 @@ public class Group extends GroupManagement{
     public List<GroupAdmin> admins;
     private List<GroupMember> removedMembers;
     private List<Posts> posts;
-    private List<String> groupPeople;
     private List<String> requests;
 
     public Group(String groupId, String groupName, String description, String groupPhoto, String creatorUsername) {
@@ -19,7 +18,6 @@ public class Group extends GroupManagement{
         this.admins = new ArrayList<>();
         this.removedMembers = new ArrayList<>();
         this.posts = new ArrayList<>();
-        this.groupPeople = new ArrayList<>();
         this.requests = new ArrayList<>();
     }
 
@@ -152,6 +150,7 @@ public class Group extends GroupManagement{
     
     // Get all Group People
     public List<String> GetGroupPeople(){
+        List<String> groupPeople = new ArrayList<>();
         groupPeople.add(super.getCreatorUsername() + " (Creator)");
         for(GroupAdmin admin: admins){
             groupPeople.add(admin.getUsername() + " (Admin)");
@@ -183,6 +182,15 @@ public class Group extends GroupManagement{
             groupMembers.put(memberObj);
         }
         groupObj.put("members", groupMembers);
+        
+        JSONArray groupAdmins = new JSONArray();
+        for (GroupAdmin member : admins) {
+            JSONObject memberObj = new JSONObject();
+            memberObj.put("userName", member.getUsername());
+            memberObj.put("groupName", member.getGroupname());
+            groupMembers.put(memberObj);
+        }
+        groupObj.put("admins", groupAdmins);
         
         JSONArray groupremovedMembers = new JSONArray();
         for (GroupMember member : removedMembers) {

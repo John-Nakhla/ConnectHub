@@ -24,6 +24,8 @@ public class GroupManagement {
     }
 
     public String getGroupName() {
+        System.out.println("here in get name");
+        System.out.println(groupName);
         return groupName;
     }
 

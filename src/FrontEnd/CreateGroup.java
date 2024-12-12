@@ -5,6 +5,7 @@
 package FrontEnd;
 
 import connecthub.Group;
+import connecthub.GroupsDatabase;
 import connecthub.User;
 import javax.swing.JOptionPane;
 
@@ -97,12 +98,14 @@ public class CreateGroup extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      String name = jLabel1.getText();
-      String desc= jLabel2.getText();
+      String name = jTextField1.getText();
+      String desc= jTextField2.getText();
       if(name.isEmpty()){
            JOptionPane.showMessageDialog(this, "Group name cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
       }else{
-          Group group=new Group("100",name,desc,"",user.getUsername());
+          //Group group=new Group("100",name,desc,"",user.getUsername());
+          GroupsDatabase db=new GroupsDatabase();
+          Group group=db.createGroup(name, desc, "", user.getUsername());
           GroupWindow window=new GroupWindow(user,group);
           window.setVisible(true);
           this.dispose();
