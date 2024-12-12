@@ -160,6 +160,18 @@ public class GroupsDatabase {
                 }
                 group.setRemovedMembers(removedMembersList);
             }
+            
+            // Add join requests to the group
+            JSONArray requestsArray = groupJson.optJSONArray("joinRequests");
+            List<String> requests = new ArrayList<>();
+            if (requestsArray != null) {
+                for (int j = 0; j < requestsArray.length(); j++) {
+                    JSONObject requestJson = requestsArray.getJSONObject(j);
+                    String request = requestJson.getString("userName");
+                    requests.add(request);
+                }
+                group.setJoinRequests(requests);
+            }
 
             // Add posts to the group
             JSONArray postsArray = groupJson.optJSONArray("posts");

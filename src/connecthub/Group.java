@@ -122,10 +122,15 @@ public class Group extends GroupManagement{
         addMember(new GroupMember(username, super.getGroupName()));
     }
     
-    // Get join requests
+    // Get / Set join requests
     public List<String> getJoinRequests(){
         return requests;
     }
+
+    public void setJoinRequests(List<String> requests) {
+        this.requests = requests;
+    }
+
     
     // Delete group from database
     public void deleteFromDatabase(){
