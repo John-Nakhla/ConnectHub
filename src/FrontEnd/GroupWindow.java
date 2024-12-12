@@ -66,7 +66,7 @@ public class GroupWindow extends javax.swing.JFrame {
         java.util.List<Posts> groupPosts = posts.getGroupPosts(group.getGroupName());
         
         for (Posts content : groupPosts) {
-
+            if ("Approved".equals(content.getStatus())){
             String contentText = content.getContent();
             String contentImgDir = content.getImg();
 
@@ -75,6 +75,7 @@ public class GroupWindow extends javax.swing.JFrame {
                 Post post = new Post(contentText, contentImgDir);
                 post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
                 postsPanel.add(post); // Add the post to the posts panel
+            }
             }
         }
 
