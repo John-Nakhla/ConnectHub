@@ -283,8 +283,9 @@ public class GroupWindow extends javax.swing.JFrame {
                 String contentImgDir = c.getContentImgDir();
 
                 if (!"".equals(contentText) || !"".equals(contentImgDir)) {
+                    PostsDatabase postsDb = new PostsDatabase();
                     Post post = new Post(contentText, contentImgDir);
-                    PostsDatabase.createPost(user.getUsername(), contentText, group.getGroupName(),contentImgDir);
+                    postsDb.createPost(user.getUsername(), contentText, group.getGroupName(),contentImgDir);
                     JOptionPane.showMessageDialog(this, "Your post has been submitted for approval.", "Post Submitted", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else if (choice == 1) {

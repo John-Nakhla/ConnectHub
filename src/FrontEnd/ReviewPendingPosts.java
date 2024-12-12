@@ -13,8 +13,9 @@ import java.util.*;
 import javax.swing.*;
 
 public class ReviewPendingPosts extends JFrame {
-
-    public ReviewPendingPosts(GroupAdmin admin, Group group) {
+    private GroupWindow parent;
+    public ReviewPendingPosts(GroupAdmin admin, Group group,GroupWindow parent) {
+        this.parent=parent;
         setTitle("Pending Posts");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 500);
@@ -66,6 +67,7 @@ public class ReviewPendingPosts extends JFrame {
                         mainPanel.remove(postPanel);
                         mainPanel.revalidate();
                         mainPanel.repaint();
+                        parent.reloadGroupDetails();
                     }
                 });
 

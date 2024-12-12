@@ -331,7 +331,7 @@ public class PrimaryAdminWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_RemoveMemberActionPerformed
 
     private void ManagePostsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManagePostsActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_ManagePostsActionPerformed
 
     private void changecoverphotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changecoverphotoActionPerformed
