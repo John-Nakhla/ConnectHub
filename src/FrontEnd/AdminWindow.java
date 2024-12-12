@@ -154,7 +154,7 @@ public class AdminWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_managepostsActionPerformed
 
     private void viewrequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewrequestsActionPerformed
-        GroupRequest g = new GroupRequest(admin);
+        GroupRequest g = new GroupRequest(admin,group);
         g.setVisible(true);
         g.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_viewrequestsActionPerformed

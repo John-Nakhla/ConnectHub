@@ -37,6 +37,10 @@ public class Group extends GroupManagement{
         return posts;
     }
     
+    public String getGroupId() {
+        return super.getGroupId();
+    }
+    
 
     public void setMembers(List<GroupMember> members) {
         this.members = members;

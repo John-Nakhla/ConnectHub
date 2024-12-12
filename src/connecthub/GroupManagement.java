@@ -10,7 +10,7 @@ public class GroupManagement {
     private String groupPhoto;
     private final String creatorUsername;
 
-    public GroupManagement(String groupId, String groupName, String description, String groupPhoto, String creatorUsername) {
+    public GroupManagement(String groupName, String description, String groupPhoto, String creatorUsername) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.description = description;

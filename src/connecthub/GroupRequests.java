@@ -41,5 +41,9 @@ public class GroupRequests extends Group{
         joinRequests.remove(request);
         request.setStatus("Rejected");
     }
+
+    public List<GroupJoinRequests> getJoinRequest() {
+        return  joinRequests;
+    }
     
 }
