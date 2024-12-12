@@ -1,11 +1,27 @@
-[{
-    "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-    "blockedFriends": [],
-    "FriendRequestSenders": [],
-    "dateOfBirth": "1-5-2003",
-    "isOnline": true,
-    "userId": "User10001",
-    "email": "john1@gmail.com",
-    "friends": [],
-    "username": "john1"
-}]
+[
+    {
+        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-5-2003",
+        "isOnline": true,
+        "userId": "User10001",
+        "email": "john1@gmail.com",
+        "friends": [],
+        "username": "john1"
+    },
+    {
+        "password": "6add58432dd768e4f048fb16c2bc7b318665554db22fe1d30c0615c00c077928",
+        "blockedFriends": [],
+        "FriendRequestSenders": [],
+        "dateOfBirth": "30-8-2004",
+        "isOnline": true,
+        "userId": "User10002",
+        "email": "mina@gmail.com",
+        "friends": [],
+        "username": "Mina"
+    }
+]
