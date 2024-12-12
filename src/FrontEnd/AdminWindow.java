@@ -150,7 +150,9 @@ public class AdminWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_removemembersActionPerformed
 
     private void managepostsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managepostsActionPerformed
-        // TODO add your handling code here:
+        ReviewPendingPosts p=new ReviewPendingPosts(admin,group,window);
+        p.setVisible(true);
+        p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_managepostsActionPerformed
 
     private void viewrequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewrequestsActionPerformed
