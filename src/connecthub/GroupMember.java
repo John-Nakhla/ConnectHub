@@ -42,17 +42,5 @@ public class GroupMember{
         }
         group.removeMember(username);
     }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        GroupMember that = (GroupMember) obj;
-        return Objects.equals(username, that.username) &&
-               Objects.equals(groupname, that.groupname);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, groupname);
-    }
 }

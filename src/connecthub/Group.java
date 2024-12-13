@@ -189,11 +189,11 @@ public class Group extends GroupManagement{
         groupObj.put("members", groupMembers);
         
         JSONArray groupAdmins = new JSONArray();
-        for (GroupAdmin member : admins) {
-            JSONObject memberObj = new JSONObject();
-            memberObj.put("userName", member.getUsername());
-            memberObj.put("groupName", member.getGroupname());
-            groupMembers.put(memberObj);
+        for (GroupAdmin admin : admins) {
+            JSONObject adminObj = new JSONObject();
+            adminObj.put("userName", admin.getUsername());
+            adminObj.put("groupName", admin.getGroupname());
+            groupMembers.put(adminObj);
         }
         groupObj.put("admins", groupAdmins);
         
@@ -244,13 +244,7 @@ public class Group extends GroupManagement{
         
     }
     
-    public List<GroupMember> getNonAdminMembers() {
-        List<GroupMember> nonAdminMembers = new ArrayList<>(members);
-        for (GroupAdmin admin : admins) {
-            nonAdminMembers.removeIf(member -> member.getUsername().equals(admin.getUsername()));
-        }
-        return nonAdminMembers;
-    }
+
 }
 
 

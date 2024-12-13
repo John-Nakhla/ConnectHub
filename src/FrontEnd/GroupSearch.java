@@ -55,7 +55,7 @@ public class GroupSearch extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Enter User name");
+        jLabel1.setText("Enter Group name");
 
         search.setText("Search");
         search.addActionListener(new java.awt.event.ActionListener() {

@@ -22,8 +22,8 @@ public class GroupCreator extends GroupAdmin{
 
         // Locate the exact member in the group
         GroupMember foundMember = null;
-        for (GroupMember m : group.members) {
-            if (m.equals(member)) {
+        for (GroupMember m : group.getMembers()) {
+            if (m.getUsername().equals(member.getUsername())) {
                 foundMember = m;
                 break;
             }
@@ -36,8 +36,10 @@ public class GroupCreator extends GroupAdmin{
 
         // Promote the member
         GroupAdmin admin = new GroupAdmin(foundMember.getUsername(), foundMember.getGroupname());
-        group.removeMember(foundMember.getUsername());// Use exact reference
+        group.removeMember(foundMember.getUsername()); // Use exact reference
+        System.out.println("removed member");
         group.addAdmin(admin);
+        
         group.saveToFile(); // Save the changes
         return true;
 

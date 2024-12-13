@@ -40,8 +40,9 @@ public class ReviewPendingPosts extends JFrame {
 
                 // Buttons for actions
                 JButton viewButton = new JButton("View Details");
-                JButton approveButton = new JButton("Approve");
-                JButton declineButton = new JButton("Decline");
+                JButton approveButton = new JButton("Add");
+                JButton declineButton = new JButton("Delete");
+                JButton editButton = new JButton("Edit");
 
                 // View Button Action
                 viewButton.addActionListener(new ActionListener() {
@@ -77,16 +78,36 @@ public class ReviewPendingPosts extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         admin.rejectPost(post.getPostId());
-                        JOptionPane.showMessageDialog(ReviewPendingPosts.this, "Post Declined");
+                        post.setStatus("declined");
+                        JOptionPane.showMessageDialog(ReviewPendingPosts.this, "Post Deleted");
                         mainPanel.remove(postPanel);
                         mainPanel.revalidate();
                         mainPanel.repaint();
-                        parent.reloadGroupDetails();                        
+                        //parent.reloadGroupDetails();                        
+                    }
+                });
+                
+                editButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String newContent = JOptionPane.showInputDialog(ReviewPendingPosts.this,
+                                "Edit Post Content", post.getContent());
+                        if (newContent != null && !newContent.trim().isEmpty()) {
+                            post.setContent(newContent);
+                            post.setStatus("Approved"); 
+                            post.saveToFile(); // Save the updated post (overwrite the original)
+                            JOptionPane.showMessageDialog(ReviewPendingPosts.this, "Post Updated");
+                            mainPanel.remove(postPanel);
+                            mainPanel.revalidate();
+                            mainPanel.repaint();
+                            parent.reloadGroupDetails();
+                        }
                     }
                 });
 
                 JPanel buttonPanel = new JPanel();
                 buttonPanel.add(viewButton);
+                buttonPanel.add(editButton);
                 buttonPanel.add(approveButton);
                 buttonPanel.add(declineButton);
 

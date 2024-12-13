@@ -71,7 +71,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Enter User name"/>
+            <Property name="text" type="java.lang.String" value="Enter Group name"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="username">

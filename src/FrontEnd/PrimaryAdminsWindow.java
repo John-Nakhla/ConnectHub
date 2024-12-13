@@ -331,7 +331,7 @@ public class PrimaryAdminsWindow extends javax.swing.JFrame {
         }
 
         // Get the list of non-admin members
-        List<GroupMember> nonAdminMembers = group.getNonAdminMembers();
+        List<GroupMember> nonAdminMembers = group.getMembers();
 
         if (nonAdminMembers.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No eligible members to promote.", "Error", JOptionPane.INFORMATION_MESSAGE);

@@ -147,6 +147,20 @@ public class GroupsDatabase {
                 
             }
             
+            JSONArray adminsArray = groupJson.optJSONArray("admins");
+            List<GroupAdmin> adminsList = new ArrayList<>();
+            if (adminsArray != null) {
+                for (int j = 0; j < adminsArray.length(); j++) {
+                    JSONObject adminJson = adminsArray.getJSONObject(j);
+                    GroupAdmin admin = new GroupAdmin(
+                        adminJson.getString("userName"),
+                        adminJson.getString("groupName")
+                    );
+                    group.addAdmin(admin);
+                }
+                
+            }
+            
             // Add removed members to the group
             JSONArray removedMembersArray = groupJson.optJSONArray("removedMembers");
             List<GroupMember> removedMembersList = new ArrayList<>();
