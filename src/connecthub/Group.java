@@ -1,234 +1,184 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package connecthub;
-
 import java.util.*;
-import org.json.*;
 
-public class Group extends GroupManagement{
-    
-    public List<GroupMember> members;
-    public List<GroupAdmin> admins;
-    private List<GroupMember> removedMembers;
-    private List<Posts> posts;
-    private List<String> requests;
-
-    public Group(String groupId, String groupName, String description, String groupPhoto, String creatorUsername) {
-        super(groupId, groupName, description, groupPhoto, creatorUsername);
-        this.members = new ArrayList<>();
-        this.admins = new ArrayList<>();
-        this.removedMembers = new ArrayList<>();
-        this.posts = new ArrayList<>();
-        this.requests = new ArrayList<>();
+/**
+ *
+ * @author waelj
+ */
+public class Group {
+    private String groupId;
+    private String groupName;
+    private String discription;
+    private User creator;
+    private List<User> members = new ArrayList<>();
+    private List<User> admins = new ArrayList<>();
+    private List<User> removed = new ArrayList<>();
+    private List<Posts> posts = new ArrayList<>();
+    private List<JoinRequest> requests = new ArrayList<>();
+    private String photo =null;
+    private int counter  =19999;
+    private GroupDatabase database = new GroupDatabase();
+    public Group(User creator, String name, String discription)
+    {
+        this.creator = creator;
+        this.groupName = name;
+        this.discription = discription;
+        this.groupId =String.valueOf(counter++);
     }
 
-    
-    // Getters & Setters
-    public List<GroupMember> getMembers() {
-        return members;
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
-    public List<GroupAdmin> getAdmins() {
-        return admins;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+        database.refresh(this);
+        
     }
 
-    public List<Posts> getPosts() {
-        return posts;
+    public void setDiscription(String discription) {
+        this.discription = discription;
+        database.refresh(this);
     }
-    
-    public String getGroupId() {
-        return super.getGroupId();
-    }
-    
 
-    public void setMembers(List<GroupMember> members) {
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public void setMembers(List<User> members) {
         this.members = members;
     }
-    
-    public void setRemovedMembers(List<GroupMember> removedMembers) {
-        this.removedMembers = removedMembers;
-    }
 
-    public void setAdmins(List<GroupAdmin> admins) {
+    public void setAdmins(List<User> admins) {
         this.admins = admins;
     }
 
-    public void setPosts(List<Posts> posts) {
-        this.posts = posts;
-    }
-    
-    // Check if member
-    public boolean isMember(String username){
-        for(GroupMember member: members){
-            if (member.getUsername().equals(username))
-                return true;
-        }
-        return false;
-    }
-    
-    // Check if admin
-    public boolean isAdmin(String username){
-        for(GroupAdmin admin: admins){
-            if (admin.getUsername().equals(username))
-                return true;
-        }
-        return false;
-    }
-    
-    // Check if admin
-    public boolean isCreator(String username){
-        return super.getCreatorUsername().equals(username);
-    }
-    
-    // Check if removed member
-    public boolean isRemovedMember(String username){
-        for(GroupMember member: removedMembers){
-            if (member.getUsername().equals(username))
-                return true;
-        }
-        return false;
-    }
-    
-    // Check if requested already
-    public boolean isRequested(String username){
-        for(String request: requests){
-            if(request.equals(username))
-                return true;
-        }
-        return false;
-    }
-    
-    // Add a member
-    public void addMember(GroupMember member) {
-        members.add(member);
+    public void setRemoved(List<User> removed) {
+        this.removed = removed;
     }
 
-    // Remove a member
-    public void removeMember(String username) {
-        for (GroupMember member:members){
-            if(member.getUsername().equals(username)){
-                removedMembers.add(member);
-                members.remove(member);
-                break;
-            }
-        }
-        for(GroupAdmin admin: admins){
-            if(admin.getUsername().equals(username)){
-                removedMembers.add(admin);
-                members.remove(admin);
-                break;
-            }  
-        }
-    }
-    
-    // Send join request
-    public void sendJoinRequest(String username){
-        requests.add(username);
-    }
-    
-    // Remove join request
-    public void removeJoinRequest(String username){
-        requests.remove(username);
-    }
-    
-    // Accept join request
-    public void acceptJoinRequest(String username){
-        requests.remove(username);
-        addMember(new GroupMember(username, super.getGroupName()));
-    }
-    
-    // Get / Set join requests
-    public List<String> getJoinRequests(){
-        return requests;
-    }
-
-    public void setJoinRequests(List<String> requests) {
+    public void setRequests(List<JoinRequest> requests) {
         this.requests = requests;
     }
+    public void addMember(User u)
+    {
+        this.members.add(u);
+        database.refresh(this);
+    }
+    public void removeMember(User u)
+    {
+        this.removed.add(u);
+        this.members.remove(u);
+        database.refresh(this);
+    }
+    public boolean isMember(User u)
+    {
+        for(User k : members)
+        {
+            if(k.getUserId().equals(u.getUserId()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isAdmin(User u)
+    {
+        for(User k : admins)
+        {
+            if(k.getUserId().equals(u.getUserId()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isRemovedMember(User u)
+    {
+        for(User k : removed)
+        {
+            if(k.getUserId().equals(u.getUserId()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isRequested(User u)
+    {
+        for(JoinRequest k : requests)
+        {
+            if(k.getSender().getUserId().equals(u.getUserId()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public String getGroupId()
+    {
+        return this.groupId;
+    }
+    public String getGroupName()
+    {
+        return this.groupName;
+    }
 
-    
-    // Delete group from database
-    public void deleteFromDatabase(){
-        GroupsDatabase db = new GroupsDatabase();
-        db.deleteGroup(super.getGroupId());
+    public String getDiscription() {
+        return discription;
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public List<User> getAdmins() {
+        return admins;
+    }
+
+    public List<User> getRemoved() {
+        return removed;
+    }
+
+    public List<JoinRequest> getRequests() {
+        return requests;
     }
     
-    // Get all Group People
-    public List<String> GetGroupPeople(){
-        List<String> groupPeople = new ArrayList<>();
-        groupPeople.add(super.getCreatorUsername() + " (Creator)");
-        for(GroupAdmin admin: admins){
-            groupPeople.add(admin.getUsername() + " (Admin)");
-        }
-        for(GroupMember member: members){
-            groupPeople.add(member.getUsername() + " (Member)");
-        }
-        return groupPeople;
+    public User getCreator()
+    {
+        return this.creator;
     }
-    
-    // Save this content to file
-    public void saveToFile() {
-        GroupsDatabase db = new GroupsDatabase();
-        db.deleteGroup(super.getGroupId());
-        JSONArray groupsArray = db.loadGroups();
-
-        JSONObject groupObj = new JSONObject();
-        groupObj.put("groupId", super.getGroupId());
-        groupObj.put("groupName", super.getGroupName());
-        groupObj.put("description", super.getDescription());
-        groupObj.put("groupPhoto", super.getGroupPhoto());
-        groupObj.put("creatorUsername", super.getCreatorUsername());
-        
-        JSONArray groupMembers = new JSONArray();
-        for (GroupMember member : members) {
-            JSONObject memberObj = new JSONObject();
-            memberObj.put("userName", member.getUsername());
-            memberObj.put("groupName", member.getGroupname());
-            groupMembers.put(memberObj);
-        }
-        groupObj.put("members", groupMembers);
-        
-        JSONArray groupAdmins = new JSONArray();
-        for (GroupAdmin member : admins) {
-            JSONObject memberObj = new JSONObject();
-            memberObj.put("userName", member.getUsername());
-            memberObj.put("groupName", member.getGroupname());
-            groupMembers.put(memberObj);
-        }
-        groupObj.put("admins", groupAdmins);
-        
-        JSONArray groupremovedMembers = new JSONArray();
-        for (GroupMember member : removedMembers) {
-            JSONObject memberObj = new JSONObject();
-            memberObj.put("userName", member.getUsername());
-            memberObj.put("groupName", member.getGroupname());
-            groupremovedMembers.put(memberObj);
-        }
-        groupObj.put("removedMembers", groupremovedMembers);
-        
-        JSONArray joinRequests = new JSONArray();
-        for (String request : requests) {
-            JSONObject requestObj = new JSONObject();
-            requestObj.put("userName", request);
-            joinRequests.put(requestObj);
-        }
-        groupObj.put("joinRequests", joinRequests);
-
-        JSONArray groupPosts = new JSONArray();
-        for (Posts post : posts) {
-            JSONObject postsObj = new JSONObject();
-            postsObj.put("postId", post.getPostId());
-            postsObj.put("userName", post.getUsername());
-            postsObj.put("groupName", post.getGroupname());
-            postsObj.put("content", post.getContent());
-            postsObj.put("img", post.getImg());
-            postsObj.put("timestamp", post.getTimestamp().toString());
-            groupPosts.put(postsObj);
-        }
-        groupObj.put("posts", groupPosts);
-
-        groupsArray.put(groupObj);
-        db.saveGroups(groupsArray);
-    } 
+    public void recieveJoinRequest(JoinRequest j)
+    {
+        this.requests.add(j);
+        database.refresh(this);
+    }
+    public void acceptRequest(JoinRequest j)
+    {
+        this.requests.remove(j);
+        this.members.add(j.getSender());
+        database.refresh(this);
+    }
+    public void declineRequest(JoinRequest j)
+    {
+        this.requests.remove(j);
+        database.refresh(this);
+    }
+    public void setPhoto(String path)
+    {
+        this.photo = path;
+        database.refresh(this);
+    }
+    public String getPhoto()
+    {
+         return this.photo;
+    }
+    public void update()
+    {
+        GroupManagement.getAdmin().updateGroup(this);
+    }
 }
-
-

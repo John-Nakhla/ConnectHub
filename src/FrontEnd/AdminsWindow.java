@@ -16,11 +16,11 @@ import javax.swing.*;
 public class AdminsWindow extends javax.swing.JFrame {
     private GroupWindow window;
     private Group group;
-    private GroupAdmin admin;
+    private User admin;
     public AdminsWindow(GroupWindow window ,User user, Group group) {
         initComponents();
         this.group = group;
-        this.admin = new GroupAdmin(user.getUsername(), group.getGroupName());
+        this.admin = user;
         this.window=window;
     }
 
@@ -135,7 +135,7 @@ public class AdminsWindow extends javax.swing.JFrame {
         }
 
         // Get the list of non-admin members
-        List<GroupMember> members = new ArrayList<>(group.getMembers());
+        List<User> members = group.getMembers();
 
         if (members.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No Members To remove.", "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -168,13 +168,12 @@ public class AdminsWindow extends javax.swing.JFrame {
         if (result == JOptionPane.OK_OPTION) {
             int selectedIndex = memberList.getSelectedIndex();
             if (selectedIndex != -1) {
-                GroupMember selectedMember = members.get(selectedIndex);
+                User selectedMember = members.get(selectedIndex);
 
-                group.removeMember(selectedMember.getUsername());
+                group.removeMember(selectedMember);
 
-                if (group.isRemovedMember(selectedMember.getUsername())) {
+                if (group.isRemovedMember(selectedMember)) {
                     JOptionPane.showMessageDialog(this, "Member removed successfully.", "Removal Successful", JOptionPane.INFORMATION_MESSAGE);
-                    group.saveToFile(); // Save changes to the file
                     window.reloadGroupDetails(); // Refresh the UI
                 } else {
                     JOptionPane.showMessageDialog(this, "Failed to remove member.", "Removal Failed", JOptionPane.ERROR_MESSAGE);

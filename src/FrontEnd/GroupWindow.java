@@ -1,32 +1,31 @@
-
 package FrontEnd;
-
 
 import connecthub.*;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-
 public class GroupWindow extends javax.swing.JFrame {
-    
+
     User user;
     Group group;
+
     public GroupWindow(User user, Group group) {
         initComponents();
-        this.user=user;
+        this.user = user;
         this.group = group;
         grpname.setText(group.getGroupName());
-        grpdesc.setText(group.getDescription());
+        grpdesc.setText(group.getDiscription());
         loadCoverPhoto();
         loadGroupDetails();
         loadGroupPosts();
         loadGroupMembers();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
+
     private void loadCoverPhoto() {
         try {
-            Image coverPhoto = new ImageIcon(group.getGroupPhoto()).getImage();
+            Image coverPhoto = new ImageIcon(group.getPhoto()).getImage();
             Image scaledCoverPhoto = coverPhoto.getScaledInstance(CoverPhotoPanel.getWidth(), CoverPhotoPanel.getHeight(), Image.SCALE_SMOOTH);
 
             JPanel coverPhotoPanel = new JPanel() {
@@ -39,7 +38,6 @@ public class GroupWindow extends javax.swing.JFrame {
             coverPhotoPanel.setBounds(0, 0, CoverPhotoPanel.getWidth(), CoverPhotoPanel.getHeight());
             CoverPhotoPanel.add(coverPhotoPanel);
             CoverPhotoPanel.repaint();
-            
 
             // Ensure the panel updates
         } catch (Exception e) {
@@ -49,35 +47,35 @@ public class GroupWindow extends javax.swing.JFrame {
             CoverPhotoPanel.repaint();
         }
     }
-    
+
     private void loadGroupDetails() {
         grpname.setText(group.getGroupName());
-        grpdesc.setText(group.getDescription());
+        grpdesc.setText(group.getDiscription());
     }
-    
+
     private void loadGroupPosts() {
 
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Set vertical layout
 
-        GroupsDatabase db = new GroupsDatabase();
-        db.searchGroup(group.getGroupName());
+//        GroupDatabase db = new GroupDatabase();
+//        db.searchGroup(group.getGroupName());
 
         PostsDatabase posts = new PostsDatabase();
-        
-        java.util.List<Posts> groupPosts = posts.getGroupPosts(group.getGroupName());
-        
-        for (Posts content : groupPosts) {
-            if ("Approved".equals(content.getStatus())){
-            String contentText = content.getContent();
-            String contentImgDir = content.getImg();
 
-            if ((contentText != null && !contentText.isEmpty()) || (contentImgDir != null && !contentImgDir.isEmpty())) {
-                // Create a custom Post component for each post
-                Post post = new Post(contentText, contentImgDir);
-                post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
-                postsPanel.add(post); // Add the post to the posts panel
-            }
+        java.util.List<Posts> groupPosts = posts.getGroupPosts(group.getGroupName());
+
+        for (Posts content : groupPosts) {
+            if ("Approved".equals(content.getStatus())) {
+                String contentText = content.getContent();
+                String contentImgDir = content.getImg();
+
+                if ((contentText != null && !contentText.isEmpty()) || (contentImgDir != null && !contentImgDir.isEmpty())) {
+                    // Create a custom Post component for each post
+                    Post post = new Post(contentText, contentImgDir);
+                    post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
+                    postsPanel.add(post); // Add the post to the posts panel
+                }
             }
         }
 
@@ -89,14 +87,21 @@ public class GroupWindow extends javax.swing.JFrame {
         PostsPanelScroll.setViewportView(postsPanel);
 
     }
-    
+
     private void loadGroupMembers() {
         JPanel memberspanel = new JPanel();
-        
+
         memberspanel.setLayout(new BoxLayout(memberspanel, BoxLayout.Y_AXIS));
-        
-        for (String member : group.GetGroupPeople()) {
-            JLabel MemberLabel = new JLabel(member); //Adds Member and his role
+        JLabel CreatorLabel = new JLabel(group.getCreator().getUsername() + " " + "(Creator)"); //Adds Member and his role
+        CreatorLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        memberspanel.add(CreatorLabel);
+        for (User admin : group.getAdmins()) {
+            JLabel MemberLabel = new JLabel(admin.getUsername() + " " + "(Admin)"); //Adds Member and his role
+            MemberLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            memberspanel.add(MemberLabel);
+        }
+        for (User member : group.getMembers()) {
+            JLabel MemberLabel = new JLabel(member.getUsername() + " " + "(Member)"); //Adds Member and his role
             MemberLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             memberspanel.add(MemberLabel);
         }
@@ -104,15 +109,14 @@ public class GroupWindow extends javax.swing.JFrame {
         memberspanel.repaint();
         MembersPanelScroll.setViewportView(memberspanel);
     }
-    
-    
+
     public void reloadGroupDetails() {
         loadCoverPhoto();
         loadGroupDetails();
         loadGroupMembers();
 
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -241,69 +245,65 @@ public class GroupWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsActionPerformed
-        if(user.getUsername().equals(group.getCreatorUsername())){
-            PrimaryAdminsWindow priadmin=new PrimaryAdminsWindow(this,user, group);
+        if (user.getUserId().equals(group.getCreator().getUserId())) {
+            PrimaryAdminsWindow priadmin = new PrimaryAdminsWindow(this, user, group);
             priadmin.setVisible(true);
             priadmin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }  
-        else if(group.isAdmin(user.getUsername())){
-            AdminsWindow adminwindow=new AdminsWindow(this,user, group);
+        } else if (group.isAdmin(user)) {
+            AdminsWindow adminwindow = new AdminsWindow(this, user, group);
             adminwindow.setVisible(true);
             adminwindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-        else if(group.isMember(user.getUsername())){
+        } else if (group.isMember(user)) {
             String[] options = {"Create Post", "Leave Group"};
-              int choice = JOptionPane.showOptionDialog(this, 
-                                                         "What would you like to do?", 
-                                                         "Options", 
-                                                         JOptionPane.DEFAULT_OPTION, 
-                                                         JOptionPane.INFORMATION_MESSAGE, 
-                                                         null, options, options[0]);
+            int choice = JOptionPane.showOptionDialog(this,
+                    "What would you like to do?",
+                    "Options",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null, options, options[0]);
 
-              // Handle the option selected by the user
+            // Handle the option selected by the user
             if (choice == 0) {
                 // Open CreatePostWindow if "Create Post" is selected
-                CreateContentWindow c = new CreateContentWindow(this,true,"p"); // Pass the parent GroupWindow instance
+                CreateContentWindow c = new CreateContentWindow(this, true, "p"); // Pass the parent GroupWindow instance
                 c.pack();
                 c.setVisible(true);
                 c.dispose();
                 String contentText = c.getContentText();
                 String contentImgDir = c.getContentImgDir();
-                
 
                 if (!"".equals(contentText) || !"".equals(contentImgDir)) {
                     PostsDatabase postsDb = new PostsDatabase();
                     Post post = new Post(contentText, contentImgDir);
-                    postsDb.createPost(user.getUsername(), contentText, group.getGroupName(),contentImgDir);
+                    postsDb.createPost(user.getUsername(), contentText, group.getGroupName(), contentImgDir);
                     JOptionPane.showMessageDialog(this, "Your post has been submitted for approval.", "Post Submitted", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else if (choice == 1) {
                 // Handle the "Leave Group" option
-                int confirmLeave = JOptionPane.showConfirmDialog(this, 
-                    "Are you sure you want to leave the group?", "Leave Group", 
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                int confirmLeave = JOptionPane.showConfirmDialog(this,
+                        "Are you sure you want to leave the group?", "Leave Group",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
                 if (confirmLeave == JOptionPane.YES_OPTION) {
-                    group.removeMember(user.getUsername()); //The memebr leaves
+                    group.removeMember(user); //The memebr leaves
                 }
             }
-        }
-        else if(group.isRequested(user.getUsername())){
+        } else if (group.isRequested(user)) {
             JOptionPane.showMessageDialog(this, "You already sent a join request, Please wait.", "Request already Sent", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
+        } else {
             int choice = JOptionPane.showConfirmDialog(
-               this,
-               "You are not part of this group. Would you like to send a join request?",
-               "Join Group",
-               JOptionPane.YES_NO_OPTION,
-               JOptionPane.QUESTION_MESSAGE
-           );
+                    this,
+                    "You are not part of this group. Would you like to send a join request?",
+                    "Join Group",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
 
-           if (choice == JOptionPane.YES_OPTION) {
-               group.sendJoinRequest(user.getUsername());
-               JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
-           } 
+            if (choice == JOptionPane.YES_OPTION) {
+                JoinRequest jr = new JoinRequest(user, group);
+                group.recieveJoinRequest(jr);
+                JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_optionsActionPerformed
 

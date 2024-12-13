@@ -1,55 +1,63 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package connecthub;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+/**
+ *
+ * @author waelj
+ */
 public class GroupManagement {
-    
-    private final String groupId;
-    private String groupName;
-    private String description;
-    private String groupPhoto;
-    private final String creatorUsername;
+    private List<Group> groups;
+    private static GroupManagement admin;
 
-    public GroupManagement(String groupId, String groupName, String description, String groupPhoto, String creatorUsername) {
-        this.groupId = groupId;
-        this.groupName = groupName;
-        this.description = description;
-        this.groupPhoto = groupPhoto;
-        this.creatorUsername = creatorUsername;
+    private GroupManagement() {
+        this.groups = new ArrayList<>();
+        loadGroups();
     }
-    
-    // Getters & Setters
-    public String getGroupId() {
-        return groupId;
+    public static GroupManagement getAdmin()
+    {
+        if(admin==null)
+        {
+            admin=new GroupManagement();
+        }
+        return admin;
     }
-
-    public String getGroupName() {
-        System.out.println("here in get name");
-        System.out.println(groupName);
-        return groupName;
+    public List<Group> getGroups()
+    {
+        return groups;
+    }
+    private void saveGroups() {
+        GroupDatabase database = new GroupDatabase();
+        database.saveGroups(groups);
     }
 
-    public String getDescription() {
-        return description;
+    private void loadGroups() {
+        GroupDatabase database = new GroupDatabase();
+        this.groups = database.loadGroups();
+    }
+    public void updateGroup(Group g)
+    {
+        loadGroups();
+        for(Group k : groups)
+        {
+            if(k.getGroupId().equals(g.getGroupId()))
+            {
+                g.setGroupName(k.getGroupName());
+                g.setRemoved(k.getRemoved());
+                g.setMembers(k.getMembers());
+                g.setAdmins(k.getAdmins());
+                g.setRequests(k.getRequests());
+                g.setPhoto(k.getPhoto());
+                g.setDiscription(k.getDiscription());
+            }
+        }
     }
 
-    public String getGroupPhoto() {
-        return groupPhoto;
-    }
-
-    public String getCreatorUsername() {
-        return creatorUsername;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setGroupPhoto(String groupPhoto) {
-        this.groupPhoto = groupPhoto;
-    }    
 }
