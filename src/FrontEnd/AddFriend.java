@@ -97,6 +97,7 @@ public class AddFriend extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendRequestActionPerformed
+
         String userName = username.getText();
         boolean flag1 = true, flag2 = true,flag3 = true;
         if ("".equals(userName) || userName == null) {
@@ -118,8 +119,10 @@ public class AddFriend extends javax.swing.JFrame {
                     break;
                 }
             }
-            for (User k : users) {
-                if (k.getUsername().equals(userName) && flag1 && flag2) {
+            for (User k : users)
+            {
+                if ((k.getUsername().equals(userName))&& flag1 && flag2&&k!=u)
+                {
                     u.sendFriendRequest(k);
                     JOptionPane.showMessageDialog(null, "Friend request sent", "Alert", JOptionPane.INFORMATION_MESSAGE);
                     flag3=false;

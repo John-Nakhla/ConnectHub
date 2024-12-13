@@ -7,21 +7,23 @@ import org.json.*;
 public class UsersDatabase {
 
     private static final String FILE_PATH = "users.json";
-
     // Load users from file 
-    public void refresh(User u)
-    {
+    public void refresh(User u) {
         List<User> users = this.loadUsers();
-        for(User k : users)
+        List<User> updatedUsers = new ArrayList<>(); 
+        for (User k : users) 
         {
-            if(k.getUserId().equals(u.getUserId()))
+            if (k.getUserId().equals(u.getUserId())) {
+                updatedUsers.add(u);
+            }
+            else
             {
-                users.remove(k);
-                users.add(u);
-                this.saveUsers(users);
+                updatedUsers.add(k);
             }
         }
+        this.saveUsers(updatedUsers);
     }
+
     public List<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -63,7 +65,35 @@ public class UsersDatabase {
                         String friendId = friendsArray.getString(j);
                         for (User Friend : users) {
                             if (Friend.getUserId().equals(friendId)) {
-                                user.addFriend(Friend);
+                                user.getFriends().add(Friend);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                JSONArray friendRequestsSendersArray = userJson.optJSONArray("FriendRequestSenders");
+
+                if (friendRequestsSendersArray != null && friendRequestsSendersArray.length() > 0) {
+                    for (int j = 0; j < friendRequestsSendersArray.length(); j++) {
+                        String SenderId = friendRequestsSendersArray.getString(j);
+                        for (User sender : users) {
+                            if (sender.getUserId().equals(SenderId)) {
+                                user.getFriendRequests().add(new FriendRequest(sender, user));
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                JSONArray blockedFriendsArray = userJson.optJSONArray("blockedFriends");
+
+                if (blockedFriendsArray != null && blockedFriendsArray.length() > 0) {
+                    for (int j = 0; j < blockedFriendsArray.length(); j++) {
+                        String blockedId = blockedFriendsArray.getString(j);
+                        for (User blocked : users) {
+                            if (blocked.getUserId().equals(blockedId)) {
+                                user.getBlockedUsers().add(blocked);
                                 break;
                             }
                         }
@@ -93,6 +123,16 @@ public class UsersDatabase {
                 friendsArray.put(friend.getUserId());
             }
             userJson.put("friends", friendsArray);
+            JSONArray friendRequestsArray = new JSONArray();
+            for (FriendRequest request : user.getFriendRequests()) {
+                friendRequestsArray.put(request.getSender().getUserId());
+            }
+            userJson.put("FriendRequestSenders", friendRequestsArray);
+            JSONArray blockedFriendsArray = new JSONArray();
+            for (User blocked : user.getBlockedUsers()) {
+                blockedFriendsArray.put(blocked.getUserId());
+            }
+            userJson.put("blockedFriends", blockedFriendsArray);
             userJson.put("profilePhoto", user.getProfilePhoto());
             userJson.put("coverPhoto", user.getCoverPhoto());
             userJson.put("bio", user.getBio());

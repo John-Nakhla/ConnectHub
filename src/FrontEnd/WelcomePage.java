@@ -5,7 +5,7 @@ import connecthub.*;
 public class WelcomePage extends javax.swing.JFrame {
 
 
-    AccountManagement admin = new AccountManagement();
+    AccountManagement admin = AccountManagement.getAdmin();
     public WelcomePage() {
         initComponents();
     }
