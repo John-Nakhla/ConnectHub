@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 
-public class ReviewPendingPosts extends JFrame {
+public class ReviewPendingPostsAdmin extends JFrame {
  
-    public ReviewPendingPosts(GroupCreator admin, Group group,GroupWindow parent) {
+    public ReviewPendingPostsAdmin(GroupAdmin admin, Group group,GroupWindow parent) {
         
         setTitle("Pending Posts");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -48,7 +48,7 @@ public class ReviewPendingPosts extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         // Display full post details
-                        JOptionPane.showMessageDialog(ReviewPendingPosts.this,
+                        JOptionPane.showMessageDialog(ReviewPendingPostsAdmin.this,
                                 "<html><b>Author:</b> " + post.getUsername() +
                                         "<br><b>Content:</b> " + post.getContent() +
                                         (post.getImg() != null && !post.getImg().isEmpty() ?
@@ -64,7 +64,7 @@ public class ReviewPendingPosts extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         admin.approvePost(post.getPostId());
                         post.setStatus("Approved");
-                        JOptionPane.showMessageDialog(ReviewPendingPosts.this, "Post Approved");
+                        JOptionPane.showMessageDialog(ReviewPendingPostsAdmin.this, "Post Approved");
                         mainPanel.remove(postPanel);
                         mainPanel.revalidate();
                         mainPanel.repaint();
@@ -77,7 +77,7 @@ public class ReviewPendingPosts extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         admin.rejectPost(post.getPostId());
-                        JOptionPane.showMessageDialog(ReviewPendingPosts.this, "Post Declined");
+                        JOptionPane.showMessageDialog(ReviewPendingPostsAdmin.this, "Post Declined");
                         mainPanel.remove(postPanel);
                         mainPanel.revalidate();
                         mainPanel.repaint();

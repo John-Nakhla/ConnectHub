@@ -76,7 +76,9 @@ public class GroupWindow extends javax.swing.JFrame {
                 // Create a custom Post component for each post
                 Post post = new Post(contentText, contentImgDir);
                 post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
-                postsPanel.add(post); // Add the post to the posts panel
+                postsPanel.add(post); 
+                postsPanel.revalidate();
+                postsPanel.repaint();// Add the post to the posts panel
             }
             }
         }
@@ -110,6 +112,7 @@ public class GroupWindow extends javax.swing.JFrame {
         loadCoverPhoto();
         loadGroupDetails();
         loadGroupMembers();
+        loadGroupPosts();
 
     }
     

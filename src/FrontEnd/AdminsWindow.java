@@ -186,7 +186,7 @@ public class AdminsWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_removemembersActionPerformed
 
     private void managepostsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managepostsActionPerformed
-        ReviewPendingPosts p=new ReviewPendingPosts(admin,group,window);
+        ReviewPendingPostsAdmin p=new ReviewPendingPostsAdmin(admin,group,window);
         p.setVisible(true);
         p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_managepostsActionPerformed
