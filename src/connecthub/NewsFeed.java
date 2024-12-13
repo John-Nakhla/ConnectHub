@@ -1,35 +1,39 @@
-
 package connecthub;
 
 import java.util.*;
 import org.json.*;
 
-
 public class NewsFeed {
-    private final UsersDatabase usersDatabase;
-    private final List<Content> allPosts;
+
+    private UsersDatabase usersDatabase;
+    private List<Content> allPosts;
     ContentDatabase db = new ContentDatabase();
 
     public NewsFeed(UsersDatabase usersDatabase) {
         this.usersDatabase = usersDatabase;
         this.allPosts = convertJsonArrayToContentList(db.loadContent());
-        
     }
-        
+
     // friend posts and stories
     public List<Content> PostsAndStories(User user) {
-        List<Content> friendPosts = new ArrayList<>();
-
+        allPosts = convertJsonArrayToContentList(db.loadContent());
+        List<Content> ALlPosts = new ArrayList<>();
         if (user != null) {
-            for (User friend : user.getFriends()) {
-                for (Content post : allPosts) {
+            for (Content post : allPosts) {
+                for (User friend : user.getFriends()) {
                     if (post.getAuthorId().equals(friend.getUserId())) {
-                        friendPosts.add(post);
+                        System.out.println("friend post added\n");
+                        ALlPosts.add(post);
+                        break;
                     }
+                }
+                if (post.getAuthorId().equals(user.getUserId())) {
+                    System.out.println("user post added\n");
+                    ALlPosts.add(post);
                 }
             }
         }
-        return friendPosts;
+        return ALlPosts;
     }
 
     // friends' status 
@@ -71,14 +75,14 @@ public class NewsFeed {
         }
         return null;
     }
-    
+
     // returns all posts only 
     public List<Content> getPostsOnly(User user) {
         List<Content> posts = new ArrayList<>();
-        List<Content> friendsPosts =  PostsAndStories(user);
-        for (Content post : friendsPosts) {
-            if (!post.isStory()) {
-                posts.add(post);
+        List<Content> postsAndStories = PostsAndStories(user);
+        for (Content content : postsAndStories) {
+            if (!content.isStory()) {
+                posts.add(content);
             }
         }
         return posts;
@@ -87,16 +91,16 @@ public class NewsFeed {
     // returns all stories only 
     public List<Content> getStoriesOnly(User user) {
         List<Content> stories = new ArrayList<>();
-        List<Content> friendsStories =  PostsAndStories(user);
+        List<Content> friendsStories = PostsAndStories(user);
 
-        for (Content post : friendsStories) {
-            if (post.isStory()) {
-                stories.add(post);
+        for (Content content : friendsStories) {
+            if (content.isStory()) {
+                stories.add(content);
             }
         }
         return stories;
     }
-    
+
     // returns a content of a specific user 
     public List<Content> getContentById(String id) {
         List<Content> content = new ArrayList<>();
@@ -107,8 +111,7 @@ public class NewsFeed {
         }
         return content;
     }
-    
-    
+
     //Helping method to convert JsonArray to Content List
     public List<Content> convertJsonArrayToContentList(JSONArray jsonArray) {
         List<Content> contentList = new ArrayList<>();
@@ -121,19 +124,16 @@ public class NewsFeed {
             }
 
             Content content = new Content(
-                contentJson.getString("contentId"),
-                contentJson.getString("authorId"),
-                contentJson.getString("content"),
-                contentJson.optString("img", ""),
-                contentJson.getBoolean("isStory")
+                    contentJson.getString("contentId"),
+                    contentJson.getString("authorId"),
+                    contentJson.getString("content"),
+                    contentJson.optString("img", ""),
+                    contentJson.getBoolean("isStory")
             );
 
             content.setTimestamp(contentJson.getString("timestamp"));
             contentList.add(content);
         }
-
         return contentList;
     }
-
 }
-

@@ -331,7 +331,7 @@ public class GroupWindow extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+//    public static void main(String args[]) {
 //        GroupsDatabase db = new GroupsDatabase();
 //        PostsDatabase postsDb = new PostsDatabase();
 //
@@ -377,7 +377,7 @@ public class GroupWindow extends javax.swing.JFrame {
 //                new GroupWindow().setVisible(true);
 //            }
 //        });
-    }
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CoverPhotoPanel;

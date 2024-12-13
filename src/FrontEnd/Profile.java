@@ -10,20 +10,21 @@ import javax.swing.*;
 import java.util.List;
 import org.json.JSONArray;
 
-public class Profile extends javax.swing.JFrame {
+public class Profile extends JFrame {
 
     User user;
 
-    public Profile(User user) {
+    public Profile(User user, boolean allowSettings) {
         initComponents();
         this.user = user;
-
+        user.update();
         loadCoverPhoto();
         loadProfilePhoto();
         loadUserDetails();
         loadUserPosts();
         loadUserFriends();
-
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        settingsBtn.setVisible(allowSettings);
     }
 
     private void loadCoverPhoto() {
@@ -82,8 +83,6 @@ public class Profile extends javax.swing.JFrame {
     }
 
     private void loadUserPosts() {
-
-        JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Set vertical layout
 
         UsersDatabase db = new UsersDatabase();
@@ -93,14 +92,16 @@ public class Profile extends javax.swing.JFrame {
 
         for (Content content : myContent.getContentById(user.getUserId())) {
 
-            String contentText = content.getContent();
-            String contentImgDir = content.getImg();
+            if (!content.isStory()) {
+                String contentText = content.getContent();
+                String contentImgDir = content.getImg();
 
-            if ((contentText != null && !contentText.isEmpty()) || (contentImgDir != null && !contentImgDir.isEmpty())) {
-                // Create a custom Post component for each post
-                Post post = new Post(contentText, contentImgDir);
-                post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
-                postsPanel.add(post); // Add the post to the posts panel
+                if ((contentText != null && !contentText.isEmpty()) || (contentImgDir != null && !contentImgDir.isEmpty())) {
+                    // Create a custom Post component for each post
+                    Post post = new Post(contentText, contentImgDir);
+                    post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
+                    postsPanel.add(post); // Add the post to the posts panel
+                }
             }
         }
 
@@ -141,33 +142,33 @@ public class Profile extends javax.swing.JFrame {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         PostsPanelScroll = new javax.swing.JScrollPane();
-        PostsPanel = new javax.swing.JPanel();
+        postsPanel = new javax.swing.JPanel();
         FriendsPanelScroll = new javax.swing.JScrollPane();
         FriendsPanel = new javax.swing.JPanel();
         CoverPhotoPanel = new javax.swing.JPanel();
         ProfilePhotoPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        settings = new javax.swing.JButton();
-        retrun = new javax.swing.JButton();
+        settingsBtn = new javax.swing.JButton();
+        retrunBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Profile Page");
 
         jLayeredPane1.setBackground(new java.awt.Color(153, 0, 255));
 
-        javax.swing.GroupLayout PostsPanelLayout = new javax.swing.GroupLayout(PostsPanel);
-        PostsPanel.setLayout(PostsPanelLayout);
-        PostsPanelLayout.setHorizontalGroup(
-            PostsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout postsPanelLayout = new javax.swing.GroupLayout(postsPanel);
+        postsPanel.setLayout(postsPanelLayout);
+        postsPanelLayout.setHorizontalGroup(
+            postsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 472, Short.MAX_VALUE)
         );
-        PostsPanelLayout.setVerticalGroup(
-            PostsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        postsPanelLayout.setVerticalGroup(
+            postsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 382, Short.MAX_VALUE)
         );
 
-        PostsPanelScroll.setViewportView(PostsPanel);
+        PostsPanelScroll.setViewportView(postsPanel);
 
         FriendsPanelScroll.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -222,23 +223,23 @@ public class Profile extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Bio");
 
-        settings.setBackground(new java.awt.Color(0, 102, 102));
-        settings.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        settings.setForeground(new java.awt.Color(255, 255, 255));
-        settings.setText("Settings");
-        settings.addActionListener(new java.awt.event.ActionListener() {
+        settingsBtn.setBackground(new java.awt.Color(0, 102, 102));
+        settingsBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        settingsBtn.setForeground(new java.awt.Color(255, 255, 255));
+        settingsBtn.setText("Settings");
+        settingsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                settingsActionPerformed(evt);
+                settingsBtnActionPerformed(evt);
             }
         });
 
-        retrun.setBackground(new java.awt.Color(0, 102, 102));
-        retrun.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        retrun.setForeground(new java.awt.Color(255, 255, 255));
-        retrun.setText("Return");
-        retrun.addActionListener(new java.awt.event.ActionListener() {
+        retrunBtn.setBackground(new java.awt.Color(0, 102, 102));
+        retrunBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        retrunBtn.setForeground(new java.awt.Color(255, 255, 255));
+        retrunBtn.setText("Return");
+        retrunBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retrunActionPerformed(evt);
+                retrunBtnActionPerformed(evt);
             }
         });
 
@@ -248,8 +249,8 @@ public class Profile extends javax.swing.JFrame {
         jLayeredPane1.setLayer(ProfilePhotoPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(settings, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(retrun, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(settingsBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(retrunBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -273,8 +274,8 @@ public class Profile extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(retrun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(retrunBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(settingsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -287,9 +288,9 @@ public class Profile extends javax.swing.JFrame {
                         .addComponent(ProfilePhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(settings)
+                        .addComponent(settingsBtn)
                         .addGap(34, 34, 34)
-                        .addComponent(retrun))
+                        .addComponent(retrunBtn))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,10 +298,12 @@ public class Profile extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PostsPanelScroll)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addComponent(FriendsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 234, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(PostsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -324,17 +327,15 @@ public class Profile extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
+    private void settingsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsBtnActionPerformed
         SettingsWindow settingsWindow = new SettingsWindow(this);
         settingsWindow.setVisible(true);
         settingsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_settingsActionPerformed
+    }//GEN-LAST:event_settingsBtnActionPerformed
 
-    private void retrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrunActionPerformed
-        NewsFeedWindow newsFeed = new NewsFeedWindow(user);
-        newsFeed.setVisible(true);
+    private void retrunBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrunBtnActionPerformed
         this.dispose();
-    }//GEN-LAST:event_retrunActionPerformed
+    }//GEN-LAST:event_retrunBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,18 +427,17 @@ public class Profile extends javax.swing.JFrame {
 //        });
 //    }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CoverPhotoPanel;
     private javax.swing.JPanel FriendsPanel;
     private javax.swing.JScrollPane FriendsPanelScroll;
-    private javax.swing.JPanel PostsPanel;
     private javax.swing.JScrollPane PostsPanelScroll;
     private javax.swing.JPanel ProfilePhotoPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JButton retrun;
-    private javax.swing.JButton settings;
+    private javax.swing.JPanel postsPanel;
+    private javax.swing.JButton retrunBtn;
+    private javax.swing.JButton settingsBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,17 +13,20 @@ import javax.swing.*;
  * @author ADMIN
  */
 public class SettingsWindow extends javax.swing.JFrame {
+
     private Profile window;
+
     /**
      * Creates new form SettingsWindow
      */
     public SettingsWindow(Profile window) {
-        this.window=window;
+        this.window = window;
         initComponents();
     }
+
     private void saveChanges() {
-     
-        window.reloadProfileDetails(); 
+
+        window.reloadProfileDetails();
     }
 
     /**
@@ -41,7 +44,6 @@ public class SettingsWindow extends javax.swing.JFrame {
         UpdateUsername = new javax.swing.JButton();
         UpdateBio = new javax.swing.JButton();
         Blocked = new javax.swing.JButton();
-        LogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -107,16 +109,6 @@ public class SettingsWindow extends javax.swing.JFrame {
             }
         });
 
-        LogOut.setBackground(new java.awt.Color(0, 102, 153));
-        LogOut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        LogOut.setForeground(new java.awt.Color(255, 255, 255));
-        LogOut.setText("LogOut");
-        LogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogOutActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,9 +125,7 @@ public class SettingsWindow extends javax.swing.JFrame {
                             .addComponent(UpdateBio, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Blocked, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                            .addComponent(LogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(Blocked, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -153,9 +143,7 @@ public class SettingsWindow extends javax.swing.JFrame {
                 .addComponent(UpdateBio)
                 .addGap(28, 28, 28)
                 .addComponent(Blocked)
-                .addGap(29, 29, 29)
-                .addComponent(LogOut)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -166,53 +154,66 @@ public class SettingsWindow extends javax.swing.JFrame {
         // Open file chooser to select new cover photo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select a new Cover Photo");
-        
+
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String newCoverPhotoPath = selectedFile.getAbsolutePath();
-            
+
             // Update the user's cover photo
             window.user.changeCoverPhoto(newCoverPhotoPath); //me7taga a7ot hena saveto data base!!!!
             saveChanges();
-            
+
         }
     }//GEN-LAST:event_UpdateCoverPhotoActionPerformed
 
     private void UpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePasswordActionPerformed
-        String newPassword = JOptionPane.showInputDialog(this, "Enter new password:");
-         if (newPassword != null && !newPassword.trim().isEmpty()) {
-             // Password validations
-             if (newPassword.length() < 8) {
-                 JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.");
-                 return;
-             }
-             if (!newPassword.matches(".*[A-Z].*")) {
-                 JOptionPane.showMessageDialog(this, "Password must contain at least one uppercase letter.");
-                 return;
-             }
-             if (!newPassword.matches(".*[a-z].*")) {
-                 JOptionPane.showMessageDialog(this, "Password must contain at least one lowercase letter.");
-                 return;
-             }
-             if (!newPassword.matches(".*\\d.*")) {
-                 JOptionPane.showMessageDialog(this, "Password must contain at least one number.");
-                 return;
-             }
-             if (newPassword.matches(".*(password|12345|admin|qwerty).*")) {
-                 JOptionPane.showMessageDialog(this, "Password is too weak. Avoid common words or sequences.");
-                 return;
-             }
+        JPasswordField passwordField = new JPasswordField();
 
-             // Confirm password
-             String confirmPassword = JOptionPane.showInputDialog(this, "Confirm new password:");
-             if (!newPassword.equals(confirmPassword)) {
-                 JOptionPane.showMessageDialog(this, "Passwords do not match. Try again.");
-                 return;
+        JOptionPane.showConfirmDialog(null, passwordField, "Enter old password:", JOptionPane.ERROR_MESSAGE);
+        char[] password = passwordField.getPassword();
+        String oldPassword = new String(password);
+        if (!window.user.checkPassword(oldPassword)) {
+            JOptionPane.showMessageDialog(this, "invalid password.");
+            return;
         }
-        
-        // Update password
-        window.user.setPassword(newPassword);
+
+        passwordField.setText("");
+        JOptionPane.showConfirmDialog(null, passwordField, "Enter new password:", JOptionPane.ERROR_MESSAGE);
+        password = passwordField.getPassword();
+        String newPassword = new String(password);
+        if (newPassword != null && !newPassword.trim().isEmpty()) {
+            // Password validations
+            if (newPassword.length() < 8) {
+                JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.");
+                return;
+            }
+            if (!newPassword.matches(".*[A-Z].*")) {
+                JOptionPane.showMessageDialog(this, "Password must contain at least one uppercase letter.");
+                return;
+            }
+            if (!newPassword.matches(".*[a-z].*")) {
+                JOptionPane.showMessageDialog(this, "Password must contain at least one lowercase letter.");
+                return;
+            }
+            if (!newPassword.matches(".*\\d.*")) {
+                JOptionPane.showMessageDialog(this, "Password must contain at least one number.");
+                return;
+            }
+            if (newPassword.matches(".*(password|12345|admin|qwerty).*")) {
+                JOptionPane.showMessageDialog(this, "Password is too weak. Avoid common words or sequences.");
+                return;
+            }
+
+            // Confirm password
+            String confirmPassword = JOptionPane.showInputDialog(this, "Confirm new password:");
+            if (!newPassword.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(this, "Passwords do not match. Try again.");
+                return;
+            }
+
+            // Update password
+            window.user.setPassword(newPassword);
             JOptionPane.showMessageDialog(this, "Password updated successfully!");
         } else {
             JOptionPane.showMessageDialog(this, "Password cannot be empty.");
@@ -224,12 +225,12 @@ public class SettingsWindow extends javax.swing.JFrame {
         // Open file chooser to select new cover photo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select a new Profile Photo");
-        
+
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String newProfilePhotoPath = selectedFile.getAbsolutePath();
-            
+
             // Update the user's cover photo
             window.user.changeProfilePhoto(newProfilePhotoPath); //me7taga a7ot hena saveto data base!!!!
         }
@@ -239,7 +240,7 @@ public class SettingsWindow extends javax.swing.JFrame {
     private void UpdateUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateUsernameActionPerformed
         String newUsername = JOptionPane.showInputDialog(this, "Enter new username:");
         if (newUsername != null && !newUsername.trim().isEmpty()) {
-            window.user.setUsername(newUsername);
+            window.user.changeUsername(newUsername);
             JOptionPane.showMessageDialog(this, "Username updated successfully!");
         } else {
             JOptionPane.showMessageDialog(this, "Username cannot be empty.");
@@ -257,28 +258,20 @@ public class SettingsWindow extends javax.swing.JFrame {
         }
         saveChanges();
     }//GEN-LAST:event_UpdateBioActionPerformed
-//logout of the ConnecHub
-    private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
-        WelcomePage welcome=new WelcomePage();
-        welcome.setVisible(true);
-        this.dispose();
-        window.dispose();
-    }//GEN-LAST:event_LogOutActionPerformed
+
 //view blocked users
     private void BlockedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockedActionPerformed
-       Blocked b= new Blocked(window.user);
-       b.setVisible(true);
-       b.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Blocked b = new Blocked(window.user);
+        b.setVisible(true);
+        b.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_BlockedActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Blocked;
-    private javax.swing.JButton LogOut;
     private javax.swing.JButton UpdateBio;
     private javax.swing.JButton UpdateCoverPhoto;
     private javax.swing.JButton UpdatePassword;

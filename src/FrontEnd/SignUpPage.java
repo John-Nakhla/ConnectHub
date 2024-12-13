@@ -1,10 +1,9 @@
-
 package FrontEnd;
 
+import com.sun.source.tree.ContinueTree;
 import connecthub.*;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
-
 
 public class SignUpPage extends javax.swing.JFrame {
 
@@ -214,21 +213,14 @@ public class SignUpPage extends javax.swing.JFrame {
         String year = Year.getText();
         if (email.equals("") || username.equals("") || password.equals("") || day.equals("") || month.equals("") || year.equals("")) {
             JOptionPane.showMessageDialog(null, "some fields are empty", "Error", JOptionPane.ERROR_MESSAGE);
-        } 
-        else if (admin.emailExists(email))
-        {
+        } else if (admin.emailExists(email)) {
             JOptionPane.showMessageDialog(null, "this email already has an account", "Error", JOptionPane.ERROR_MESSAGE);
-        } 
-        else if(!admin.isValidEmail(email))
-        {
-            JOptionPane.showMessageDialog(null,"this email already has an account", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (!day.matches("\\d+") || !month.matches("\\d+") || !year.matches("\\d+") || Integer.parseInt(year) > 2024 || Integer.parseInt(year) < 1) 
-        {
+        } else if (!admin.isValidEmail(email)) {
+            JOptionPane.showMessageDialog(null, "enter a valid email", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!day.matches("\\d+") || !month.matches("\\d+") || !year.matches("\\d+") || Integer.parseInt(year) > 2024 || Integer.parseInt(year) < 1) {
             JOptionPane.showMessageDialog(null, "Invalid date. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
+        } else if (!isValisPassword(password)) {
+        } else {
             String DOB = day + "-" + month + "-" + year;
             if (admin.signup(email, username, password, DOB, null, null, null) != null) {
                 user = admin.login(email, password);
@@ -239,6 +231,29 @@ public class SignUpPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_signupActionPerformed
 
+    private boolean isValisPassword(String password) {
+        if (password.length() < 8) {
+            JOptionPane.showMessageDialog(this, "Password must be at least 8 characters long.");
+            return false;
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            JOptionPane.showMessageDialog(this, "Password must contain at least one uppercase letter.");
+            return false;
+        }
+        if (!password.matches(".*[a-z].*")) {
+            JOptionPane.showMessageDialog(this, "Password must contain at least one lowercase letter.");
+            return false;
+        }
+        if (!password.matches(".*\\d.*")) {
+            JOptionPane.showMessageDialog(this, "Password must contain at least one number.");
+            return false;
+        }
+        if (password.matches(".*(password|12345|admin|qwerty).*")) {
+            JOptionPane.showMessageDialog(this, "Password is too weak. Avoid common words or sequences.");
+            return false;
+        }
+        return true;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Day;

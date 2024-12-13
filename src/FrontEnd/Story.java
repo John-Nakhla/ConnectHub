@@ -20,7 +20,7 @@ public class Story extends JPanel {
 
     public Story(String text, String imgDir) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setPreferredSize(new Dimension(200, 175));
+        setPreferredSize(new Dimension(200, 160));
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 

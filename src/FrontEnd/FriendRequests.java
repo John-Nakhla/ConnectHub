@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package FrontEnd;
+
 import javax.swing.*;
 import connecthub.*;
 import java.awt.BorderLayout;
@@ -10,12 +11,15 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+
 /**
  *
  * @author waelj
  */
 public class FriendRequests extends JFrame {
-     public FriendRequests(User u) {
+
+    public FriendRequests(User u) {
+        u.update();
         setTitle("Friend Requests");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);
@@ -25,7 +29,7 @@ public class FriendRequests extends JFrame {
         for (FriendRequest k : requests) {
             JPanel objectPanel = new JPanel(new BorderLayout());
             JLabel nameLabel = new JLabel("Name: " + k.getSender().getUsername());
-            JPanel detailsPanel = new JPanel(new GridLayout(5,5));
+            JPanel detailsPanel = new JPanel(new GridLayout(5, 5));
             detailsPanel.add(nameLabel);
             JButton profileButton = new JButton("Profile");
             JButton acceptButton = new JButton("Accept");
@@ -33,13 +37,14 @@ public class FriendRequests extends JFrame {
             profileButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Profile p = new Profile(k.getSender());
+                    Profile p = new Profile(k.getSender(), false);
                     p.setVisible(true);
                 }
             });
             acceptButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    System.out.println("here in accept button");
                     u.acceptFriendRequest(k);
                     JOptionPane.showMessageDialog(FriendRequests.this, "Accepted");
                     mainPanel.remove(objectPanel);

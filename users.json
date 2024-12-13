@@ -1,11 +1,47 @@
-[{
-    "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-    "blockedFriends": [],
-    "FriendRequestSenders": [],
-    "dateOfBirth": "1-5-2003",
-    "isOnline": true,
-    "userId": "User10001",
-    "email": "john1@gmail.com",
-    "friends": [],
-    "username": "john1"
-}]
+[
+    {
+        "password": "070ee39fafdfd072b5a2fb817fdbc389593049219e6aeda24dee882dbca1b910",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-1-2000",
+        "isOnline": false,
+        "userId": "User10001",
+        "email": "shahd@gmail.com",
+        "friends": [
+            "User10007",
+            "User10018"
+        ],
+        "username": "shahd"
+    },
+    {
+        "password": "3f9af5dc3799a42ae49823cf76f0831ddac192613fdab8ba15ea0d92a79747d0",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-2-2002",
+        "isOnline": false,
+        "userId": "User10007",
+        "email": "hala@gmail.com",
+        "friends": ["User10001"],
+        "username": "hala"
+    },
+    {
+        "password": "dd3a6c03b450df3b3059f931d88524d2094a8d0cde23580a823f41c758a2467c",
+        "profilePhoto": "",
+        "blockedFriends": [],
+        "coverPhoto": "",
+        "FriendRequestSenders": [],
+        "bio": "",
+        "dateOfBirth": "1-3-2003",
+        "isOnline": false,
+        "userId": "User10018",
+        "email": "john@gmail.com",
+        "friends": ["User10001"],
+        "username": "john"
+    }
+]

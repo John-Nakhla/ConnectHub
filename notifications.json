@@ -1,0 +1,30 @@
+[
+    {
+        "owner": "User10007",
+        "sender": "User10001",
+        "message": "shahd sent you a friend request",
+        "type": "FR",
+        "status": "Inactive"
+    },
+    {
+        "owner": "User10001",
+        "sender": "User10007",
+        "message": "hala accepted your friend request",
+        "type": "FR",
+        "status": "active"
+    },
+    {
+        "owner": "User10018",
+        "sender": "User10001",
+        "message": "shahd sent you a friend request",
+        "type": "FR",
+        "status": "Inactive"
+    },
+    {
+        "owner": "User10001",
+        "sender": "User10018",
+        "message": "john accepted your friend request",
+        "type": "FR",
+        "status": "active"
+    }
+]
