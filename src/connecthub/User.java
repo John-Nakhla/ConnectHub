@@ -179,10 +179,8 @@ public class User {
 
     // send or recieve a request
     public void sendFriendRequest(User receiver) {
-        System.out.println("in send friend requese");
         FriendRequest request = new FriendRequest(this, receiver);
         receiver.receiveFriendRequest(request);
-        
     }
 
     public void receiveFriendRequest(FriendRequest request) {

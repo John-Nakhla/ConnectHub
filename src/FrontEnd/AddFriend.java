@@ -99,7 +99,7 @@ public class AddFriend extends javax.swing.JFrame {
     private void sendRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendRequestActionPerformed
 
         String userName = username.getText();
-        boolean flag1 = true, flag2 = true,flag3 = true;
+        boolean flag1 = true, flag2 = true, flag3 = true;
         if ("".equals(userName) || userName == null) {
             JOptionPane.showMessageDialog(null, "field is empty", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -119,18 +119,17 @@ public class AddFriend extends javax.swing.JFrame {
                     break;
                 }
             }
-            for (User k : users)
-            {
-                if ((k.getUsername().equals(userName))&& flag1 && flag2&&k!=u)
-                {
+            for (User k : users) {
+                if ((k.getUsername().equals(userName)) && flag1 && flag2 && k != u) {
                     u.sendFriendRequest(k);
                     JOptionPane.showMessageDialog(null, "Friend request sent", "Alert", JOptionPane.INFORMATION_MESSAGE);
-                    flag3=false;
+                    flag3 = false;
                     break;
                 }
             }
-            if(flag3)
+            if (flag3) {
                 JOptionPane.showMessageDialog(null, userName + " is not found", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_sendRequestActionPerformed
 

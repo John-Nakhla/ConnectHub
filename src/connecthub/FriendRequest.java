@@ -10,6 +10,7 @@ public class FriendRequest {
         this.sender = sender;
         this.receiver = receiver;
         this.status = "Pending";
+        
     }
 
     // Getters

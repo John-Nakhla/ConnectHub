@@ -77,6 +77,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         searchBtn = new javax.swing.JButton();
         myGroupBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
+        myNotificationsBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -183,6 +184,13 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             }
         });
 
+        myNotificationsBtn.setText("My Notifications");
+        myNotificationsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myNotificationsBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,7 +212,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                     .addComponent(friendRequestBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(myGroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(myNotificationsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -237,6 +246,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                         .addComponent(myGroupBtn)
                         .addGap(18, 18, 18)
                         .addComponent(searchBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(myNotificationsBtn)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -345,13 +356,18 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         welcomePage.setVisible(true);
     }//GEN-LAST:event_logoutBtnActionPerformed
 
+    private void myNotificationsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myNotificationsBtnActionPerformed
+        NotificationsWindow window = new NotificationsWindow(user);
+        window.pack();
+        window.setVisible(true);
+    }//GEN-LAST:event_myNotificationsBtnActionPerformed
+
     //Refresh method
     private void refresh() {
         // adding posts of friends
         posts = newsFeed.getPostsOnly(user);
         System.out.println(posts.size());
         for (int i = 0; i < posts.size(); i++) {
-            System.out.println("got post");
             String contentText = posts.get(i).getContent();
             String contentImgDir = posts.get(i).getImg();
             if (!"".equals(contentText) || !"".equals(contentImgDir)) {
@@ -392,6 +408,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton myFriendsBtn;
     private javax.swing.JButton myGroupBtn;
+    private javax.swing.JButton myNotificationsBtn;
     private javax.swing.JButton myProfileBtn;
     private javax.swing.JPanel postsPanel;
     private javax.swing.JScrollPane postsScrollPanel;
