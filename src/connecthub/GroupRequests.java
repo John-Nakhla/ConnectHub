@@ -12,19 +12,31 @@ import java.util.*;
  */
 public class GroupRequests extends Group{
     private List<GroupJoinRequests> joinRequests;
-
-    public GroupRequests(GroupManagement group) {
+    private static GroupRequests requests;
+    private GroupRequests(Group group) {
         super(group.getGroupId(), group.getGroupName(), group.getDescription(), group.getGroupPhoto(), group.getCreatorUsername());
         this.joinRequests = new ArrayList<>();
     }
     
-    
-    
+    public static GroupRequests getGroupRequests(Group group)
+    {
+        if(requests==null)
+        {
+            requests = new GroupRequests(group);
+        }
+        return requests;
+    }
+    public void addJoinRequest(GroupJoinRequests r)
+    {
+        this.joinRequests.add(r);
+        saveToFile();
+    }
     public void sendJoinRequest(String senderId,String username) {
     GroupJoinRequests newRequest = new GroupJoinRequests(senderId, username,this.getGroupId());
 
     // Add the request to the list
     joinRequests.add(newRequest);
+    saveToFile();
 
     }
     

@@ -7,6 +7,8 @@ package FrontEnd;
 import java.awt.*;
 import javax.swing.*;
 import connecthub.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +32,23 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
     public NewsFeedWindow(User user) {
         this.user = user;
-
+        user.update();
         initComponents();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
         storiesPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Custom behavior
+                user.setStatus(false);
+                dispose();
+                WelcomePage welcomePage = new WelcomePage();
+                welcomePage.pack();
+                welcomePage.setVisible(true);
+            }
+        });
 
         refresh();
     }
@@ -59,6 +74,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         friendSuggestionsBtn = new javax.swing.JButton();
         addFriendBtn = new javax.swing.JButton();
         friendRequestBtn = new javax.swing.JButton();
+        search = new javax.swing.JButton();
+        GroupSearch = new javax.swing.JButton();
         CreateGroup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -145,6 +162,20 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             }
         });
 
+        search.setText("Search");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+
+        GroupSearch.setText("Group Search");
+        GroupSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GroupSearchActionPerformed(evt);
+            }
+        });
+
         CreateGroup.setText("Create Group");
         CreateGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,6 +202,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                     .addComponent(createPostBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(addFriendBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(friendRequestBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(CreateGroup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -201,6 +234,10 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                         .addComponent(addFriendBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(friendRequestBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(GroupSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(CreateGroup)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -247,9 +284,9 @@ public class NewsFeedWindow extends javax.swing.JFrame {
 
     //user views his profile
     private void myProfileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myProfileBtnActionPerformed
-        Profile profile = new Profile(user);
+        Profile profile = new Profile(user, true);
         profile.setVisible(true);
-        dispose();
+//        dispose();
     }//GEN-LAST:event_myProfileBtnActionPerformed
 
     //user views his friends
@@ -271,6 +308,9 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         postsPanel.removeAll();
         postsPanel.revalidate();
         postsPanel.repaint();
+        storiesPanel.removeAll();
+        storiesPanel.revalidate();
+        storiesPanel.repaint();
         refresh();
     }//GEN-LAST:event_refreshBtnActionPerformed
 
@@ -288,10 +328,21 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         N.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_friendRequestBtnActionPerformed
 
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        Search s = new Search(user);
+        s.setVisible(true);
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void GroupSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GroupSearchActionPerformed
+        GroupSearch s=new GroupSearch(user);
+        s.setVisible(true);
+        s.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_GroupSearchActionPerformed
+
     private void CreateGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateGroupActionPerformed
-       CreateGroup grp=new CreateGroup(user);
-       grp.setVisible(true);
-        grp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
+        CreateGroup w=new CreateGroup(user);
+        w.setVisible(true);
+        w.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_CreateGroupActionPerformed
 
     //Refresh method
@@ -332,6 +383,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateGroup;
+    private javax.swing.JButton GroupSearch;
     private javax.swing.JButton addFriendBtn;
     private javax.swing.JButton createPostBtn;
     private javax.swing.JButton createStoryBtn;
@@ -342,6 +394,7 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     private javax.swing.JPanel postsPanel;
     private javax.swing.JScrollPane postsScrollPanel;
     private javax.swing.JButton refreshBtn;
+    private javax.swing.JButton search;
     private javax.swing.JPanel storiesPanel;
     private javax.swing.JScrollPane storiesScrollPanel;
     // End of variables declaration//GEN-END:variables

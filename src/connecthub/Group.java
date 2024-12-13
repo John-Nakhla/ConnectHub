@@ -10,7 +10,7 @@ public class Group extends GroupManagement{
     public List<GroupAdmin> admins;
     private List<GroupMember> removedMembers;
     private List<Posts> posts;
-    private List<String> requests;
+    private List<GroupJoinRequests> requests;
 
     public Group(String groupId, String groupName, String description, String groupPhoto, String creatorUsername) {
         super(groupId, groupName, description, groupPhoto, creatorUsername);
@@ -18,7 +18,7 @@ public class Group extends GroupManagement{
         this.admins = new ArrayList<>();
         this.removedMembers = new ArrayList<>();
         this.posts = new ArrayList<>();
-        this.requests = new ArrayList<>();
+        this.requests=new ArrayList<>();
     }
 
     
@@ -34,7 +34,6 @@ public class Group extends GroupManagement{
     public List<Posts> getPosts() {
         return posts;
     }
-    
     public String getGroupId() {
         return super.getGroupId();
     }
@@ -46,10 +45,6 @@ public class Group extends GroupManagement{
     
     public void setRemovedMembers(List<GroupMember> removedMembers) {
         this.removedMembers = removedMembers;
-    }
-
-    public void setAdmins(List<GroupAdmin> admins) {
-        this.admins = admins;
     }
 
     public void setPosts(List<Posts> posts) {
@@ -90,8 +85,8 @@ public class Group extends GroupManagement{
     
     // Check if requested already
     public boolean isRequested(String username){
-        for(String request: requests){
-            if(request.equals(username))
+        for(GroupJoinRequests request: requests){
+            if(request.getUsername().equals(username))
                 return true;
         }
         return false;
@@ -121,27 +116,30 @@ public class Group extends GroupManagement{
     }
     
     // Send join request
-    public void sendJoinRequest(String username){
-        requests.add(username);
+    public void sendJoinRequest(String username,String userId){
+        
+        GroupJoinRequests joinRequest = new GroupJoinRequests(userId,username,super.getGroupId());
+        requests.add(joinRequest);
+        saveToFile();
     }
     
     // Remove join request
-    public void removeJoinRequest(String username){
-        requests.remove(username);
+    public void removeJoinRequest(GroupJoinRequests req){
+        requests.remove(req);
     }
     
     // Accept join request
-    public void acceptJoinRequest(String username){
-        requests.remove(username);
+    public void acceptJoinRequest(String username,GroupJoinRequests req){
+        requests.remove(req);
         addMember(new GroupMember(username, super.getGroupName()));
     }
     
     // Get / Set join requests
-    public List<String> getJoinRequests(){
+    public List<GroupJoinRequests> getJoinRequests(){
         return requests;
     }
 
-    public void setJoinRequests(List<String> requests) {
+    public void setJoinRequests(List<GroupJoinRequests> requests) {
         this.requests = requests;
     }
 
@@ -206,9 +204,11 @@ public class Group extends GroupManagement{
         groupObj.put("removedMembers", groupremovedMembers);
         
         JSONArray joinRequests = new JSONArray();
-        for (String request : requests) {
+        for (GroupJoinRequests request : requests) {
             JSONObject requestObj = new JSONObject();
-            requestObj.put("userName", request);
+            requestObj.put("username", request.getUsername());
+            requestObj.put("userId", request.getSenderId());
+            requestObj.put("groupId", request.getGroupId());
             joinRequests.put(requestObj);
         }
         groupObj.put("joinRequests", joinRequests);
@@ -229,6 +229,19 @@ public class Group extends GroupManagement{
         groupsArray.put(groupObj);
         db.saveGroups(groupsArray);
     } 
+
+    public List<GroupJoinRequests> getRequests() {
+        return requests;
+    }
+    
+
+    public void addJoinRequest(GroupJoinRequests r)
+    {
+        this.requests.add(r);
+        
+    }
+    
+
 }
 
 

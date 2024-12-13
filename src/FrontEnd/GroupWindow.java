@@ -301,8 +301,9 @@ public class GroupWindow extends javax.swing.JFrame {
            );
 
            if (choice == JOptionPane.YES_OPTION) {
-               group.sendJoinRequest(user.getUsername());
-               JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
+               group.sendJoinRequest(user.getUsername(), user.getUserId());
+               group.saveToFile();
+            JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
            } 
         }
     }//GEN-LAST:event_optionsActionPerformed

@@ -5,27 +5,24 @@
 package FrontEnd;
 
 import connecthub.*;
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.List;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.*;
-import org.json.JSONArray;
 
 /**
  *
- * @author ADMIN
+ * @author waelj
  */
-public class GroupSearch extends javax.swing.JFrame {
+public class Search extends javax.swing.JFrame {
 
     /**
-     * Creates new form GroupSearch
+     * Creates new form Search
      */
     private User u;
-    private GroupsDatabase database = new GroupsDatabase();
+    private UsersDatabase database = new UsersDatabase();
 
-    public GroupSearch(User u) {
+    public Search(User u) {
         initComponents();
         u.update();
         this.u = u;
@@ -33,7 +30,7 @@ public class GroupSearch extends javax.swing.JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
     }
 
-    private GroupSearch() {
+    private Search() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -106,14 +103,14 @@ public class GroupSearch extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(top, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollable, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(scrollable)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollable, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+                .addComponent(scrollable))
         );
 
         pack();
@@ -126,21 +123,43 @@ public class GroupSearch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Input is empty", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             boolean flag = false;
-            JSONArray JList = database.loadGroups();
-            List<Group> groups = database.convertJsonArrayToGroupList(JList);
-            for (Group k : groups) {
-                if (k.getGroupName().equals(name)) {
+            List<User> users = AccountManagement.getAdmin().getUsers();
+            for (User k : users) {
+                if (k.getUsername().equals(name)) {
                     flag = true;
-                    JPanel groupPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                    JLabel nameLabel = new JLabel(k.getGroupName());
-                    JButton join = new JButton("Join");
-                    JButton view = new JButton("View");
-                    join.addActionListener(e -> joinGroup(k));
-                    view.addActionListener(e -> viewGroup(k));
-                    groupPanel.add(nameLabel);
-                    groupPanel.add(join);
-                    groupPanel.add(view);
-                    mainPanel.add(groupPanel);
+                    JPanel userItem = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                    JLabel nameLabel = new JLabel(k.getUsername());
+                    if (u.isFriend(k)) {
+                        userItem.add(nameLabel);
+                        JButton removeButton = new JButton("Remove");
+                        JButton profileButton = new JButton("Profile");
+                        JButton blockButton = new JButton("Block");
+                        removeButton.addActionListener(e -> removeFriend(k));
+                        profileButton.addActionListener(e -> viewProfile(k));
+                        blockButton.addActionListener(e -> blockUser(k));
+                        userItem.add(removeButton);
+                        userItem.add(profileButton);
+                        userItem.add(blockButton);
+                    } else if (!u.isBlocked(k) && !(k.getUserId().equals(u.getUserId()))) {
+                        userItem.add(nameLabel);
+                        flag = true;
+                        JButton addButton = new JButton("Add");
+                        JButton profileButton = new JButton("Profile");
+                        JButton blockButton = new JButton("Block");
+                        addButton.addActionListener(e -> addFriend(k));
+                        profileButton.addActionListener(e -> viewProfile(k));
+                        blockButton.addActionListener(e -> blockUser(k));
+                        userItem.add(addButton);
+                        userItem.add(profileButton);
+                        userItem.add(blockButton);
+                    } else if (k.getUserId().equals(u.getUserId())) {
+                        userItem.add(nameLabel);
+                        flag = true;
+                        JButton profileButton = new JButton("Profile");
+                        profileButton.addActionListener(e -> viewMyProfile(k));
+                        userItem.add(profileButton);
+                    }
+                    mainPanel.add(userItem);
                 }
             }
             if (!flag) {
@@ -150,22 +169,32 @@ public class GroupSearch extends javax.swing.JFrame {
         mainPanel.getParent().revalidate();
         mainPanel.getParent().repaint();
     }//GEN-LAST:event_searchActionPerformed
+    private void removeFriend(User user) {
+        System.out.println("in remove in search");
+        u.removeFriend(user);
+        user.removeFriend(u);
+    }
 
+    private void addFriend(User user) {
+        u.sendFriendRequest(user);
+    }
+
+    private void viewProfile(User user) {
+        Profile p = new Profile(user,false);
+        p.setVisible(true);
+    }
+
+    private void blockUser(User user) {
+       u.blockUser(user);
+    }
+    private void viewMyProfile(User user)
+    {
+        Profile p = new Profile(user,true);
+        p.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
-    private void joinGroup(Group group) {
-       
-        group.sendJoinRequest(u.getUsername(),u.getUserId());
-        
-        JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private void viewGroup(Group group) {
-        GroupWindow window= new GroupWindow(u,group);
-        window.setVisible(true);
-        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -180,20 +209,20 @@ public class GroupSearch extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GroupSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GroupSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GroupSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GroupSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GroupSearch().setVisible(true);
+                new Search().setVisible(true);
             }
         });
     }

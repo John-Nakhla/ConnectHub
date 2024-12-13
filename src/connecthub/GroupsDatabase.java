@@ -140,24 +140,11 @@ public class GroupsDatabase {
                     JSONObject memberJson = membersArray.getJSONObject(j);
                     GroupMember member = new GroupMember(
                         memberJson.getString("userName"),
-                        memberJson.getString("groupId")
+                        memberJson.getString("groupName")
                     );
-                    membersList.add(member);
+                    group.addMember(member);
                 }
-                group.setMembers(membersList);
-            }
-            JSONArray AdminsArray = groupJson.optJSONArray("admins");
-            List<GroupAdmin> adminList = new ArrayList<>();
-            if (AdminsArray != null) {
-                for (int j = 0; j < AdminsArray.length(); j++) {
-                    JSONObject memberJson = AdminsArray.getJSONObject(j);
-                    GroupAdmin member = new GroupAdmin(
-                        memberJson.getString("userName"),
-                        memberJson.getString("groupId")
-                    );
-                    adminList.add(member);
-                }
-                group.setAdmins(adminList);
+                
             }
             
             // Add removed members to the group
@@ -168,7 +155,7 @@ public class GroupsDatabase {
                     JSONObject memberJson = removedMembersArray.getJSONObject(j);
                     GroupMember member = new GroupMember(
                         memberJson.getString("userName"),
-                        memberJson.getString("groupId")
+                        memberJson.getString("groupName")
                     );
                     removedMembersList.add(member);
                 }
@@ -177,14 +164,18 @@ public class GroupsDatabase {
             
             // Add join requests to the group
             JSONArray requestsArray = groupJson.optJSONArray("joinRequests");
-            List<String> requests = new ArrayList<>();
+            List<GroupJoinRequests> requests = new ArrayList<>();
             if (requestsArray != null) {
                 for (int j = 0; j < requestsArray.length(); j++) {
                     JSONObject requestJson = requestsArray.getJSONObject(j);
-                    String request = requestJson.getString("userName");
-                    requests.add(request);
+                    GroupJoinRequests req = new GroupJoinRequests(
+                        requestJson.getString("userId"),
+                        requestJson.getString("username"),
+                         requestJson.getString("groupId")   
+                    );
+                    group.addJoinRequest(req);
                 }
-                group.setJoinRequests(requests);
+                
             }
 
             // Add posts to the group

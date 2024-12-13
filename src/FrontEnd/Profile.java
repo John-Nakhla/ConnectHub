@@ -10,20 +10,21 @@ import javax.swing.*;
 import java.util.List;
 import org.json.JSONArray;
 
-public class Profile extends javax.swing.JFrame {
+public class Profile extends JFrame {
 
     User user;
 
-    public Profile(User user) {
+    public Profile(User user, boolean allowSettings) {
         initComponents();
         this.user = user;
-
+        user.update();
         loadCoverPhoto();
         loadProfilePhoto();
         loadUserDetails();
         loadUserPosts();
         loadUserFriends();
-
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        settingsBtn.setVisible(allowSettings);
     }
 
     private void loadCoverPhoto() {
@@ -148,8 +149,8 @@ public class Profile extends javax.swing.JFrame {
         ProfilePhotoPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        settings = new javax.swing.JButton();
-        retrun = new javax.swing.JButton();
+        settingsBtn = new javax.swing.JButton();
+        retrunBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Profile Page");
@@ -222,23 +223,23 @@ public class Profile extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Bio");
 
-        settings.setBackground(new java.awt.Color(0, 102, 102));
-        settings.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        settings.setForeground(new java.awt.Color(255, 255, 255));
-        settings.setText("Settings");
-        settings.addActionListener(new java.awt.event.ActionListener() {
+        settingsBtn.setBackground(new java.awt.Color(0, 102, 102));
+        settingsBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        settingsBtn.setForeground(new java.awt.Color(255, 255, 255));
+        settingsBtn.setText("Settings");
+        settingsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                settingsActionPerformed(evt);
+                settingsBtnActionPerformed(evt);
             }
         });
 
-        retrun.setBackground(new java.awt.Color(0, 102, 102));
-        retrun.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        retrun.setForeground(new java.awt.Color(255, 255, 255));
-        retrun.setText("Return");
-        retrun.addActionListener(new java.awt.event.ActionListener() {
+        retrunBtn.setBackground(new java.awt.Color(0, 102, 102));
+        retrunBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        retrunBtn.setForeground(new java.awt.Color(255, 255, 255));
+        retrunBtn.setText("Return");
+        retrunBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retrunActionPerformed(evt);
+                retrunBtnActionPerformed(evt);
             }
         });
 
@@ -248,8 +249,8 @@ public class Profile extends javax.swing.JFrame {
         jLayeredPane1.setLayer(ProfilePhotoPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(settings, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(retrun, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(settingsBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(retrunBtn, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -273,8 +274,8 @@ public class Profile extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(retrun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(retrunBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(settingsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -287,9 +288,9 @@ public class Profile extends javax.swing.JFrame {
                         .addComponent(ProfilePhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(settings)
+                        .addComponent(settingsBtn)
                         .addGap(34, 34, 34)
-                        .addComponent(retrun))
+                        .addComponent(retrunBtn))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,17 +325,15 @@ public class Profile extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsActionPerformed
+    private void settingsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsBtnActionPerformed
         SettingsWindow settingsWindow = new SettingsWindow(this);
         settingsWindow.setVisible(true);
         settingsWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_settingsActionPerformed
+    }//GEN-LAST:event_settingsBtnActionPerformed
 
-    private void retrunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrunActionPerformed
-        NewsFeedWindow newsFeed = new NewsFeedWindow(user);
-        newsFeed.setVisible(true);
+    private void retrunBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrunBtnActionPerformed
         this.dispose();
-    }//GEN-LAST:event_retrunActionPerformed
+    }//GEN-LAST:event_retrunBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,7 +425,6 @@ public class Profile extends javax.swing.JFrame {
 //        });
 //    }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CoverPhotoPanel;
     private javax.swing.JPanel FriendsPanel;
@@ -437,7 +435,7 @@ public class Profile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JButton retrun;
-    private javax.swing.JButton settings;
+    private javax.swing.JButton retrunBtn;
+    private javax.swing.JButton settingsBtn;
     // End of variables declaration//GEN-END:variables
 }

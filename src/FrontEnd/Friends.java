@@ -17,8 +17,8 @@ import javax.swing.*;
  * @author waelj
  */
 public class Friends extends JFrame {
-
     public Friends(User u) {
+        u.update();
         setTitle("Friends");
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 500);
@@ -44,7 +44,7 @@ public class Friends extends JFrame {
             profileButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Profile p = new Profile(k);
+                    Profile p = new Profile(k, false);
                     p.setVisible(true);
                 }
             });

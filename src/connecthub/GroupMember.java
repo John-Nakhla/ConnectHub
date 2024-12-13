@@ -2,6 +2,7 @@
 package connecthub;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class GroupMember{
@@ -41,4 +42,5 @@ public class GroupMember{
         }
         group.removeMember(username);
     }
+
 }

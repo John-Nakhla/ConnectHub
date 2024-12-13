@@ -123,7 +123,7 @@ public class AdminsWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewrequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewrequestsActionPerformed
-        GroupRequest g = new GroupRequest(admin,group);
+        GroupsRequest g = new GroupsRequest(window,admin,group);
         g.setVisible(true);
         g.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_viewrequestsActionPerformed

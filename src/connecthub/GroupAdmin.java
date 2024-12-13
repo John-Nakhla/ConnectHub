@@ -34,20 +34,20 @@ public class GroupAdmin extends GroupMember{
     }
     
     // Approve join request
-    public void approveJoinRequest(String username){
-        GroupsDatabase db = new GroupsDatabase();
-        Group group = db.searchGroup(getGroupname());
-        group.acceptJoinRequest(username);
-        group.saveToFile();
-    }
-    
-    // Decline join request
-    public void declineJoinRequest(String username){
-        GroupsDatabase db = new GroupsDatabase();
-        Group group = db.searchGroup(getGroupname());
-        group.removeJoinRequest(username);
-        group.saveToFile();
-    }
+//    public void approveJoinRequest(String username,GroupJoinRequests req){
+//        GroupsDatabase db = new GroupsDatabase();
+//        Group group = db.searchGroup(getGroupname());
+//        group.acceptJoinRequest(username,req);
+//        group.saveToFile();
+//    }
+//    
+//    // Decline join request
+//    public void declineJoinRequest(String username,GroupJoinRequests req){
+//        GroupsDatabase db = new GroupsDatabase();
+//        Group group = db.searchGroup(getGroupname());
+//        group.removeJoinRequest(req);
+//        group.saveToFile();
+//    }
     
     public void rejectPost(String postId) {
         PostsDatabase posts = new PostsDatabase();

@@ -47,9 +47,8 @@ public class ContentDatabase {
     private int uniqueId() {
         JSONArray contentArray = loadContent();
         int nextId = 20000;
-
         if (contentArray.length() > 0) {
-            JSONObject lastContent = contentArray.getJSONObject(0);
+            JSONObject lastContent = contentArray.getJSONObject(contentArray.length() - 1);
             nextId = lastContent.getInt("contentId") + 1;
         }
         return nextId;

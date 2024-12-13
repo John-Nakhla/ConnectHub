@@ -7,7 +7,6 @@ import org.json.*;
 public class UsersDatabase {
 
     private static final String FILE_PATH = "users.json";
-
     // Load users from file 
     public void refresh(User u) {
         List<User> users = this.loadUsers();
@@ -66,7 +65,7 @@ public class UsersDatabase {
                         String friendId = friendsArray.getString(j);
                         for (User Friend : users) {
                             if (Friend.getUserId().equals(friendId)) {
-                                user.addFriend(Friend);
+                                user.getFriends().add(Friend);
                                 break;
                             }
                         }
@@ -80,7 +79,7 @@ public class UsersDatabase {
                         String SenderId = friendRequestsSendersArray.getString(j);
                         for (User sender : users) {
                             if (sender.getUserId().equals(SenderId)) {
-                                user.receiveFriendRequest(new FriendRequest(sender, user));
+                                user.getFriendRequests().add(new FriendRequest(sender, user));
                                 break;
                             }
                         }
@@ -94,7 +93,7 @@ public class UsersDatabase {
                         String blockedId = blockedFriendsArray.getString(j);
                         for (User blocked : users) {
                             if (blocked.getUserId().equals(blockedId)) {
-                                user.blockUser(blocked);
+                                user.getBlockedUsers().add(blocked);
                                 break;
                             }
                         }
@@ -110,7 +109,6 @@ public class UsersDatabase {
 
     // save users to file 
     public void saveUsers(List<User> users) {
-        System.out.println("here/////////");
         JSONArray userArray = new JSONArray();
         for (User user : users) {
             JSONObject userJson = new JSONObject();
@@ -127,8 +125,6 @@ public class UsersDatabase {
             userJson.put("friends", friendsArray);
             JSONArray friendRequestsArray = new JSONArray();
             for (FriendRequest request : user.getFriendRequests()) {
-                System.out.println("================");
-                System.out.println(request.getSender().getUserId());
                 friendRequestsArray.put(request.getSender().getUserId());
             }
             userJson.put("FriendRequestSenders", friendRequestsArray);

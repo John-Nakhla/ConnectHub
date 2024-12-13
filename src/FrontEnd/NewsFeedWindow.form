@@ -39,6 +39,8 @@
                   <Component id="createPostBtn" max="32767" attributes="0"/>
                   <Component id="addFriendBtn" max="32767" attributes="0"/>
                   <Component id="friendRequestBtn" max="32767" attributes="0"/>
+                  <Component id="search" alignment="0" max="32767" attributes="0"/>
+                  <Component id="GroupSearch" max="32767" attributes="0"/>
                   <Component id="CreateGroup" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -75,6 +77,10 @@
                       <Component id="addFriendBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="friendRequestBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="search" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="GroupSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="CreateGroup" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -189,6 +195,22 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="friendRequestBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="search">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Search"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="GroupSearch">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Group Search"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GroupSearchActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="CreateGroup">

@@ -27,7 +27,7 @@ public class PrimaryAdminsWindow extends javax.swing.JFrame {
     public PrimaryAdminsWindow(GroupWindow window,User user, Group group) {
         initComponents();
         this.window=window;
-        this.creator = new GroupCreator(user.getUsername(), group.getGroupName());
+        this.creator =new GroupCreator(group.getCreatorUsername(),group.getGroupName());
         this.group = group;
     }
 
@@ -440,9 +440,10 @@ public class PrimaryAdminsWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_DemoteMemberActionPerformed
 
     private void viewrequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewrequestsActionPerformed
-        GroupRequest g = new GroupRequest(creator,group);
+        GroupsRequest g = new GroupsRequest(window,creator,group);
         g.setVisible(true);
         g.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
     }//GEN-LAST:event_viewrequestsActionPerformed
 
     /**
