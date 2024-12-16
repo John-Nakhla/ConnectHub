@@ -78,6 +78,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         myGroupBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         myNotificationsBtn = new javax.swing.JButton();
+        GroupSearch = new javax.swing.JButton();
+        CreateGroup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -191,6 +193,20 @@ public class NewsFeedWindow extends javax.swing.JFrame {
             }
         });
 
+        GroupSearch.setText("Group Search");
+        GroupSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GroupSearchActionPerformed(evt);
+            }
+        });
+
+        CreateGroup.setText("Create Group");
+        CreateGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateGroupActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,7 +229,9 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                     .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(myGroupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(myNotificationsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(myNotificationsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GroupSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CreateGroup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -248,6 +266,10 @@ public class NewsFeedWindow extends javax.swing.JFrame {
                         .addComponent(searchBtn)
                         .addGap(18, 18, 18)
                         .addComponent(myNotificationsBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(GroupSearch)
+                        .addGap(18, 18, 18)
+                        .addComponent(CreateGroup)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -346,7 +368,48 @@ public class NewsFeedWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void myGroupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myGroupBtnActionPerformed
-        // TODO add your handling code here:
+      JFrame groupsFrame = new JFrame("My Groups");
+    groupsFrame.setSize(600, 400);
+    groupsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    groupsFrame.setLayout(new BorderLayout());
+
+    // Create a panel for the group list
+    JPanel groupListPanel = new JPanel();
+    groupListPanel.setLayout(new BoxLayout(groupListPanel, BoxLayout.Y_AXIS));
+
+    // Fetch the user's groups
+    GroupsDatabase db = new GroupsDatabase();
+    List<Group> userGroups = db.myGroups(user.getUsername());
+
+    if (userGroups.isEmpty()) {
+        JLabel noGroupsLabel = new JLabel("You are not part of any groups.");
+        noGroupsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        groupsFrame.add(noGroupsLabel, BorderLayout.CENTER);
+    } else {
+        for (Group group : userGroups) {
+            // Create a panel for each group
+            JPanel groupPanel = new JPanel(new BorderLayout());
+            JLabel groupLabel = new JLabel("Group: " + group.getGroupName());
+            groupLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            
+            JButton viewButton = new JButton("View");
+            viewButton.addActionListener(e -> {
+                // Open the GroupWindow for the selected group
+                GroupWindow groupWindow = new GroupWindow(user, group);
+                groupWindow.setVisible(true);
+            });
+
+            groupPanel.add(groupLabel, BorderLayout.CENTER);
+            groupPanel.add(viewButton, BorderLayout.EAST);
+            groupListPanel.add(groupPanel);
+        }
+
+        // Add the group list panel to a scroll pane
+        JScrollPane scrollPane = new JScrollPane(groupListPanel);
+        groupsFrame.add(scrollPane, BorderLayout.CENTER);
+    }
+
+    groupsFrame.setVisible(true);
     }//GEN-LAST:event_myGroupBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -361,6 +424,19 @@ public class NewsFeedWindow extends javax.swing.JFrame {
         window.pack();
         window.setVisible(true);
     }//GEN-LAST:event_myNotificationsBtnActionPerformed
+
+    private void GroupSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GroupSearchActionPerformed
+        GroupSearch s=new GroupSearch(user);
+        s.pack();
+        s.setVisible(true);
+        
+    }//GEN-LAST:event_GroupSearchActionPerformed
+
+    private void CreateGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateGroupActionPerformed
+        CreateGroup g=new CreateGroup(user);
+        g.pack();
+        g.setVisible(true);
+    }//GEN-LAST:event_CreateGroupActionPerformed
 
     //Refresh method
     private void refresh() {
@@ -400,6 +476,8 @@ public class NewsFeedWindow extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CreateGroup;
+    private javax.swing.JButton GroupSearch;
     private javax.swing.JButton addFriendBtn;
     private javax.swing.JButton createPostBtn;
     private javax.swing.JButton createStoryBtn;

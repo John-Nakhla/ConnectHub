@@ -13,28 +13,59 @@ public class GroupCreator extends GroupAdmin{
     
     // Promote a member to admin
     public boolean promoteToAdmin(GroupMember member) {
-        if (member instanceof GroupAdmin) {
+        
+        System.out.println("in promote");
+        if (member == null || group == null) {
+            System.out.println("Invalid member or group.");
             return false;
-        } 
-        else {
-            GroupAdmin admin = new GroupAdmin(member.getUsername(), member.getGroupname());
-            group.members.remove(member);
-            group.admins.add(admin);
-            return true;
         }
+
+        // Locate the exact member in the group
+        GroupMember foundMember = null;
+        for (GroupMember m : group.getMembers()) {
+            if (m.getUsername().equals(member.getUsername())) {
+                foundMember = m;
+                System.out.println("found");
+                break;
+            }
+        }
+
+        if (foundMember == null) {
+            System.out.println("Member not found in group members.");
+            return false;
+        }
+
+        // Promote the member
+        GroupAdmin admin = new GroupAdmin(foundMember.getUsername(), foundMember.getGroupname());
+        group.addAdmin(admin);
+        group.saveToFile();
+        
+        group.removeMember(foundMember.getUsername()); // Use exact reference
+        System.out.println("removed member");
+        group.saveToFile(); // Save the changes
+        return true;
+
     }
 
     // Demote an admin to a regular member
     public boolean demoteToMember(GroupAdmin admin) {
-        if (admin instanceof GroupMember) {
-            return false;
-        } 
-        else {
+
             GroupMember member = new GroupMember(admin.getUsername(), admin.getGroupname());
             group.admins.remove(admin);
             group.members.add(member);
+            group.saveToFile();
             return true;
-        }
+        
     }
+    public void rejectPost(String postId) {
+        PostsDatabase posts = new PostsDatabase();
+        posts.rejectPost(postId);
+    }
+    
+    public void approvePost(String postId) {
+        PostsDatabase posts = new PostsDatabase();
+         posts.approvePost(postId);
+    }
+
     
 }

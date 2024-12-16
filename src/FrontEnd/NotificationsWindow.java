@@ -2,6 +2,8 @@
 package FrontEnd;
 
 import connecthub.*;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.*;
 
@@ -9,11 +11,11 @@ import javax.swing.*;
 public class NotificationsWindow extends javax.swing.JFrame {
 
 
-    private User u;
+    private User user;
 
-    public NotificationsWindow(User u) {
+    public NotificationsWindow(User user) {
         initComponents();
-        this.u = u;
+        this.user = user;
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         notificationsPanel.setLayout(new BoxLayout(notificationsPanel, BoxLayout.Y_AXIS));
         refresh();
@@ -88,12 +90,75 @@ public class NotificationsWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshActionPerformed
 
     private void refresh() {
+        notificationsPanel.removeAll();
         NotificationsDatabase db = new NotificationsDatabase();
         List<BasicNotification> notifications = db.getAllNotifications();
         for (BasicNotification n : notifications) {
-            if (n.getOwner().equals(u.getUserId()) && "active".equals(n.getStatus())) {
-                Notifications notification = new Notifications(n);
-                notificationsPanel.add(notification);
+            if (n.getOwner().equals(user.getUserId()) && "active".equals(n.getStatus())) {
+                
+                if ("FR".equals(n.getType())) {
+                    
+                    JPanel notificationItem = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                    JLabel notificationLabel = new JLabel(n.getMessage());
+                    notificationItem.add(notificationLabel);
+ 
+                    if (!n.getMessage().contains("accepted") && !n.getMessage().contains("declined")){
+                        
+                        List<FriendRequest> requests = user.getFriendRequests();
+                        JButton acceptBtn = new JButton("Accept");
+                        acceptBtn.addActionListener((ActionEvent e) -> {
+                            for (FriendRequest fr : requests) {
+                                if (fr.getSender().getUserId().equals(n.getSender()) && fr.getReceiver().getUserId().equals(n.getOwner())) {
+                                    user.acceptFriendRequest(fr);
+                                    JOptionPane.showMessageDialog(this, "Accepted");
+                                    notificationsPanel.remove(notificationItem);
+                                    refresh();
+                                }
+                            }
+                            n.setStatus("Inactive");
+                            n.saveToFile();
+                        });
+
+                        notificationItem.add(acceptBtn);       
+
+                        JButton declineBtn = new JButton("Decline");
+                        declineBtn.addActionListener((ActionEvent e) -> {
+                            for (FriendRequest fr : requests) {
+                                if (fr.getSender().getUserId().equals(n.getSender()) && fr.getReceiver().getUserId().equals(n.getOwner())) {
+                                    user.declineFriendRequest(fr);
+                                    JOptionPane.showMessageDialog(this, "Accepted");
+                                    notificationsPanel.remove(notificationItem);
+                                }
+                            }
+                            n.setStatus("Inactive");
+                            n.saveToFile();
+                        });
+                        notificationItem.add(declineBtn);
+                    }
+                    
+                    notificationsPanel.add(notificationItem);
+                }
+                
+                else if ("Gr".equals(n.getType())) {
+                    
+                    JPanel notificationItem = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                    JLabel notificationLabel = new JLabel(n.getMessage());
+                    notificationItem.add(notificationLabel);
+
+                    JButton viewBtn = new JButton("View Group");
+                    viewBtn.addActionListener((ActionEvent e) -> {
+                        GroupsDatabase gdb = new GroupsDatabase();
+                        GroupWindow window = new GroupWindow(user, gdb.searchGroup(n.getSender()));
+                        window.setVisible(true);
+                        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        notificationsPanel.remove(notificationItem);
+
+                    });
+
+                    notificationItem.add(viewBtn);       
+                    notificationsPanel.add(notificationItem);
+                }
+    
                 notificationsPanel.revalidate();
                 notificationsPanel.repaint();
             }

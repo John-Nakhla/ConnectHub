@@ -6,14 +6,11 @@
         "coverPhoto": "",
         "FriendRequestSenders": [],
         "bio": "",
-        "dateOfBirth": "1-1-2000",
+        "dateOfBirth": "1-1-2003",
         "isOnline": false,
         "userId": "User10001",
         "email": "shahd@gmail.com",
-        "friends": [
-            "User10007",
-            "User10018"
-        ],
+        "friends": ["User10003"],
         "username": "shahd"
     },
     {
@@ -23,11 +20,11 @@
         "coverPhoto": "",
         "FriendRequestSenders": [],
         "bio": "",
-        "dateOfBirth": "1-2-2002",
+        "dateOfBirth": "1-1-2003",
         "isOnline": false,
-        "userId": "User10007",
+        "userId": "User10002",
         "email": "hala@gmail.com",
-        "friends": ["User10001"],
+        "friends": [],
         "username": "hala"
     },
     {
@@ -37,9 +34,9 @@
         "coverPhoto": "",
         "FriendRequestSenders": [],
         "bio": "",
-        "dateOfBirth": "1-3-2003",
+        "dateOfBirth": "1-1-2003",
         "isOnline": false,
-        "userId": "User10018",
+        "userId": "User10003",
         "email": "john@gmail.com",
         "friends": ["User10001"],
         "username": "john"

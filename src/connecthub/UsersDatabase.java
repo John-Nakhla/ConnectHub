@@ -37,6 +37,19 @@ public class UsersDatabase {
         return null;
     }
 
+    public User loadUserByName(String username)
+    {
+        List<User> users = this.loadUsers();
+        for(User k : users)
+        {
+            if(k.getUsername().equals(username))
+            {
+                return k;
+            }
+        }
+        return null;
+    }
+    
     public List<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {

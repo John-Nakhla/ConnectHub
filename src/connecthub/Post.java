@@ -5,23 +5,21 @@ import java.time.LocalDateTime;
 import org.json.*;
 
 
-public class Posts {
+public class Post {
     
     private final String postId;
-    private final String username;
-    private final String groupname;
+    private final String authorId;
+    private final String groupId;
     private String content;
-    private String status;
     private String img;
     private LocalDateTime timestamp;
 
-    public Posts(String postId, String username, String groupname, String content, String img) {
+    public Post(String postId, String authorId, String groupId, String content, String img) {
         this.postId = postId;
-        this.username = username;
-        this.groupname = groupname;
+        this.authorId = authorId;
+        this.groupId = groupId;
         this.content = content;
         this.img = img;
-        this.status="Pending";
         this.timestamp = LocalDateTime.now();
     }
 
@@ -30,12 +28,12 @@ public class Posts {
         return postId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public String getGroupname() {
-        return groupname;
+    public String getGroupId() {
+        return groupId;
     }
 
     public String getContent() {
@@ -44,10 +42,6 @@ public class Posts {
 
     public String getImg() {
         return img;
-    }
-    
-    public String getStatus() {
-        return status;
     }
 
     public LocalDateTime getTimestamp() {
@@ -65,10 +59,7 @@ public class Posts {
     public void setImg(String img) {
         this.img = img;
     }
-    
-    public void setStatus(String status) {
-        this.status = status;
-    }
+
     
     // Save this post to file
     public void saveToFile() {
@@ -77,11 +68,10 @@ public class Posts {
 
         JSONObject postsObj = new JSONObject();
         postsObj.put("postId", this.postId);
-        postsObj.put("userName", this.username);
-        postsObj.put("groupName", this.groupname);
+        postsObj.put("authorId", this.authorId);
+        postsObj.put("groupId", this.groupId);
         postsObj.put("content", this.content);
         postsObj.put("img", this.img);
-        postsObj.put("status", this.status);
         postsObj.put("timestamp", this.timestamp.toString());
 
         postsArray.put(postsObj);

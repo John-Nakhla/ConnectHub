@@ -41,4 +41,5 @@ public class GroupMember{
         }
         group.removeMember(username);
     }
+
 }

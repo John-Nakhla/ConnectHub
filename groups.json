@@ -1,0 +1,47 @@
+[
+    {
+        "removedMembers": [
+            {
+                "groupName": "my group",
+                "userName": "hala"
+            },
+            {
+                "groupName": "my group",
+                "userName": "hala"
+            },
+            {
+                "groupName": "my group",
+                "userName": "john"
+            }
+        ],
+        "groupName": "my group",
+        "joinRequests": [],
+        "groupId": "40000",
+        "creatorUsername": "shahd",
+        "members": [{
+            "groupName": "my group",
+            "userName": "hala"
+        }],
+        "description": "tttt",
+        "groupPhoto": "",
+        "admins": [{
+            "groupName": "my group",
+            "userName": "john"
+        }]
+    },
+    {
+        "removedMembers": [],
+        "groupName": "john's",
+        "joinRequests": [{
+            "groupId": "40001",
+            "userId": "User10002",
+            "username": "hala"
+        }],
+        "groupId": "40001",
+        "creatorUsername": "john",
+        "members": [],
+        "description": "111",
+        "groupPhoto": "",
+        "admins": []
+    }
+]

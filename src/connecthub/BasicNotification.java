@@ -15,13 +15,17 @@ public class BasicNotification implements Notification {
 
     @Override
     public void send(String owner, String sender, String message, String type) {
-        System.out.println("Basic notification sent: " + message);
         this.message = message;
         this.owner = owner;
         this.sender = sender;
         this.type = type;
         this.status = "active";
         saveToFile();
+    }
+    
+    @Override
+    public void handleAction(String type, String sender, String message, String speciality){
+        
     }
 
     public void setStatus(String status) {

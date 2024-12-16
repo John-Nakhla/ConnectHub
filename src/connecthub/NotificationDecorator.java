@@ -14,5 +14,6 @@ public abstract class NotificationDecorator implements Notification {
     public void send(String owner, String sender, String message, String type) {
         wrappedNotification.send(owner, sender, message, type);
     }
+    
 
 }

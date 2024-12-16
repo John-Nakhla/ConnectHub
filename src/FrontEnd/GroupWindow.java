@@ -4,23 +4,30 @@ package FrontEnd;
 
 import connecthub.*;
 import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 
 
 public class GroupWindow extends javax.swing.JFrame {
     
-    User user;
+    User user, creator;
+    java.util.List<User> admins;
+    java.util.List<User> members;
+    UsersDatabase udb = new UsersDatabase();
     Group group;
+    Notification notification;
+    Notification groupNotification = new GroupNotification(notification);
+    
     public GroupWindow(User user, Group group) {
         initComponents();
         this.user=user;
         this.group = group;
-        
+        grpname.setText(group.getGroupName());
+        grpdesc.setText(group.getDescription());
         loadCoverPhoto();
         loadGroupDetails();
         loadGroupPosts();
         loadGroupMembers();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     private void loadCoverPhoto() {
         try {
@@ -53,7 +60,7 @@ public class GroupWindow extends javax.swing.JFrame {
         grpdesc.setText(group.getDescription());
     }
     
-    private void loadGroupPosts() {
+    public void loadGroupPosts() {
 
         JPanel postsPanel = new JPanel();
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS)); // Set vertical layout
@@ -66,7 +73,7 @@ public class GroupWindow extends javax.swing.JFrame {
         java.util.List<Posts> groupPosts = posts.getGroupPosts(group.getGroupName());
         
         for (Posts content : groupPosts) {
-
+            if ("Approved".equals(content.getStatus())){
             String contentText = content.getContent();
             String contentImgDir = content.getImg();
 
@@ -74,7 +81,10 @@ public class GroupWindow extends javax.swing.JFrame {
                 // Create a custom Post component for each post
                 Post post = new Post(contentText, contentImgDir);
                 post.setMaximumSize(new Dimension(550, post.getPreferredSize().height)); // Set a maximum width for posts
-                postsPanel.add(post); // Add the post to the posts panel
+                postsPanel.add(post); 
+                postsPanel.revalidate();
+                postsPanel.repaint();// Add the post to the posts panel
+            }
             }
         }
 
@@ -89,9 +99,11 @@ public class GroupWindow extends javax.swing.JFrame {
     
     private void loadGroupMembers() {
         JPanel memberspanel = new JPanel();
+        
         memberspanel.setLayout(new BoxLayout(memberspanel, BoxLayout.Y_AXIS));
+        
         for (String member : group.GetGroupPeople()) {
-            JLabel MemberLabel = new JLabel(member);
+            JLabel MemberLabel = new JLabel(member); //Adds Member and his role
             MemberLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             memberspanel.add(MemberLabel);
         }
@@ -105,6 +117,7 @@ public class GroupWindow extends javax.swing.JFrame {
         loadCoverPhoto();
         loadGroupDetails();
         loadGroupMembers();
+        //loadGroupPosts();
 
     }
     
@@ -117,11 +130,9 @@ public class GroupWindow extends javax.swing.JFrame {
         grpname = new javax.swing.JLabel();
         grpdesc = new javax.swing.JLabel();
         options = new javax.swing.JButton();
-        Return = new javax.swing.JButton();
         PostsPanelScroll = new javax.swing.JScrollPane();
         postspanel = new javax.swing.JPanel();
         MembersPanelScroll = new javax.swing.JScrollPane();
-        memberspanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,11 +153,9 @@ public class GroupWindow extends javax.swing.JFrame {
         grpname.setBackground(new java.awt.Color(255, 255, 255));
         grpname.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         grpname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        grpname.setText("Group Name");
 
         grpdesc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         grpdesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        grpdesc.setText("Group Description");
 
         options.setBackground(new java.awt.Color(0, 102, 153));
         options.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -155,16 +164,6 @@ public class GroupWindow extends javax.swing.JFrame {
         options.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optionsActionPerformed(evt);
-            }
-        });
-
-        Return.setBackground(new java.awt.Color(0, 102, 153));
-        Return.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Return.setForeground(new java.awt.Color(255, 255, 255));
-        Return.setText("Return");
-        Return.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReturnActionPerformed(evt);
             }
         });
 
@@ -181,24 +180,10 @@ public class GroupWindow extends javax.swing.JFrame {
 
         PostsPanelScroll.setViewportView(postspanel);
 
-        javax.swing.GroupLayout memberspanelLayout = new javax.swing.GroupLayout(memberspanel);
-        memberspanel.setLayout(memberspanelLayout);
-        memberspanelLayout.setHorizontalGroup(
-            memberspanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 158, Short.MAX_VALUE)
-        );
-        memberspanelLayout.setVerticalGroup(
-            memberspanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 359, Short.MAX_VALUE)
-        );
-
-        MembersPanelScroll.setViewportView(memberspanel);
-
         jLayeredPane1.setLayer(CoverPhotoPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(grpname, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(grpdesc, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(options, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(Return, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(PostsPanelScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(MembersPanelScroll, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -224,10 +209,8 @@ public class GroupWindow extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addGap(0, 76, Short.MAX_VALUE)
-                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Return, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(options, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(options))
                             .addComponent(MembersPanelScroll))
                         .addGap(16, 16, 16))))
         );
@@ -246,9 +229,7 @@ public class GroupWindow extends javax.swing.JFrame {
                         .addComponent(PostsPanelScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addComponent(options)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Return)
-                        .addGap(18, 18, 18)
+                        .addGap(57, 57, 57)
                         .addComponent(MembersPanelScroll)))
                 .addGap(15, 15, 15))
         );
@@ -269,12 +250,12 @@ public class GroupWindow extends javax.swing.JFrame {
 
     private void optionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsActionPerformed
         if(user.getUsername().equals(group.getCreatorUsername())){
-            PrimaryAdminWindow priadmin=new PrimaryAdminWindow(user, group);
+            PrimaryAdminsWindow priadmin=new PrimaryAdminsWindow(this,user, group);
             priadmin.setVisible(true);
             priadmin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }  
         else if(group.isAdmin(user.getUsername())){
-            AdminWindow adminwindow=new AdminWindow(user, group);
+            AdminsWindow adminwindow=new AdminsWindow(this,user, group);
             adminwindow.setVisible(true);
             adminwindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
@@ -290,10 +271,22 @@ public class GroupWindow extends javax.swing.JFrame {
               // Handle the option selected by the user
             if (choice == 0) {
                 // Open CreatePostWindow if "Create Post" is selected
-                CreateContentWindow createPostWindow = new CreateContentWindow(this,true,"p"); // Pass the parent GroupWindow instance
-                createPostWindow.pack();
-                createPostWindow.setVisible(true);
-                createPostWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                CreateContentWindow c = new CreateContentWindow(this,true,"p"); // Pass the parent GroupWindow instance
+                c.pack();
+                c.setVisible(true);
+                c.dispose();
+                String contentText = c.getContentText();
+                String contentImgDir = c.getContentImgDir();
+                
+
+                if (!"".equals(contentText) || !"".equals(contentImgDir)) {
+                    PostsDatabase postsDb = new PostsDatabase();
+                    Post post = new Post(contentText, contentImgDir);
+                    postsDb.createPost(user.getUsername(), contentText, group.getGroupName(),contentImgDir);
+                    JOptionPane.showMessageDialog(this, "Your post has been submitted for approval.", "Post Submitted", JOptionPane.INFORMATION_MESSAGE);
+                    groupNotification.handleAction("moderators", user.getUserId(), user.getUsername() + " wants to add a post", group.getGroupName());
+                    
+                }
             } else if (choice == 1) {
                 // Handle the "Leave Group" option
                 int confirmLeave = JOptionPane.showConfirmDialog(this, 
@@ -301,7 +294,7 @@ public class GroupWindow extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
                 if (confirmLeave == JOptionPane.YES_OPTION) {
-                    //here member leaves
+                    group.removeMember(user.getUsername()); //The memebr leaves
                 }
             }
         }
@@ -318,76 +311,24 @@ public class GroupWindow extends javax.swing.JFrame {
            );
 
            if (choice == JOptionPane.YES_OPTION) {
-               group.sendJoinRequest(user.getUsername());
-               JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
+                group.sendJoinRequest(user.getUsername(), user.getUserId());
+                group.saveToFile();
+                JOptionPane.showMessageDialog(this, "Your join request has been sent.", "Request Sent", JOptionPane.INFORMATION_MESSAGE);
+                groupNotification.handleAction("moderators", user.getUserId(), user.getUsername() + " wants join the group", "Gr");
+                
            } 
         }
     }//GEN-LAST:event_optionsActionPerformed
 
-    private void ReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ReturnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        GroupsDatabase db = new GroupsDatabase();
-//        PostsDatabase postsDb = new PostsDatabase();
-//
-//        // Create a group and populate it
-//        String groupId = "group1";
-//        Group group = new Group(groupId, "Test Group", "A group for testing purposes.", "path/to/test/photo.jpg", "creator1");
-//        group.saveToFile(); // Save the group to the database
-//
-//        // Add members and admins
-//        GroupMember member1 = new GroupMember("member1", "Alice", groupId);
-//        GroupMember member2 = new GroupMember("member2", "Bob", groupId);
-//        GroupAdmin admin1 = new GroupAdmin("admin1", "Charlie", groupId);
-//        group.addMember(member1);
-//        group.addMember(member2);
-//        group.admins.add(admin1);
-//
-//        // Add posts to the group
-//        postsDb.createPost("member1", "Hello, this is Alice's post.", groupId, "path/to/alice/img.jpg");
-//        postsDb.createPost("admin1", "This is Charlie's admin post.", groupId, "path/to/charlie/img.jpg");
-//
-//        // Test as Group Creator
-//        GroupCreator creator = new GroupCreator("creator1", "David",groupId);
-//        GroupWindow creatorWindow = new GroupWindow(creator);
-//        creatorWindow.setVisible(true);
-//
-//        // Test as Group Admin
-//        User admin = new User("admin1", "Charlie");
-//        GroupWindow adminWindow = new GroupWindow(admin);
-//        adminWindow.setVisible(true);
-//
-//        // Test as Regular Member
-//        User member = new User("member1", "Alice");
-//        GroupWindow memberWindow = new GroupWindow(member);
-//        memberWindow.setVisible(true);
-//
-//        // Test as Non-Member
-//        User nonMember = new User("guest1", "Eve");
-//        GroupWindow nonMemberWindow = new GroupWindow(nonMember);
-//        nonMemberWindow.setVisible(true);
-//    
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GroupWindow().setVisible(true);
-//            }
-//        });
-//    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CoverPhotoPanel;
     private javax.swing.JScrollPane MembersPanelScroll;
     private javax.swing.JScrollPane PostsPanelScroll;
-    private javax.swing.JButton Return;
     private javax.swing.JLabel grpdesc;
     private javax.swing.JLabel grpname;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel memberspanel;
     private javax.swing.JButton options;
     private javax.swing.JPanel postspanel;
     // End of variables declaration//GEN-END:variables

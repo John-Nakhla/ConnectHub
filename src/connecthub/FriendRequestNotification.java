@@ -8,4 +8,8 @@ public class FriendRequestNotification extends NotificationDecorator {
         super(notification);
     }
 
+    @Override
+    public void handleAction(String type, String sender, String message, String speciality){
+        
+    }
 }

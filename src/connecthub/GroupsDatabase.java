@@ -36,10 +36,11 @@ public class GroupsDatabase {
     }
     
     // Create a new group
-    public void createGroup(String groupName, String description, String groupPhoto, String creatorUsername) {
+    public Group createGroup(String groupName, String description, String groupPhoto, String creatorUsername) {
         String groupId = String.valueOf(uniqueId());
         Group group = new Group(groupId, groupName, description, groupPhoto, creatorUsername);
         group.saveToFile();
+        return group;
     }
     
     private int uniqueId() {
@@ -139,11 +140,25 @@ public class GroupsDatabase {
                     JSONObject memberJson = membersArray.getJSONObject(j);
                     GroupMember member = new GroupMember(
                         memberJson.getString("userName"),
-                        memberJson.getString("groupId")
+                        memberJson.getString("groupName")
                     );
-                    membersList.add(member);
+                    group.addMember(member);
                 }
-                group.setMembers(membersList);
+                
+            }
+            
+            JSONArray adminsArray = groupJson.optJSONArray("admins");
+            List<GroupAdmin> adminsList = new ArrayList<>();
+            if (adminsArray != null) {
+                for (int j = 0; j < adminsArray.length(); j++) {
+                    JSONObject adminJson = adminsArray.getJSONObject(j);
+                    GroupAdmin admin = new GroupAdmin(
+                        adminJson.getString("userName"),
+                        adminJson.getString("groupName")
+                    );
+                    group.addAdmin(admin);
+                }
+                
             }
             
             // Add removed members to the group
@@ -154,7 +169,7 @@ public class GroupsDatabase {
                     JSONObject memberJson = removedMembersArray.getJSONObject(j);
                     GroupMember member = new GroupMember(
                         memberJson.getString("userName"),
-                        memberJson.getString("groupId")
+                        memberJson.getString("groupName")
                     );
                     removedMembersList.add(member);
                 }
@@ -163,35 +178,20 @@ public class GroupsDatabase {
             
             // Add join requests to the group
             JSONArray requestsArray = groupJson.optJSONArray("joinRequests");
-            List<String> requests = new ArrayList<>();
+            List<GroupJoinRequests> requests = new ArrayList<>();
             if (requestsArray != null) {
                 for (int j = 0; j < requestsArray.length(); j++) {
                     JSONObject requestJson = requestsArray.getJSONObject(j);
-                    String request = requestJson.getString("userName");
-                    requests.add(request);
+                    GroupJoinRequests req = new GroupJoinRequests(
+                        requestJson.getString("userId"),
+                        requestJson.getString("username"),
+                         requestJson.getString("groupId")   
+                    );
+                    group.addJoinRequest(req);
                 }
-                group.setJoinRequests(requests);
+                
             }
 
-            // Add posts to the group
-            JSONArray postsArray = groupJson.optJSONArray("posts");
-            List<Posts> postsList = new ArrayList<>();
-            if (postsArray != null) {
-                for (int j = 0; j < postsArray.length(); j++) {
-                    JSONObject postJson = postsArray.getJSONObject(j);
-                    Posts post = new Posts(
-                        postJson.getString("postId"),
-                        postJson.getString("userName"),
-                        postJson.getString("groupId"),
-                        postJson.getString("content"),
-                        postJson.optString("img", "")
-                    );
-                    post.setTimestamp(postJson.getString("timestamp"));
-                    postsList.add(post);
-                }
-                group.setPosts(postsList);
-            }
-            
             groupsList.add(group);
         }
 

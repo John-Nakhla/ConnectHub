@@ -9,18 +9,16 @@ public class Group extends GroupManagement{
     public List<GroupMember> members;
     public List<GroupAdmin> admins;
     private List<GroupMember> removedMembers;
-    private List<Posts> posts;
-    private List<String> groupPeople;
-    private List<String> requests;
+    private List<GroupJoinRequests> requests;
+    Notification notification;
+    Notification groupNotification = new GroupNotification(notification);
 
     public Group(String groupId, String groupName, String description, String groupPhoto, String creatorUsername) {
         super(groupId, groupName, description, groupPhoto, creatorUsername);
         this.members = new ArrayList<>();
         this.admins = new ArrayList<>();
         this.removedMembers = new ArrayList<>();
-        this.posts = new ArrayList<>();
-        this.groupPeople = new ArrayList<>();
-        this.requests = new ArrayList<>();
+        this.requests=new ArrayList<>();
     }
 
     
@@ -33,10 +31,6 @@ public class Group extends GroupManagement{
         return admins;
     }
 
-    public List<Posts> getPosts() {
-        return posts;
-    }
-
     public void setMembers(List<GroupMember> members) {
         this.members = members;
     }
@@ -45,10 +39,6 @@ public class Group extends GroupManagement{
         this.removedMembers = removedMembers;
     }
 
-    public void setPosts(List<Posts> posts) {
-        this.posts = posts;
-    }
-    
     // Check if member
     public boolean isMember(String username){
         for(GroupMember member: members){
@@ -83,8 +73,8 @@ public class Group extends GroupManagement{
     
     // Check if requested already
     public boolean isRequested(String username){
-        for(String request: requests){
-            if(request.equals(username))
+        for(GroupJoinRequests request: requests){
+            if(request.getUsername().equals(username))
                 return true;
         }
         return false;
@@ -93,6 +83,9 @@ public class Group extends GroupManagement{
     // Add a member
     public void addMember(GroupMember member) {
         members.add(member);
+    }
+    public void addAdmin(GroupAdmin admin){
+        admins.add(admin);
     }
 
     // Remove a member
@@ -104,30 +97,44 @@ public class Group extends GroupManagement{
                 break;
             }
         }
+
+    }
+    public void removeAdmin(String username){
+            for(GroupAdmin admin: admins){
+            if(admin.getUsername().equals(username)){
+                removedMembers.add(admin);
+                admins.remove(admin);
+                break;
+            }  
+        }  
     }
     
     // Send join request
-    public void sendJoinRequest(String username){
-        requests.add(username);
+    public void sendJoinRequest(String username,String userId){
+        
+        GroupJoinRequests joinRequest = new GroupJoinRequests(userId,username,super.getGroupId());
+        requests.add(joinRequest);
+        saveToFile();
     }
     
     // Remove join request
-    public void removeJoinRequest(String username){
-        requests.remove(username);
+    public void removeJoinRequest(GroupJoinRequests req){
+        requests.remove(req);
     }
     
     // Accept join request
-    public void acceptJoinRequest(String username){
-        requests.remove(username);
+    public void acceptJoinRequest(String username,GroupJoinRequests req){
+        requests.remove(req);
         addMember(new GroupMember(username, super.getGroupName()));
+        groupNotification.send(username, getGroupName(), "From group " + getGroupName() + ": Admins accepted your join request", "Gr");
     }
     
     // Get / Set join requests
-    public List<String> getJoinRequests(){
+    public List<GroupJoinRequests> getJoinRequests(){
         return requests;
     }
 
-    public void setJoinRequests(List<String> requests) {
+    public void setJoinRequests(List<GroupJoinRequests> requests) {
         this.requests = requests;
     }
 
@@ -140,6 +147,7 @@ public class Group extends GroupManagement{
     
     // Get all Group People
     public List<String> GetGroupPeople(){
+        List<String> groupPeople = new ArrayList<>();
         groupPeople.add(super.getCreatorUsername() + " (Creator)");
         for(GroupAdmin admin: admins){
             groupPeople.add(admin.getUsername() + " (Admin)");
@@ -172,6 +180,15 @@ public class Group extends GroupManagement{
         }
         groupObj.put("members", groupMembers);
         
+        JSONArray groupAdmins = new JSONArray();
+        for (GroupAdmin admin : admins) {
+            JSONObject adminObj = new JSONObject();
+            adminObj.put("userName", admin.getUsername());
+            adminObj.put("groupName", admin.getGroupname());
+            groupAdmins.put(adminObj);
+        }
+        groupObj.put("admins", groupAdmins);
+        
         JSONArray groupremovedMembers = new JSONArray();
         for (GroupMember member : removedMembers) {
             JSONObject memberObj = new JSONObject();
@@ -182,29 +199,28 @@ public class Group extends GroupManagement{
         groupObj.put("removedMembers", groupremovedMembers);
         
         JSONArray joinRequests = new JSONArray();
-        for (String request : requests) {
+        for (GroupJoinRequests request : requests) {
             JSONObject requestObj = new JSONObject();
-            requestObj.put("userName", request);
+            requestObj.put("username", request.getUsername());
+            requestObj.put("userId", request.getSenderId());
+            requestObj.put("groupId", request.getGroupId());
             joinRequests.put(requestObj);
         }
         groupObj.put("joinRequests", joinRequests);
 
-        JSONArray groupPosts = new JSONArray();
-        for (Posts post : posts) {
-            JSONObject postsObj = new JSONObject();
-            postsObj.put("postId", post.getPostId());
-            postsObj.put("userName", post.getUsername());
-            postsObj.put("groupName", post.getGroupname());
-            postsObj.put("content", post.getContent());
-            postsObj.put("img", post.getImg());
-            postsObj.put("timestamp", post.getTimestamp().toString());
-            groupPosts.put(postsObj);
-        }
-        groupObj.put("posts", groupPosts);
-
         groupsArray.put(groupObj);
         db.saveGroups(groupsArray);
     } 
+
+    public List<GroupJoinRequests> getRequests() {
+        return requests;
+    }
+    
+    public void addJoinRequest(GroupJoinRequests r)
+    {
+        this.requests.add(r);
+        
+    }
 }
 
 
